@@ -9,17 +9,17 @@ namespace FormSever
         {
             Log.loger = new Logger_Winfom(logView);
             logView.Resize += (o, e) => { Refresh(); };
-            logView.Font = new System.Drawing.Font("宋体", LogConfig.FontSize);
+            logView.Font = new System.Drawing.Font("宋体", Configs.log.FontSize);
 
-            this.Log_FontSize.Text = LogConfig.FontSize.ToString();
-            this.Log_LogEnable.Checked = LogConfig.LogEnable;
-            this.Log_Enable.Checked = LogConfig.Enable;
-            this.Log_WarnEnable.Checked = LogConfig.WarnningEnable;
-            this.Log_ErrEnable.Checked = LogConfig.ErrEnable;
+            this.Log_FontSize.Text = Configs.log.FontSize.ToString();
+            this.Log_LogEnable.Checked = Configs.log.LogEnable;
+            this.Log_Enable.Checked = Configs.log.Enable;
+            this.Log_WarnEnable.Checked = Configs.log.WarnningEnable;
+            this.Log_ErrEnable.Checked = Configs.log.ErrEnable;
 
-            this.Log_LogLev.Text = LogConfig.LogLevel.ToString();
-            this.Log_WarnLev.Text = LogConfig.WarnningLevel.ToString();
-            this.Log_ErrLev.Text = LogConfig.ErrLevel.ToString();
+            this.Log_LogLev.Text = Configs.log.LogLevel.ToString();
+            this.Log_WarnLev.Text = Configs.log.WarnningLevel.ToString();
+            this.Log_ErrLev.Text = Configs.log.ErrLevel.ToString();
 
         }
 
@@ -30,10 +30,10 @@ namespace FormSever
 
         private void Log_Fresh_Click(object sender, EventArgs e)
         {
-            LogConfig.LogEnable= this.Log_LogEnable.Checked;
-              LogConfig.Enable= this.Log_Enable.Checked;
-              LogConfig.WarnningEnable = this.Log_WarnEnable.Checked;
-              LogConfig.ErrEnable= this.Log_ErrEnable.Checked;
+            Configs.log.LogEnable= this.Log_LogEnable.Checked;
+            Configs.log.Enable= this.Log_Enable.Checked;
+            Configs.log.WarnningEnable = this.Log_WarnEnable.Checked;
+            Configs.log.ErrEnable= this.Log_ErrEnable.Checked;
 
             if (!int.TryParse(this.Log_LogLev.Text, out Log.LogLevel))
                 Log.E("Log Fresh Err LogLevel");
@@ -41,10 +41,12 @@ namespace FormSever
                 Log.E("Log Fresh Err WarnningLevel");
             if (!int.TryParse(this.Log_ErrLev.Text, out Log.ErrLevel))
                 Log.E("Log Fresh Err ErrLevel");
-            if (!int.TryParse(this.Log_FontSize.Text, out LogConfig.FontSize))
+            if (!int.TryParse(this.Log_FontSize.Text, out Configs.log.FontSize))
                 Log.E("Log Fresh Err FontSize");
             else
-                logView.Font = new System.Drawing.Font("宋体", LogConfig.FontSize);
+                logView.Font = new System.Drawing.Font("宋体", Configs.log.FontSize);
+
+            APP.WriteLogConfig();
         }
     }
 

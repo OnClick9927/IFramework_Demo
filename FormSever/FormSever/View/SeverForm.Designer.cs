@@ -48,7 +48,6 @@ namespace FormSever
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.TCPBufferSize = new System.Windows.Forms.TextBox();
-            this.NetRun = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.UDPTimeOut = new System.Windows.Forms.TextBox();
@@ -61,7 +60,7 @@ namespace FormSever
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.UDPBufferSize = new System.Windows.Forms.TextBox();
-            this.Net_Init = new System.Windows.Forms.Button();
+            this.Net_Fresh = new System.Windows.Forms.Button();
             this.LogPage = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.Log_ErrLev = new System.Windows.Forms.TextBox();
@@ -172,9 +171,8 @@ namespace FormSever
             // 
             this.TCP.BackColor = System.Drawing.SystemColors.GrayText;
             this.TCP.Controls.Add(this.groupBox1);
-            this.TCP.Controls.Add(this.NetRun);
             this.TCP.Controls.Add(this.groupBox2);
-            this.TCP.Controls.Add(this.Net_Init);
+            this.TCP.Controls.Add(this.Net_Fresh);
             this.TCP.ForeColor = System.Drawing.SystemColors.WindowText;
             this.TCP.Location = new System.Drawing.Point(4, 35);
             this.TCP.Margin = new System.Windows.Forms.Padding(0);
@@ -328,20 +326,6 @@ namespace FormSever
             this.TCPBufferSize.Size = new System.Drawing.Size(268, 36);
             this.TCPBufferSize.TabIndex = 5;
             // 
-            // NetRun
-            // 
-            this.NetRun.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.NetRun.BackColor = System.Drawing.Color.DimGray;
-            this.NetRun.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.NetRun.Location = new System.Drawing.Point(1048, 270);
-            this.NetRun.Margin = new System.Windows.Forms.Padding(0);
-            this.NetRun.Name = "NetRun";
-            this.NetRun.Size = new System.Drawing.Size(80, 30);
-            this.NetRun.TabIndex = 9;
-            this.NetRun.Text = "Run";
-            this.NetRun.UseVisualStyleBackColor = false;
-            this.NetRun.Click += new System.EventHandler(this.NetRun_Click);
-            // 
             // groupBox2
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -485,19 +469,19 @@ namespace FormSever
             this.UDPBufferSize.Size = new System.Drawing.Size(276, 36);
             this.UDPBufferSize.TabIndex = 5;
             // 
-            // Net_Init
+            // Net_Fresh
             // 
-            this.Net_Init.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Net_Init.BackColor = System.Drawing.Color.DimGray;
-            this.Net_Init.ForeColor = System.Drawing.Color.SeaShell;
-            this.Net_Init.Location = new System.Drawing.Point(1048, 218);
-            this.Net_Init.Margin = new System.Windows.Forms.Padding(0);
-            this.Net_Init.Name = "Net_Init";
-            this.Net_Init.Size = new System.Drawing.Size(80, 38);
-            this.Net_Init.TabIndex = 8;
-            this.Net_Init.Text = "Init";
-            this.Net_Init.UseVisualStyleBackColor = false;
-            this.Net_Init.Click += new System.EventHandler(this.Net_Init_Click);
+            this.Net_Fresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.Net_Fresh.BackColor = System.Drawing.Color.DimGray;
+            this.Net_Fresh.ForeColor = System.Drawing.Color.SeaShell;
+            this.Net_Fresh.Location = new System.Drawing.Point(1009, 241);
+            this.Net_Fresh.Margin = new System.Windows.Forms.Padding(0);
+            this.Net_Fresh.Name = "Net_Fresh";
+            this.Net_Fresh.Size = new System.Drawing.Size(122, 38);
+            this.Net_Fresh.TabIndex = 8;
+            this.Net_Fresh.Text = "Fresh";
+            this.Net_Fresh.UseVisualStyleBackColor = false;
+            this.Net_Fresh.Click += new System.EventHandler(this.Net_Init_Click);
             // 
             // LogPage
             // 
@@ -885,7 +869,7 @@ namespace FormSever
         private System.Windows.Forms.TextBox Port;
         private System.Windows.Forms.Label Port000;
         private System.Windows.Forms.Button Run;
-        private System.Windows.Forms.Button Net_Init;
+        private System.Windows.Forms.Button Net_Fresh;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.TextBox UDPTimeOut;
@@ -910,7 +894,6 @@ namespace FormSever
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox TCPBufferSize;
-        private System.Windows.Forms.Button NetRun;
         private System.Windows.Forms.TabPage LogPage;
         private System.Windows.Forms.Button Log_Fresh;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;

@@ -11,3 +11,16 @@ E:\Project\VS\FormSever\FormSever\obj\Debug\FormSever.pdb
 E:\Project\VS\FormSever\FormSever\bin\Debug\IFramework.dll
 E:\Project\VS\FormSever\FormSever\bin\Debug\Newtonsoft.Json.dll
 E:\Project\VS\FormSever\FormSever\obj\Debug\FormSever.csproj.CopyComplete
+E:\Project\IFrameworkDemo\FormSever\FormSever\bin\Debug\FormSever.exe.config
+E:\Project\IFrameworkDemo\FormSever\FormSever\bin\Debug\FormSever.exe
+E:\Project\IFrameworkDemo\FormSever\FormSever\bin\Debug\FormSever.pdb
+E:\Project\IFrameworkDemo\FormSever\FormSever\bin\Debug\IFramework.dll
+E:\Project\IFrameworkDemo\FormSever\FormSever\bin\Debug\Newtonsoft.Json.dll
+E:\Project\IFrameworkDemo\FormSever\FormSever\obj\Debug\FormSever.csprojAssemblyReference.cache
+E:\Project\IFrameworkDemo\FormSever\FormSever\obj\Debug\FormSever.SeverForm.resources
+E:\Project\IFrameworkDemo\FormSever\FormSever\obj\Debug\FormSever.Properties.Resources.resources
+E:\Project\IFrameworkDemo\FormSever\FormSever\obj\Debug\FormSever.csproj.GenerateResource.cache
+E:\Project\IFrameworkDemo\FormSever\FormSever\obj\Debug\FormSever.csproj.CoreCompileInputs.cache
+E:\Project\IFrameworkDemo\FormSever\FormSever\obj\Debug\FormSever.csproj.CopyComplete
+E:\Project\IFrameworkDemo\FormSever\FormSever\obj\Debug\FormSever.exe
+E:\Project\IFrameworkDemo\FormSever\FormSever\obj\Debug\FormSever.pdb

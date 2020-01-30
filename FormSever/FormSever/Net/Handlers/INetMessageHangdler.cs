@@ -1,8 +1,5 @@
-﻿using IFramework;
-using System.Linq;
-using System.Collections.Generic;
-using System;
-using IFramework.Net;
+﻿using IFramework.Net;
+using IFramework;
 namespace FormSever.Net
 {
     interface INetMessageHangdler
@@ -15,7 +12,7 @@ namespace FormSever.Net
     }
     abstract class NetMessageHandler: INetMessageHangdler
     {
-        protected NetSever netSever { get { return APP.netSever; } }
+        protected NetSever netSever { get { return (Framework.moudles.App as AppMoudle).netSever; } }
         protected abstract void OnTcpMessage(SocketToken token, INetMessage message);
         protected abstract void OnUdpMessage(SocketToken token, INetMessage message);
         protected abstract void OnTcpConn(SocketToken token);

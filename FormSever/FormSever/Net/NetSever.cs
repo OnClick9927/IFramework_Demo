@@ -22,27 +22,27 @@ namespace FormSever.Net
         public NetSever()
         {
 
-            tcpTokenPool = new NetConnectionTokenPool(NetConfig.TCPCheckSpace);
-            tcpTokenPool.ConnectionTimeout = NetConfig.TCPConnTimeOut;
-            udpTokenPool = new NetConnectionTokenPool(NetConfig.UDPCheckSpace);
-            udpTokenPool.ConnectionTimeout = NetConfig.UDPConnTimeOut;
+            tcpTokenPool = new NetConnectionTokenPool(Configs.net.TCPCheckSpace);
+            tcpTokenPool.ConnectionTimeout = Configs.net.TCPConnTimeOut;
+            udpTokenPool = new NetConnectionTokenPool(Configs.net.UDPCheckSpace);
+            udpTokenPool.ConnectionTimeout = Configs.net.UDPConnTimeOut;
 
-            tcp = new TcpServerToken(NetConfig.TCPMaxConn, NetConfig.TCPBuffersize);
+            tcp = new TcpServerToken(Configs.net.TCPMaxConn, Configs.net.TCPBuffersize);
             tcp.onReceive = OnTcpRec;
             tcp.onAcccept = OnTcpAccept;
             tcp.onDisConnect = OnTcpDisConnect;
 
-            udp = new UdpServerToken(NetConfig.UDPMaxConn, NetConfig.UDPBuffersize);
+            udp = new UdpServerToken(Configs.net.UDPMaxConn, Configs.net.UDPBuffersize);
             udp.onReceive = OnUdpRec;
 
-            tcpPkgReader = new PacketReader(NetConfig.TCPBuffersize * 2);
-            udpPkgReader = new PacketReader(NetConfig.UDPBuffersize * 2);
+            tcpPkgReader = new PacketReader(Configs.net.TCPBuffersize * 2);
+            udpPkgReader = new PacketReader(Configs.net.UDPBuffersize * 2);
 
         }
         public void Run()
         {
-            tcp.Start(NetConfig.TCPPort);
-            udp.Start(NetConfig.UDPPort);
+            tcp.Start(Configs.net.TCPPort);
+            udp.Start(Configs.net.UDPPort);
         }
         public void Dispose()
         {
@@ -90,7 +90,7 @@ namespace FormSever.Net
         {
             tcpTokenPool.AddToken(new NetConnectionToken(token));
             Framework.moudles.Loom.RunOnMainThread(() => {
-                Log.E(string.Format("One Tcp DisConnent  {0}", token.EndPoint.Address));
+                Log.L(string.Format("One Tcp Connect  {0}", token.EndPoint.Address));
                 onTcpConn?.Invoke(token);
             });
         }
@@ -98,7 +98,7 @@ namespace FormSever.Net
         {
             tcpTokenPool.RemoveToken(token);
             Framework.moudles.Loom.RunOnMainThread(() => {
-                Log.E(string .Format("One Tcp Connent  {0}", token.EndPoint.Address));
+                Log.L(string .Format("One Tcp DisConnect  {0}", token.EndPoint.Address));
                 onTcpDisconn?.Invoke(token);
             });
         }

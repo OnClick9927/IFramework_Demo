@@ -53,10 +53,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="APP\APP.cs" />
-    <Compile Include="APP\GameState.cs" />
-    <Compile Include="APP\IAPPState.cs" />
-    <Compile Include="APP\IdleState.cs" />
-    <Compile Include="APP\QuitState.cs" />
+    <Compile Include="APP\AppMoudle.cs" />
+    <Compile Include="Base\Config\Configs.cs" />
     <Compile Include="Base\Config\LogConfig.cs" />
     <Compile Include="Net\Handlers\INetMessageHangdler.cs" />
     <Compile Include="Net\Handlers\TestHandler.cs" />
