@@ -1,0 +1,13 @@
+E:\Project\VS\FormSever\FormSever\bin\Debug\FormSever.exe.config
+E:\Project\VS\FormSever\FormSever\bin\Debug\FormSever.exe
+E:\Project\VS\FormSever\FormSever\bin\Debug\FormSever.pdb
+E:\Project\VS\FormSever\FormSever\obj\Debug\FormSever.csprojAssemblyReference.cache
+E:\Project\VS\FormSever\FormSever\obj\Debug\FormSever.SeverForm.resources
+E:\Project\VS\FormSever\FormSever\obj\Debug\FormSever.Properties.Resources.resources
+E:\Project\VS\FormSever\FormSever\obj\Debug\FormSever.csproj.GenerateResource.cache
+E:\Project\VS\FormSever\FormSever\obj\Debug\FormSever.csproj.CoreCompileInputs.cache
+E:\Project\VS\FormSever\FormSever\obj\Debug\FormSever.exe
+E:\Project\VS\FormSever\FormSever\obj\Debug\FormSever.pdb
+E:\Project\VS\FormSever\FormSever\bin\Debug\IFramework.dll
+E:\Project\VS\FormSever\FormSever\bin\Debug\Newtonsoft.Json.dll
+E:\Project\VS\FormSever\FormSever\obj\Debug\FormSever.csproj.CopyComplete
