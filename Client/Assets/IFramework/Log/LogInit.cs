@@ -11,7 +11,7 @@ using UnityEngine;
 namespace IFramework
 {
     [OnFrameworkInitClass]
-     static class LogInit
+    static class LogInit
     {
         public const string StoName = "LogSetting";
         static LogInit()
@@ -26,40 +26,6 @@ namespace IFramework
             Log.WarnningLevel = setting.WarnningLevel;
             Log.Enable = setting.Enable;
             Log.ErrLevel = setting.ErrLevel;
-        }
-    }
-    public class UnityLoger : ILoger
-    {
-        public void Log(LogType logType, object message, params object[] paras)
-        {
-            switch (logType)
-            {
-                case LogType.Error:
-                    Debug.LogError(message);
-                    break;
-                case LogType.Warning:
-                    Debug.LogWarning(message);
-                    break;
-                case LogType.Default:
-                    Debug.Log(message);
-                    break;
-            }
-        }
-
-        public void LogFormat(LogType logType, string format, object message, params object[] paras)
-        {
-            switch (logType)
-            {
-                case LogType.Error:
-                    Debug.LogErrorFormat(message as Object, format, paras);
-                    break;
-                case LogType.Warning:
-                    Debug.LogWarningFormat(message as Object, format, paras);
-                    break;
-                case LogType.Default:
-                    Debug.LogFormat(message as Object, format, paras);
-                    break;
-            }
         }
     }
 

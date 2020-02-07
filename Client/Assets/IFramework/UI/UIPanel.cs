@@ -22,16 +22,26 @@ namespace IFramework
         Top,                //Top
         TopTop,             //非常Top
     }
-    public class UIEventArgs : IEventArgs
+    public class UIEventArgs : FrameworkArgs
     {
-
         public bool isInspectorBtn;
+        public UIPanel popPanel;
+        public UIPanel curPanel;
+        public UIPanel pressPanel;
+        protected override void OnDataReset()
+        {
+            popPanel = null;
+            curPanel = null;
+            pressPanel = null;
+        }
+       
     }
 
     internal interface IUIPanel
     {
         UIPanelLayer PanelLayer { get; set; }
         string PanelName { get; set; }
+
         void OnLoad(UIEventArgs arg);
         void OnTop(UIEventArgs arg);
         void OnPress(UIEventArgs arg);

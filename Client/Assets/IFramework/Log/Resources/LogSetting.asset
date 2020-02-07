@@ -13,12 +13,15 @@ MonoBehaviour:
   m_Name: LogSetting
   m_EditorClassIdentifier: 
   Infos:
+  - Name: FrameworkEditorCheck.cs
+    Path: Assets/IFramework/0.1Core/Config/Editor/FrameworkEditorCheck.cs
+    Text: {fileID: 11500000, guid: ce208a289ca1cd640b3b1897e42dee1b, type: 3}
   - Name: LogInit.cs
     Path: Assets/IFramework/Log/LogInit.cs
     Text: {fileID: 11500000, guid: bc0f3793220f4c84486ae7ca880deeb4, type: 3}
-  - Name: LogSetting.cs
-    Path: Assets/IFramework/Log/LogSetting.cs
-    Text: {fileID: 11500000, guid: 0b429f9e961bdc74ea5fa848fe91e6b0, type: 3}
+  - Name: UnityLoger.cs
+    Path: Assets/IFramework/Log/UnityLoger.cs
+    Text: {fileID: 11500000, guid: 2e36176bfe52a5e4fbd232058542daf4, type: 3}
   LogLevel: 0
   WarnningLevel: 0
   ErrLevel: 0

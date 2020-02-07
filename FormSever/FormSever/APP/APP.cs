@@ -1,7 +1,7 @@
 ﻿using IFramework;
-using IFramework.Moudles.Loom;
-using IFramework.Moudles.Message;
-using IFramework.Moudles.Coroutine;
+using IFramework.Modules.Loom;
+using IFramework.Modules.Message;
+using IFramework.Modules.Coroutine;
 using System.Windows.Forms;
 using System.IO;
 using IFramework.Serialization.Csv;
@@ -12,17 +12,17 @@ namespace FormSever
     {
         private static void InitFrameworkMoudles()
         {
-            Framework.moudles.Loom = Framework.moudles.CreateMoudle<LoomMoudle>();
-            Framework.moudles.Message = Framework.moudles.CreateMoudle<MessageMoudle>();
-            Framework.moudles.Coroutine= Framework.moudles.CreateMoudle<CoroutineMoudle>();
-            Framework.moudles.App= Framework.moudles.CreateMoudle<AppMoudle>();
+            Framework.env0.modules.Loom = Framework.env0.modules.CreateModule<LoomModule>();
+            Framework.env0.modules.Message = Framework.env0.modules.CreateModule<MessageModule>();
+            Framework.env0.modules.Coroutine= Framework.env0.modules.CreateModule<CoroutineModule>();
+            Framework.env0.modules.App= Framework.env0.modules.CreateModule<AppMoudle>();
         }
         public static void WriteLogConfig()
         {
             CsvWriter csvWriter = new CsvWriter(new StreamWriter(logConfigPath), new CsvRow(), new CsvExplainer());
             csvWriter.Write(new List<Configs.LogConfig>() {
                     Configs.log
-                }, "");
+                });
             csvWriter.Dispose(); 
         }
         public static void WriteNetConfig()
@@ -30,7 +30,7 @@ namespace FormSever
             CsvWriter csvWriter = new CsvWriter(new StreamWriter(netConfigPath), new CsvRow(), new CsvExplainer());
             csvWriter.Write(new List<Configs.NetConfig>() {
                     Configs.net
-                }, "");
+                });
             csvWriter.Dispose();
         }
         private static void InitLog()

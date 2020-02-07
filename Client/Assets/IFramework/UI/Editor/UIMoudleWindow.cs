@@ -13,10 +13,10 @@ using System.Linq;
 
 namespace IFramework
 {
-    [EditorWindowCache("IFramework.UIMoudle")]
+    [EditorWindowCache("IFramework.UIModule")]
 	partial class UIMoudleWindow:EditorWindow,ILayoutGUIDrawer
 	{
-        private UIMoudle moudle;
+        private UIModule moudle;
         private SearchFieldDrawer searcher;
         [SerializeField] private string searchText = string.Empty;
         [SerializeField] private bool ShowBGBG = true;
@@ -78,7 +78,7 @@ namespace IFramework
             searcher.onEndEdit += (str) => {
                 searchText = str;
                 if (!EditorApplication.isPlaying) return;
-                moudle = Framework.moudles.FindMoudle<UIMoudle>(str);
+                moudle = Framework.env1.modules.FindModule<UIModule>(str);
                 if (moudle==null)
                 {
                     ShowNotification(new GUIContent("Not Find,Moudle Must Bind Framework First"));

@@ -15,10 +15,10 @@ namespace IFramework
     {
         public string ScriptName="newSp.cs";
         public string CreatePath="Assets";
-        public ScriptMark[] SMs;
+        public ScriptMark[] scriptMarks;
         public string description="";
-        public string prefabDir="Assets";
-        public string prefabPath { get { return prefabDir.CombinePath(prefabName + ".prefab"); } }
+        public string prefabDirectory="Assets";
+        public string prefabPath { get { return prefabDirectory.CombinePath(prefabName + ".prefab"); } }
         public string prefabName = "sp";
         public bool isCreatePrefab;
     }

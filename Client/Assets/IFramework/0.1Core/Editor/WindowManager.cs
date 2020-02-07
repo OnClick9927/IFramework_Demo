@@ -122,7 +122,7 @@ namespace IFramework
                     if (attrs[i] is EditorWindowCacheAttribute)
                     {
                         EditorWindowCacheAttribute attr = attrs[i] as EditorWindowCacheAttribute;
-                        Windows.Add(new EditorWindowInfo(item,  attr.searchName));
+                        Windows.Add(new EditorWindowInfo(item,  string.IsNullOrEmpty(attr.searchName)?item.FullName: attr.searchName));
                     }
                 }
             }
@@ -244,7 +244,7 @@ namespace IFramework
                 new ListViewCalculator.ColumnSetting()
                 {
                     Name=Name,
-                    Width=300
+                    Width=400
                 },
                 new ListViewCalculator.ColumnSetting()
                 {

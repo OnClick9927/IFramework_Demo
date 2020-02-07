@@ -18,7 +18,7 @@ namespace FormSever
             this.UDPTimeOut.Text = Configs.net.UDPConnTimeOut.ToString();
             this.UDPMaxCon.Text = Configs.net.UDPMaxConn.ToString();
         }
-        private void Net_Init_Click(object sender, EventArgs e)
+        private void Net_Fresh_Click(object sender, EventArgs e)
         {
             if (!int.TryParse(this.TCPBufferSize.Text, out Configs.net.TCPBuffersize))
                 Log.E("Net Init Err  TCPBuffersize");

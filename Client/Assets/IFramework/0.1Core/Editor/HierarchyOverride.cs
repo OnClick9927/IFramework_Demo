@@ -11,11 +11,15 @@ using UnityEngine;
 
 namespace IFramework
 {
-    class HierarchyOverride
+    [OnFrameworkInitClass]
+    static class HierarchyOverride
     {
         private const string menuItemPath = "IFramework/Tool/HierarchyExtension";
-
-        [InitializeOnLoadMethod]
+        static HierarchyOverride()
+        {
+            Check();
+        }
+            
         private static void Check()
         {
             active = EditorPrefs.GetBool("Hierarchy Extension");

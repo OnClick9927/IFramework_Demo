@@ -25,7 +25,7 @@ namespace IFramework_Demo
     }
     abstract class NetMessageHandler : INetMessageHangdler
     {
-        protected NetClient netClient { get { return (Framework.moudles.App as AppMoudle).netClient; } }
+        protected NetClient netClient { get { return (Framework.env1.modules.App as AppModule).netClient; } }
         protected abstract void OnTcpMessage(SocketToken token, INetMessage message);
         protected abstract void OnUdpMessage(SocketToken token, INetMessage message);
         protected abstract void OnTcpConn();

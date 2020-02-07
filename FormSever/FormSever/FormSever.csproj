@@ -54,8 +54,8 @@
   <ItemGroup>
     <Compile Include="APP\APP.cs" />
     <Compile Include="APP\AppMoudle.cs" />
-    <Compile Include="Base\Config\Configs.cs" />
-    <Compile Include="Base\Config\LogConfig.cs" />
+    <Compile Include="APP\Config\Configs.cs" />
+    <Compile Include="APP\Config\LogConfig.cs" />
     <Compile Include="Net\Handlers\INetMessageHangdler.cs" />
     <Compile Include="Net\Handlers\TestHandler.cs" />
     <Compile Include="Net\Messages\INetMessage.cs" />
@@ -67,8 +67,8 @@
     <Compile Include="View\SeverForm.Designer.cs">
       <DependentUpon>SeverForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Base\Logger_Winfom.cs" />
-    <Compile Include="Base\Config\NetConfig.cs" />
+    <Compile Include="APP\Logger_Winfom.cs" />
+    <Compile Include="APP\Config\NetConfig.cs" />
     <Compile Include="Net\NetSever.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -49,7 +49,7 @@ namespace IFramework_Demo
                 pkgs.ForEach((p) =>
                 {
                     INetMessage msg = Json.ToObject(NetMessageTool.GetTypeByID(p.ID), encoding.GetString(p.MsgBuff)) as INetMessage;
-                    Framework.moudles.Loom.RunOnMainThread(() =>
+                    Framework.env1.modules.Loom.RunOnMainThread(() =>
                     {
                         onUdpMessage?.Invoke(token, msg);
                     });
@@ -65,7 +65,7 @@ namespace IFramework_Demo
                 pkgs.ForEach((p) =>
                 {
                     INetMessage msg = Json.ToObject(NetMessageTool.GetTypeByID(p.ID), encoding.GetString(p.MsgBuff)) as INetMessage;
-                    Framework.moudles.Loom.RunOnMainThread(() =>
+                    Framework.env1.modules.Loom.RunOnMainThread(() =>
                     {
                         onTcpMessage?.Invoke(token, msg);
                     });
@@ -76,7 +76,7 @@ namespace IFramework_Demo
 
         private void OnTCPDisConnect(SocketToken token)
         {
-            Framework.moudles.Loom.RunOnMainThread(() =>
+            Framework.env1.modules.Loom.RunOnMainThread(() =>
             {
                 onTcpDisConn?.Invoke();
             });
@@ -84,7 +84,7 @@ namespace IFramework_Demo
         }
         private void OnTCPConnect(SocketToken token, bool connected)
         {
-            Framework.moudles.Loom.RunOnMainThread(() =>
+            Framework.env1.modules.Loom.RunOnMainThread(() =>
             {
                 onTcpConn?.Invoke();
             });
@@ -114,10 +114,18 @@ namespace IFramework_Demo
         }
         public void Dispose()
         {
-            tcp.DisConnect();
-            tcp.Dispose();
-            udp.Disconnect();
-            udp.Dispose();
+            try
+            {
+                tcp.DisConnect();
+                tcp.Dispose();
+                udp.Disconnect();
+                udp.Dispose();
+            }
+            catch (Exception)
+            {
+
+            }
+           
         }
     }
 }

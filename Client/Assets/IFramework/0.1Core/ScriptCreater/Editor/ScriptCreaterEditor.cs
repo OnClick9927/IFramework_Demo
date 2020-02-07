@@ -23,118 +23,116 @@ namespace IFramework
     public class ScriptCreaterEditor : Editor,ILayoutGUIDrawer
     {
         private static string originScriptPath;
-        public static ScriptCreater SC;
+        private static ScriptCreater _scriptCreater;
         private void OnEnable()
         {
             originScriptPath = FrameworkConfig.CorePath.CombinePath(@"ScriptCreater/Editor/FormatScript.txt");
-            SC = this.target as ScriptCreater;
+            _scriptCreater = this.target as ScriptCreater;
         }
-        private void OnSceneGUI()
-        {
-            
-        }
-
+      
 
         public override void OnInspectorGUI()
         {
-            if (SC == null) SC = this.target as ScriptCreater;
-            SC = this.target as ScriptCreater;
+            if (_scriptCreater == null) _scriptCreater = this.target as ScriptCreater;
+            _scriptCreater = this.target as ScriptCreater;
 
-            this.Space(10);
-            this.ETextField("Script Name", ref SC.ScriptName);
-            if (!SC.ScriptName.IsLegalFieldName()) SC.ScriptName = SC.name.Replace(" ", "").Replace("(", "").Replace(")", "");
-
-           this.Label("Description");
-           this.TextArea(ref SC.description, GUILayout.Height(40));
-           this.Space(10);
-           this.DrawHorizontal(() => {
-                GUILayout.Label(new GUIContent("Create Path:", "Drag Floder To Box"));
-                Rect rect = EditorGUILayout.GetControlRect();
-                rect.DrawOutLine(2, Color.black);
-                EditorGUI.LabelField(rect, SC.CreatePath);
-                if (!rect.Contains(Event.current.mousePosition)) return;
-                var info = DragAndDropUtil.Drag(Event.current, rect);
-                if (info.paths.Length > 0 && info.Finsh && info.EnterArera && info.paths[0].IsDirectory())
-                    SC.CreatePath = info.paths[0];
-            });
-
-            GUILayout.Space(10);
-            this.Toggle("Create Prefab", ref SC.isCreatePrefab);
-            if (SC.isCreatePrefab)
-            {
-                this.ETextField("Prefab Name", ref SC.prefabName);
-                this.DrawHorizontal(() =>
-                {
-                    GUILayout.Label(new GUIContent("Prefab Path:", "Drag Floder To Box"));
+            this.Space(10)
+                .ETextField("Script Name", ref _scriptCreater.ScriptName)
+                .Pan(() => {
+                    if (!_scriptCreater.ScriptName.IsLegalFieldName())
+                        _scriptCreater.ScriptName = _scriptCreater.name.Replace(" ", "").Replace("(", "").Replace(")", "");
+                })
+                .Label("Description")
+                .TextArea(ref _scriptCreater.description, GUILayout.Height(40))
+                .Space(10)
+                .DrawHorizontal(() => {
+                    GUILayout.Label(new GUIContent("Create Path:", "Drag Floder To Box"));
                     Rect rect = EditorGUILayout.GetControlRect();
                     rect.DrawOutLine(2, Color.black);
-                    EditorGUI.LabelField(rect, SC.prefabDir);
+                    EditorGUI.LabelField(rect, _scriptCreater.CreatePath);
                     if (!rect.Contains(Event.current.mousePosition)) return;
                     var info = DragAndDropUtil.Drag(Event.current, rect);
                     if (info.paths.Length > 0 && info.Finsh && info.EnterArera && info.paths[0].IsDirectory())
-                        SC.prefabDir = info.paths[0];
-                });
-            }
-            GUILayout.Space(10);
-
-            this.DrawHorizontal(() => {
-
-                if (GUILayout.Button("Build", GUILayout.Height(25)))
-                {
-                    if (BuildCheck())
+                        _scriptCreater.CreatePath = info.paths[0];
+                })
+                .Space(10)
+                .Toggle("Create Prefab", ref _scriptCreater.isCreatePrefab)
+                .Pan(()=> {
+                    if (_scriptCreater.isCreatePrefab)
                     {
-                        Selection.objects = new Object[] { AssetDatabase.LoadAssetAtPath<Object>(SC.CreatePath) };
-                        CopyAsset.CopyNewAsset(SC.ScriptName.Append(".cs"), originScriptPath);
+                        this.ETextField("Prefab Name", ref _scriptCreater.prefabName);
+                        this.DrawHorizontal(() =>
+                        {
+                            GUILayout.Label(new GUIContent("Prefab Path:", "Drag Floder To Box"));
+                            Rect rect = EditorGUILayout.GetControlRect();
+                            rect.DrawOutLine(2, Color.black);
+                            EditorGUI.LabelField(rect, _scriptCreater.prefabDirectory);
+                            if (!rect.Contains(Event.current.mousePosition)) return;
+                            var info = DragAndDropUtil.Drag(Event.current, rect);
+                            if (info.paths.Length > 0 && info.Finsh && info.EnterArera && info.paths[0].IsDirectory())
+                                _scriptCreater.prefabDirectory = info.paths[0];
+                        });
                     }
-                }
-                if (GUILayout.Button("Remove", GUILayout.Height(25)))
-                {
-                    SC.GetComponentsInChildren<ScriptMark>(true).ToList().ForEach((sm) => {
-                        DestroyImmediate(sm);
-                    });
-                    DestroyImmediate(SC);
-                }
-            });
+                })
+                .Space(10)
+                .DrawHorizontal(() => {
+
+                    if (GUILayout.Button("Build", GUILayout.Height(25)))
+                    {
+                        if (BuildCheck())
+                        {
+                            Selection.objects = new Object[] { AssetDatabase.LoadAssetAtPath<Object>(_scriptCreater.CreatePath) };
+                            CopyAsset.CopyNewAsset(_scriptCreater.ScriptName.Append(".cs"), originScriptPath);
+                        }
+                    }
+                    if (GUILayout.Button("Remove", GUILayout.Height(25)))
+                    {
+                        _scriptCreater.GetComponentsInChildren<ScriptMark>(true).ToList().ForEach((sm) => {
+                            DestroyImmediate(sm);
+                        });
+                        DestroyImmediate(_scriptCreater);
+                    }
+                });
             serializedObject.Update();
 
         }
         private bool BuildCheck()
         {
             if (EditorApplication.isCompiling) return false;
-            SC.SMs = SC.GetComponentsInChildren<ScriptMark>(true);
-            for (int i = 0; i < SC.SMs.Length; i++)
+            _scriptCreater.scriptMarks = _scriptCreater.GetComponentsInChildren<ScriptMark>(true);
+            for (int i = 0; i < _scriptCreater.scriptMarks.Length; i++)
             {
-                if (SC.SMs[i].fieldName == SC.ScriptName)
+                var _sm = _scriptCreater.scriptMarks[i];
+                if (_sm.fieldName == _scriptCreater.ScriptName)
                 {
                     EditorUtility.DisplayDialog("Err", "Field Name Should be diferent With ScriptName", "ok");
                     return false;
                 }
-                for (int j = i + 1; j < SC.SMs.Length; j++)
+                var sameFields= _scriptCreater.scriptMarks.ToList().FindAll((__sm) => { return _sm.fieldName == __sm.fieldName; });
+                if (sameFields.Count>1)
                 {
-                    if (SC.SMs[i].fieldName == SC.SMs[j].fieldName)
-                    {
-                        EditorUtility.DisplayDialog("Err", "Can't Exist Same Name Field", "ok");
-                        return false;
-                    }
+                    EditorUtility.DisplayDialog("Err", "Can't Exist Same Name Field", "ok");
+                    return false;
                 }
+                
             }
 
             CreateOriginIfNull();
-            if (!Directory.Exists(SC.CreatePath))
+            if (!Directory.Exists(_scriptCreater.CreatePath))
             {
                 EditorUtility.DisplayDialog("Err", "Directory Not Exist ", "ok");
                 return false;
             }
-            if (SC.isCreatePrefab)
+            if (_scriptCreater.isCreatePrefab)
             {
-                if (!Directory.Exists(SC.prefabDir))
+                if (!Directory.Exists(_scriptCreater.prefabDirectory))
                 {
                     EditorUtility.DisplayDialog("Err", "Prefab Directory Not Exist ", "ok");
                     return false;
                 }
-                if (File.Exists(SC.prefabPath))
+                if (File.Exists(_scriptCreater.prefabPath))
                 {
-                    AssetDatabase.DeleteAsset(SC.prefabPath);
+                    AssetDatabase.DeleteAsset(_scriptCreater.prefabPath);
                     AssetDatabase.Refresh();
                 }
             }
@@ -176,6 +174,7 @@ namespace IFramework
             }
             AssetDatabase.Refresh();
         }
+
         [UnityEditor.Callbacks.DidReloadScripts]
         private static void SetFields()
         {
@@ -195,6 +194,7 @@ namespace IFramework
                             .First(assembly => assembly.GetName().Name == "Assembly-CSharp");
             Type type = defaultAssembly.GetType(EditorProjectConfig.NameSpace + "." + EditorPrefs.GetString(ScriptNameKey));
             GameObject gameObj = GameObject.Find(EditorPrefs.GetString(GameobjKey));
+
             if (gameObj == null || type == null || gameObj.GetComponent<ScriptCreater>() == null)
             {
                 if (EditorPrefs.HasKey(ScriptNameKey))
@@ -206,22 +206,22 @@ namespace IFramework
                 return;
             }
             EditorUtility.DisplayProgressBar("Build Script  " + type.Name, "Don't do anything", 0.7f);
-            ScriptCreater SC = gameObj.GetComponent<ScriptCreater>();
+            _scriptCreater = gameObj.GetComponent<ScriptCreater>();
 
-            ScriptMark[] SMs = SC.SMs;
+            ScriptMark[] scriptMarks = _scriptCreater.scriptMarks;
             Component component = gameObj.GetComponent(type);
             if (component == null) component = gameObj.AddComponent(type);
             SerializedObject serialiedScript = new SerializedObject(component);
 
-            foreach (var sm in SMs)
+            foreach (var _sm in scriptMarks)
             {
-                serialiedScript.FindProperty(sm.fieldName).objectReferenceValue = sm.GetComponent(sm.fieldType);
+                serialiedScript.FindProperty(_sm.fieldName).objectReferenceValue = _sm.GetComponent(_sm.fieldType);
             }
             serialiedScript.ApplyModifiedPropertiesWithoutUndo();
             //serialiedScript.Update();
-            if (SC.isCreatePrefab)
+            if (_scriptCreater.isCreatePrefab)
             {
-                EditorUtil.CreatePrefab(gameObj, SC.prefabPath);
+                EditorUtil.CreatePrefab(gameObj, _scriptCreater.prefabPath);
             }
 
 
@@ -238,7 +238,7 @@ namespace IFramework
         {
             private static void OnWillCreateAsset(string metaPath)
             {
-                if (SC == null) return;
+                if (_scriptCreater == null) return;
                 string filePath = metaPath.Replace(".meta", "");
                 if (!filePath.EndsWith(".cs")) return;
                 string realPath = filePath.ToAbsPath();
@@ -247,7 +247,7 @@ namespace IFramework
                 string spName = Path.GetFileNameWithoutExtension(filePath);
                 EditorUtility.DisplayProgressBar("Build Script  " + spName, "Don't do anything", 0.1f);
                 EditorPrefs.SetString(ScriptNameKey, spName);
-                EditorPrefs.SetString(GameobjKey, SC.name);
+                EditorPrefs.SetString(GameobjKey, _scriptCreater.name);
                 EditorPrefs.SetBool(IsCreateKey, true);
 
                 txt = txt.Replace("#SCAuthor#", EditorProjectConfig.UserName)
@@ -256,12 +256,13 @@ namespace IFramework
                          .Replace("#SCDATE#", DateTime.Now.ToString("yyyy-MM-dd"))
                          .Replace("#SCNameSpace#", EditorProjectConfig.NameSpace)
                          .Replace("#SCSCRIPTNAME#", Path.GetFileNameWithoutExtension(filePath))
-                         .Replace("#SCDescription#", DescriptionStr())
-                         .Replace("#SCUsing#", NameSpaceStr(txt));
+                         .Replace("#SCDescription#", ReplaceDescription());
+                txt = txt.Replace("#SCField#", ReplaceField(txt));
+                txt = txt.Replace("#SCUsing#", ReplaceNamespace(txt));
 
                 EditorUtility.DisplayProgressBar("Build Script  " + spName, "Don't do anything", 0.2f);
 
-                File.WriteAllText(realPath, txt.Replace("#SCField#", FieldsStr(txt)), Encoding.UTF8);
+                File.WriteAllText(realPath, txt, Encoding.UTF8);
                 EditorUtility.DisplayProgressBar("Build Script  " + spName, "Don't do anything", 0.6f);
 
                 AssetDatabase.Refresh();
@@ -274,9 +275,9 @@ namespace IFramework
                 AssetDatabase.ImportAsset(filePath);
                 AssetDatabase.SaveAssets();
             }
-            private static string DescriptionStr()
+            private static string ReplaceDescription()
             {
-                string res = string.IsNullOrEmpty(SC.description) ? EditorProjectConfig.Description : SC.description;
+                string res = string.IsNullOrEmpty(_scriptCreater.description) ? EditorProjectConfig.Description : _scriptCreater.description;
                 if (!res.Contains("\n"))
                     return res;
                 else
@@ -304,32 +305,34 @@ namespace IFramework
                 }
 
             }
-            private static string NameSpaceStr(string txt)
+            private static string ReplaceNamespace(string txt)
             {
                 string res = string.Empty;
                 List<string> NameSpaces = new List<string>();
-                for (int i = 0; i < SC.SMs.Length; i++)
+                for (int i = 0; i < _scriptCreater.scriptMarks.Length; i++)
                 {
-                    NameSpaces.Add(SC.SMs[i].GetComponent(SC.SMs[i].fieldType).GetType().Namespace);
+                    var sm = _scriptCreater.scriptMarks[i];
+                    var comp = sm.GetComponent(sm.fieldType);
+                    NameSpaces.Add(comp.GetType().Namespace);
                 }
                 NameSpaces = NameSpaces.Distinct().ToList();
                 NameSpaces.ForEach((ns) => {
                     string tmp= "using ".Append(ns);
                     if (!txt.Contains(tmp))
-                    {
                         res = res.Append(tmp).Append(";\n");
-                    }
+
                 });
-                if (txt.Contains("MonoBehaviour") && !res.Contains("using UnityEngine"))
+
+                if ((txt.Contains("[SerializeField]")|| txt.Contains("MonoBehaviour")) && !res.Contains("using UnityEngine;"))
                 {
                     res = res.Append("using UnityEngine;\n");
                 }
                 return res;
             }
-            private static string FieldsStr(string txt)
+            private static string ReplaceField(string txt)
             {
                 string result = string.Empty;
-                SC.SMs.ForEach((sm) => {
+                _scriptCreater.scriptMarks.ForEach((sm) => {
                     if (!string.IsNullOrEmpty(sm.description))
                     {
                         if (sm.description.Contains("\n"))
@@ -343,17 +346,13 @@ namespace IFramework
                             result = result.Append("\t\t//" + sm.description + "\n");
 
                     }
-
+                    var fieldTypeStrs = sm.fieldType.Split('.');
+                    var fieldType = fieldTypeStrs.Last();
                     if (sm.isPublic)
-                        result = result.Append("\t\tpublic " + sm.fieldType + " " + sm.fieldName + ";\n");
+                        result = result.Append("\t\tpublic " + fieldType + " " + sm.fieldName + ";\n");
                     else
-                    {
-                        if (txt.Contains("using UnityEngine"))
-                            result = result.Append("\t\t[SerializeField] private " + sm.fieldType + " " + sm.fieldName + ";\n");
-                        else
-                            result = result.Append("\t\t[UnityEngine.SerializeField] private " + sm.fieldType + " " + sm.fieldName + ";\n");
+                        result = result.Append("\t\t[SerializeField] private " + fieldType + " " + sm.fieldName + ";\n");
 
-                    }
                 });
                 return result;
             }

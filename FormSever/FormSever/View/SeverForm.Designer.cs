@@ -481,7 +481,7 @@ namespace FormSever
             this.Net_Fresh.TabIndex = 8;
             this.Net_Fresh.Text = "Fresh";
             this.Net_Fresh.UseVisualStyleBackColor = false;
-            this.Net_Fresh.Click += new System.EventHandler(this.Net_Init_Click);
+            this.Net_Fresh.Click += new System.EventHandler(this.Net_Fresh_Click);
             // 
             // LogPage
             // 

@@ -1,9 +1,9 @@
 ﻿using FormSever.Net;
 using IFramework;
-using IFramework.Moudles.APP;
+using IFramework.Modules.APP;
 namespace FormSever
 {
-    class AppMoudle : FrameworkAppMoudle
+    class AppMoudle : FrameworkAppModule
     {
         protected override bool needUpdate { get { return true; } }
         public NetSever netSever { get; private set; }
@@ -25,7 +25,7 @@ namespace FormSever
             while (em.MoveNext())
                 netSever.onTcpDisconn += em1.Current;
 
-            Framework.Container.RegisterInstance(netSever);
+         //   Framework.Container.RegisterInstance(netSever);
             netSever.Run();
             Log.L("APP Run");
         }

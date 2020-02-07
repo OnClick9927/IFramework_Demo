@@ -26,7 +26,7 @@ namespace IFramework
             cps.ToList().ForEach((c) =>
             {
                 if (c != null)
-                    names.Add(c.GetType().Name);
+                    names.Add(c.GetType().FullName);
                 //else
                 //    DestroyImmediate(c);
             });

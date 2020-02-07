@@ -10,10 +10,10 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using IFramework.Moudles;
+using IFramework.Modules;
 namespace IFramework
 {
-    public class UIMoudle : FrameworkMoudle
+    public class UIModule : FrameworkModule
     {
         protected override bool needUpdate { get { return false; } }
 
@@ -182,33 +182,47 @@ namespace IFramework
 
         public void Push(UIPanel ui, UIEventArgs arg)
         {
-            if (StackCount != 0)
-                (Current as IUIPanel).OnPress(arg);
+            if (StackCount > 0)
+                arg.pressPanel = Current;
+            arg.curPanel = ui;
+
             UIStack.Push(ui);
-            (Current as IUIPanel).OnTop(arg);
+
+            if (arg.pressPanel!=null)
+                (arg.pressPanel as IUIPanel).OnPress(arg);
+            (arg.curPanel as IUIPanel).OnTop(arg);
+
             if (UICache.Count > 0) ClearCache(arg);
 
         }
         public void GoForWard(UIEventArgs arg)
         {
-            if (CacheCount == 0) return;
+            if (CacheCount <= 0) return;
+            if (StackCount > 0)
+                arg.pressPanel = Current;
+
             var ui = UICache.Pop();
-            if (StackCount != 0)
-                (Current as IUIPanel).OnPress(arg);
+            arg.curPanel = ui;
             UIStack.Push(ui);
-            (Current as IUIPanel).OnTop(arg);
+
+            if (arg.pressPanel!=null)
+                (arg.pressPanel as IUIPanel).OnPress(arg);
+            (arg.curPanel as IUIPanel).OnTop(arg);
         }
         public void GoBack(UIEventArgs arg)
         {
-            if (StackCount == 0) return;
+            if (StackCount <= 0) return;
+
+            var ui = UIStack.Pop();
+            arg.popPanel = ui;
+            UICache.Push(ui);
+
             if (StackCount > 0)
-            {
-                var ui = UIStack.Pop();
-                UICache.Push(ui);
-                (ui as IUIPanel).OnPop(arg);
-            }
-            if (StackCount > 0)
-                (Current as IUIPanel).OnTop(arg);
+                arg.curPanel = Current;
+
+            (arg.popPanel as IUIPanel).OnPop(arg);
+            if (arg.curPanel!=null)
+            (arg.curPanel as IUIPanel).OnTop(arg);
         }
         public void ClearCache(UIEventArgs arg)
         {

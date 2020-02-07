@@ -12,7 +12,7 @@ namespace FormSever.Net
     }
     abstract class NetMessageHandler: INetMessageHangdler
     {
-        protected NetSever netSever { get { return (Framework.moudles.App as AppMoudle).netSever; } }
+        protected NetSever netSever { get { return (Framework.env0.modules.App as AppMoudle).netSever; } }
         protected abstract void OnTcpMessage(SocketToken token, INetMessage message);
         protected abstract void OnUdpMessage(SocketToken token, INetMessage message);
         protected abstract void OnTcpConn(SocketToken token);

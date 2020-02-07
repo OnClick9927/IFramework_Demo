@@ -6,6 +6,7 @@
  *Description:    IFramework
  *History:        2018.11--
 *********************************************************************************/
+using System.IO;
 using UnityEditor;
 using UnityEngine;
 
@@ -16,22 +17,22 @@ namespace IFramework
         [InitializeOnLoadMethod]
         public static void Check()
         {
-            Framework.Init();
-            string path = Application.dataPath;
+            Framework.env0 = Framework.CreateEnv("IFramework_Editor");
+            Framework.env0.Init();
+            EditorApplication.quitting += Framework.env0.Dispose;
+
 #if UNITY_2018_1_OR_NEWER
-            path = path.CombinePath("csc.rsp");
             PlayerSettings.allowUnsafeCode = true;
 #else
-            path = path.CombinePath("mcs.rsp");
+          string  path = Application.dataPath.CombinePath("mcs.rsp");
             string content = "-unsafe";
             if (File.Exists(path) && path.ReadText(System.Text.Encoding.Default) == content) return;
                 path.WriteText(content, System.Text.Encoding.Default); 
             AssetDatabase.Refresh();
-            IFEditorUtil.ReOpen();
+            EditorUtil.ReOpen2();
 #endif
-
         }
 
-
+       
     }
 }

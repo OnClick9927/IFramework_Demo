@@ -6,19 +6,39 @@
  *Description:    Description
  *History:        2020-02-07--
 *********************************************************************************/
+using System;
 using IFramework;
-using IFramework.Moudles.APP;
+using IFramework.Modules.APP;
+using UnityEngine;
 
 namespace IFramework_Demo
 {
-    public class AppMoudle : FrameworkAppMoudle
+    public class AppModule : FrameworkAppModule
     {
+        public UIModule UIModule { get; private set; }
         protected override bool needUpdate { get { return true; } }
+        public NetClient netClient;
+
         protected override void Awake()
         {
+            InitAppModules();
             InitNet();
         }
-        public NetClient netClient;
+        private void InitAppModules()
+        {
+            UIModule = Framework.env1.modules.CreateModule<UIModule>();
+            UIModule.AddLoader(UILoader);
+            UIPanel UILoader(Type type, string path, string name, UIPanelLayer layer, UIEventArgs arg)
+            {
+                GameObject go = Resources.Load<GameObject>(path);
+                UIPanel p= go.GetComponent<UIPanel>();
+                return p;
+            }
+            UIModule.Get<AppCoverPanel>("UI/AppCoverPanel", UIPanelLayer.Common, "AppCover",UIEventArgs.Allocate<UIEventArgs>());
+        }
+
+       
+
         private void InitNet()
         {
             netClient = new NetClient();
@@ -44,7 +64,14 @@ namespace IFramework_Demo
 
             void NetClient_onTcpDisConn()
             {
-                netClient.Run();
+                try
+                {
+                    netClient.Run();
+                }
+                catch (Exception)
+                {
+                }
+               
             }
         }
 
@@ -52,12 +79,12 @@ namespace IFramework_Demo
 
         protected override void OnDispose()
         {
-            netClient.Dispose();
+            netClient?.Dispose();
         }
 
         protected override void OnUpdate()
         {
-            Log.L(netClient.tcp.IsConnected);
+
         }
     }
 }

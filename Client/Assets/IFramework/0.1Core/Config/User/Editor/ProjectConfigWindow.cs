@@ -13,7 +13,7 @@ using IFramework.GUITool;
 
 namespace IFramework
 {
-    [EditorWindowCache("ProjectConfig")]
+    [EditorWindowCache]
     partial class ProjectConfigWindow
     {
         public static void ShowWindow()

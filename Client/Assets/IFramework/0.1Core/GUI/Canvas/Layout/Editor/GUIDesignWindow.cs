@@ -11,7 +11,7 @@ using UnityEditor;
 using UnityEngine;
 namespace IFramework.GUITool.LayoutDesign
 {
-    [EditorWindowCache("GUITool.Canvas.Layout")]
+    [EditorWindowCache]
     partial class GUIDesignWindow
     {
         private enum EditType

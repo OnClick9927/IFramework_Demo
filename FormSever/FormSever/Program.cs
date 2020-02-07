@@ -18,7 +18,8 @@ namespace FormSever
             timer.Interval = 1000/ TickCountPersecond;
             timer.Tick += Trick;
             timer.Start();
-            //Framework.Init();
+
+            Framework.InitEnv("", 0).Init();
 
             Application.Run(new SeverForm());
 
@@ -26,16 +27,15 @@ namespace FormSever
 
         private static void Application_ApplicationExit(object sender, EventArgs e)
         {
-            Framework.Update();
-            Framework.Dispose();
+            Framework.env0.Update();
+            Framework.env0.Dispose();
             timer.Stop();
             timer = null;
         }
 
         private static void Trick(object sender, EventArgs e)
         {
-            Framework.Init();
-            Framework.Update();
+            Framework.env0.Update();
         }
     }
 }

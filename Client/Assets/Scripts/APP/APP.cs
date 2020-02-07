@@ -8,23 +8,28 @@
  *History:        2020-01-31--
 *********************************************************************************/
 using IFramework;
+using IFramework.Modules.Coroutine;
+using IFramework.Modules.Loom;
+using IFramework.Modules.Message;
+using System.Collections.Generic;
 using UnityEngine;
 namespace IFramework_Demo
 {
     public partial class APP :MonoBehaviour
     {
-        private void Awake()
+        private void Start()
         {
-            Framework.Init();
+            Framework.env1 = Framework.CreateEnv("App_RT");
+            Framework.env1.Init(new int[] { 1});
         }
         private void Update()
         {
-            Framework.Update();
+            Framework.env1.Update();
         }
         private void OnDisable()
         {
-            Framework.Update();
-            Framework.Dispose();
+            Framework.env1.Update();
+            Framework.env1.Dispose();
         }
     }
 }

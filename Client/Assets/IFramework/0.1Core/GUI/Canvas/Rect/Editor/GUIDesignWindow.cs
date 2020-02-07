@@ -32,7 +32,7 @@ namespace IFramework.GUITool.RectDesign
         private string tmpDesign;
         private GUICanvas guiCanvas;
     }
-    [EditorWindowCache("GUITool.Canvas.Rect")]
+    [EditorWindowCache]
     partial class GUIDesignWindow : EditorWindow, ILayoutGUIDrawer
     {
         private const string SceneViewName = "Canvas";
