@@ -48,7 +48,7 @@ namespace FormSever
                     item.BackColor = Color.Yellow;
 
                     break;
-                case LogType.Default:
+                case LogType.Log:
                     item.BackColor = Color.White;
 
                     break;
@@ -79,7 +79,7 @@ namespace FormSever
             m_view.Items.Add(new ListViewItem());
 
             var item = m_view.Items[m_view.Items.Count - 1];
-            item.BackColor = logType == LogType.Default ? Color.White : logType == LogType.Error ? Color.Red : Color.White;
+            item.BackColor = logType == LogType.Log ? Color.White : logType == LogType.Error ? Color.Red : Color.White;
             item.Text =DateTime.Now.ToString("HH:mm:ss");
             item.SubItems.Add(new ListViewItem.ListViewSubItem()
                     {

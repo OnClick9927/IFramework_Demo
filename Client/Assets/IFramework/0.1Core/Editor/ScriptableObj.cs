@@ -38,6 +38,7 @@ namespace IFramework
                 EditorUtility.SetDirty(t);
                 AssetDatabase.SaveAssets();
                 AssetDatabase.Refresh();
+
             };
         }
         public static void Update<T>(T sto,Object[] subAssets)where T:ScriptableObject

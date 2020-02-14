@@ -9,60 +9,13 @@
 using UnityEngine;
 namespace IFramework
 {
-    public enum UIPanelLayer
-    {
-        BGBG,               //非常BG
-        Background,         //BG
-        AnimationUnderPage, //背景动画
-        Common,             //普通
-        AnimationOnPage,    //上层动画
-        PopUp,              //弹框
-        Guide,              //引导
-        Toast,              //对话框
-        Top,                //Top
-        TopTop,             //非常Top
-    }
-    public class UIEventArgs : FrameworkArgs
-    {
-        public bool isInspectorBtn;
-        public UIPanel popPanel;
-        public UIPanel curPanel;
-        public UIPanel pressPanel;
-        protected override void OnDataReset()
-        {
-            popPanel = null;
-            curPanel = null;
-            pressPanel = null;
-        }
-       
-    }
 
-    internal interface IUIPanel
-    {
-        UIPanelLayer PanelLayer { get; set; }
-        string PanelName { get; set; }
+  
 
-        void OnLoad(UIEventArgs arg);
-        void OnTop(UIEventArgs arg);
-        void OnPress(UIEventArgs arg);
-        void OnPop(UIEventArgs arg);
-        void OnClear(UIEventArgs arg);
-    }
-    public abstract class UIPanel : MonoBehaviour, IUIPanel
+
+    public abstract class UIPanel : MonoBehaviour
     {
         public UIPanelLayer PanelLayer { get; set; }
         public virtual string PanelName  { get { return this.name; } set { this.name = value; } }
-
-        void IUIPanel.OnClear(UIEventArgs arg) { OnClear(arg); }
-        void IUIPanel.OnLoad(UIEventArgs arg) { OnLoad(arg); }
-        void IUIPanel.OnPop(UIEventArgs arg) { OnPop(arg); }
-        void IUIPanel.OnPress(UIEventArgs arg) { OnPress(arg); }
-        void IUIPanel.OnTop(UIEventArgs arg) { OnTop(arg); }
-
-        protected abstract void OnClear(UIEventArgs arg);
-        protected abstract void OnLoad(UIEventArgs arg);
-        protected abstract void OnPop(UIEventArgs arg);
-        protected abstract void OnPress(UIEventArgs arg);
-        protected abstract void OnTop(UIEventArgs arg);
     }
 }

@@ -1,0 +1,24 @@
+/*********************************************************************************
+ *Author:         #User#
+ *Version:        #UserVERSION#
+ *UnityVersion:   #UserUNITYVERSION#
+ *Date:           #UserDATE#
+ *Description:    #UserDescription#
+ *History:        #UserDATE#--
+*********************************************************************************/
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using IFramework;
+
+namespace #UserNameSpace#
+{
+	public class UIMap_MVVM 
+	{
+		public static Dictionary<Type, Tuple<Type, Type, Type>> map =
+		new Dictionary<Type, Tuple<Type, Type, Type>>()
+		{
+//ToDo
+		};
+	}
+}

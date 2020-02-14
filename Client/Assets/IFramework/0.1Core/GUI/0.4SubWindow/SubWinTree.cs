@@ -503,7 +503,12 @@ namespace IFramework.GUITool
             }
             public string userData;
             internal TreeLeaf(GUIContent title) : base() { m_minSize = new Vector2(Styles.minize, Styles.minize); this.titleContent = title; }
-
+            public override void CalcPosition(Rect position)
+            {
+                //base.CalcPosition(position);
+                this.m_position = position.Lerp(m_position, position, 0.04f);
+                //tree.Repaint();
+            }
             internal bool IsOverTitle(Vector2 vector2) { return titleRect.Contains(vector2); }
 
             public override void OnGUI()
@@ -632,9 +637,9 @@ namespace IFramework.GUITool
 
         private void Repaint()
         {
-            if (repaintEve != null)
+            if ( repaintEve != null)
                 repaintEve();
-            if (Event.current!=null)
+            if (Event.current!= null && Event.current.type != EventType.Layout && Event.current.type != EventType.Repaint)
                 Event.current.Use();
         }
         private void AddCursorRect(Rect rect, SplitType splitType)

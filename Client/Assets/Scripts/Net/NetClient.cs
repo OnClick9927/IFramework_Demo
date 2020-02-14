@@ -42,13 +42,13 @@ namespace IFramework_Demo
 
         private void OnUDPRec(SocketToken token, BufferSegment seg)
         {
-            udpPkgReader.Set(seg.Buffer, seg.Offset, seg.Len);
+            udpPkgReader.Set(seg.buffer, seg.offset, seg.count);
             var pkgs = udpPkgReader.Get();
             if (pkgs != null)
             {
                 pkgs.ForEach((p) =>
                 {
-                    INetMessage msg = Json.ToObject(NetMessageTool.GetTypeByID(p.ID), encoding.GetString(p.MsgBuff)) as INetMessage;
+                    INetMessage msg = Json.ToObject(NetMessageTool.GetTypeByID(p.pkgID), encoding.GetString(p.message)) as INetMessage;
                     Framework.env1.modules.Loom.RunOnMainThread(() =>
                     {
                         onUdpMessage?.Invoke(token, msg);
@@ -58,13 +58,13 @@ namespace IFramework_Demo
         }
         private void OnTCPRec(SocketToken token, BufferSegment seg)
         {
-            tcpPkgReader.Set(seg.Buffer, seg.Offset, seg.Len);
+            tcpPkgReader.Set(seg.buffer, seg.offset, seg.count);
             var pkgs = tcpPkgReader.Get();
             if (pkgs != null)
             {
                 pkgs.ForEach((p) =>
                 {
-                    INetMessage msg = Json.ToObject(NetMessageTool.GetTypeByID(p.ID), encoding.GetString(p.MsgBuff)) as INetMessage;
+                    INetMessage msg = Json.ToObject(NetMessageTool.GetTypeByID(p.pkgID), encoding.GetString(p.message)) as INetMessage;
                     Framework.env1.modules.Loom.RunOnMainThread(() =>
                     {
                         onTcpMessage?.Invoke(token, msg);

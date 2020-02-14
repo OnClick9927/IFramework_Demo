@@ -205,6 +205,7 @@
     <Compile Include="Assets\XLua\Src\Editor\LinkXmlGen\LinkXmlGen.cs" />
     <Compile Include="Assets\XLua\Src\Editor\TemplateRef.cs" />
     <None Include="Assets\XLua\Src\Editor\LinkXmlGen\LinkXmlGen.tpl.txt" />
+    <None Include="Assets\IFramework\UI\Editor\Gen\MapGen_MVVM.txt" />
     <None Include="Assets\IFramework\0.1Core\ScriptCreater\Simple\Editor\CSharpScript.txt" />
     <None Include="Assets\IFramework\0.1Core\ScriptCreater\Simple\Editor\User\CSharpScript.txt" />
     <None Include="Assets\IFramework\AssetBundle\Editor\ABBLayout.xml" />
@@ -212,11 +213,14 @@
     <None Include="Assets\XLua\Src\Editor\Template\LuaWrapPusher.tpl.txt" />
     <None Include="Assets\XLua\Src\Editor\Template\LuaDelegateBridge.tpl.txt" />
     <None Include="Assets\IFramework\0.1Core\ScriptCreater\Editor\FormatScript.txt" />
+    <None Include="Assets\IFramework\UI\Editor\Gen\VM_MVVM.txt" />
     <None Include="Assets\IFramework\AssetBundle\Editor\Layout.xml" />
     <None Include="Assets\XLua\Src\Editor\Template\TemplateCommon.lua.txt" />
     <None Include="Assets\XLua\Src\Editor\Template\LuaEnumWrap.tpl.txt" />
+    <None Include="Assets\IFramework\0.1Core\ScriptCreater\Simple\Editor\User\MonoScript.txt" />
     <None Include="Assets\XLua\Src\Editor\Template\LuaDelegateWrap.tpl.txt" />
     <None Include="Assets\XLua\Src\Editor\Template\LuaRegisterGCM.tpl.txt" />
+    <None Include="Assets\IFramework\UI\Editor\Gen\View_MVVM.txt" />
     <None Include="Assets\XLua\Src\Editor\Template\LuaRegister.tpl.txt" />
     <None Include="Assets\XLua\Src\Editor\Template\LuaInterfaceBridge.tpl.txt" />
     <None Include="Assets\XLua\Src\Editor\Template\LuaClassWrap.tpl.txt" />

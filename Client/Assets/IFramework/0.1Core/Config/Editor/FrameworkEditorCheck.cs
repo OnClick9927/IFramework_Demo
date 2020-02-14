@@ -6,9 +6,8 @@
  *Description:    IFramework
  *History:        2018.11--
 *********************************************************************************/
-using System.IO;
+using IFramework.Modules.Coroutine;
 using UnityEditor;
-using UnityEngine;
 
 namespace IFramework
 {
@@ -17,9 +16,11 @@ namespace IFramework
         [InitializeOnLoadMethod]
         public static void Check()
         {
-            Framework.env0 = Framework.CreateEnv("IFramework_Editor");
-            Framework.env0.Init();
+            Framework.InitEnv("IFramework_Editor", EnvironmentType.Ev0).InitWithAttribute(); 
+
             EditorApplication.quitting += Framework.env0.Dispose;
+            EditorApplication.update += Framework.env0.Update;
+            Framework.env0.modules.Coroutine = Framework.env0.modules.CreateModule<CoroutineModule>();
 
 #if UNITY_2018_1_OR_NEWER
             PlayerSettings.allowUnsafeCode = true;

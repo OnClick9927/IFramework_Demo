@@ -8,10 +8,6 @@
  *History:        2020-01-31--
 *********************************************************************************/
 using IFramework;
-using IFramework.Modules.Coroutine;
-using IFramework.Modules.Loom;
-using IFramework.Modules.Message;
-using System.Collections.Generic;
 using UnityEngine;
 namespace IFramework_Demo
 {
@@ -19,8 +15,8 @@ namespace IFramework_Demo
     {
         private void Start()
         {
-            Framework.env1 = Framework.CreateEnv("App_RT");
-            Framework.env1.Init(new int[] { 1});
+            Framework.InitEnv("RT", EnvironmentType.Ev1).InitWithAttribute();
+
         }
         private void Update()
         {

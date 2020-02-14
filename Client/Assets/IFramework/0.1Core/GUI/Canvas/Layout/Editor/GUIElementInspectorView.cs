@@ -13,6 +13,10 @@ using UnityEngine;
 
 namespace IFramework.GUITool.LayoutDesign
 {
+    static class GUIElementEditors
+    {
+        public static List<Type> editorTypes = typeof(GUIElementEditor).GetSubTypesInAssemblys().ToList();
+    }
     class GUIElementInspectorView : ILayoutGUIDrawer
     {
         private Dictionary<Type, GUIElementEditor> dic = new Dictionary<Type, GUIElementEditor>();
@@ -21,8 +25,8 @@ namespace IFramework.GUITool.LayoutDesign
 
         public GUIElementInspectorView()
         {
-            var designs = typeof(GUIElementEditor).GetSubTypesInAssemblys().ToList().FindAll((t) => { return t.IsDefined(typeof(CustomGUIElementAttribute), false); });
-            var eles = typeof(GUIElement).GetSubTypesInAssemblys();
+            var designs = GUIElementEditors.editorTypes.FindAll((t) => { return t.IsDefined(typeof(CustomGUIElementAttribute), false); });
+            var eles = GUIElements.elementTypes;
             foreach (var type in eles)
             {
                 var typeTree = type.GetTypeTree();

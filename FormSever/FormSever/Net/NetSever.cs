@@ -62,18 +62,18 @@ namespace FormSever.Net
         private void OnUdpRec(SocketToken token, BufferSegment seg)
         {
             Framework.env0.modules.Loom.RunOnMainThread(() => {
-                Log.E(token.EndPoint.Address);
+                Log.E(token.endPoint.Address);
             });
             var tok= udpTokenPool.GetTokenBySocketToken(token);
             if (tok == null)
                 udpTokenPool.AddToken(new NetConnectionToken(token));
-            udpPkgReader.Set(seg.Buffer, seg.Offset, seg.Len);
+            udpPkgReader.Set(seg.buffer, seg.offset, seg.count);
             var pkgs = udpPkgReader.Get();
             if (pkgs != null)
             {
                 pkgs.ForEach((p) =>
                 {
-                    INetMessage msg = Json.ToObject(NetMessageTool.GetTypeByID(p.ID), encoding.GetString(p.MsgBuff)) as INetMessage;
+                    INetMessage msg = Json.ToObject(NetMessageTool.GetTypeByID(p.pkgID), encoding.GetString(p.message)) as INetMessage;
                     Framework.env0.modules.Loom.RunOnMainThread(() =>
                     {
                         if (onUdpMessage != null)
@@ -90,7 +90,7 @@ namespace FormSever.Net
         {
             tcpTokenPool.AddToken(new NetConnectionToken(token));
             Framework.env0.modules.Loom.RunOnMainThread(() => {
-                Log.L(string.Format("One Tcp Connect  {0}", token.EndPoint.Address));
+                Log.L(string.Format("One Tcp Connect  {0}", token.endPoint.Address));
                 onTcpConn?.Invoke(token);
             });
         }
@@ -98,7 +98,7 @@ namespace FormSever.Net
         {
             tcpTokenPool.RemoveToken(token);
             Framework.env0.modules.Loom.RunOnMainThread(() => {
-                Log.L(string .Format("One Tcp DisConnect  {0}", token.EndPoint.Address));
+                Log.L(string .Format("One Tcp DisConnect  {0}", token.endPoint.Address));
                 onTcpDisconn?.Invoke(token);
             });
         }
@@ -106,13 +106,13 @@ namespace FormSever.Net
         private void OnTcpRec(SocketToken token, BufferSegment seg)
         {
             tcpTokenPool.RefreshConnectionToken(token);
-            tcpPkgReader.Set(seg.Buffer, seg.Offset, seg.Len);
+            tcpPkgReader.Set(seg.buffer, seg.offset, seg.count);
             var pkgs = tcpPkgReader.Get();
             if (pkgs != null)
             {
                 pkgs.ForEach((p) =>
                 {
-                    INetMessage msg = Json.ToObject(NetMessageTool.GetTypeByID(p.ID), encoding.GetString(p.MsgBuff)) as INetMessage;
+                    INetMessage msg = Json.ToObject(NetMessageTool.GetTypeByID(p.pkgID), encoding.GetString(p.message)) as INetMessage;
                     Framework.env0.modules.Loom.RunOnMainThread(() =>
                     {
                         if (onTcpMessage != null)
@@ -140,7 +140,7 @@ namespace FormSever.Net
         }
         public void SendUdpMessage(SocketToken token, INetMessage message)
         {
-            udp.Send(NetMessageToBufferSegment(message), token.EndPoint);
+            udp.SendAsync(NetMessageToBufferSegment(message), token.endPoint);
         }
         public void SendTcpMessageToAll(INetMessage message)
         {

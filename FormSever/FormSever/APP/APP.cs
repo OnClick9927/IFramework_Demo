@@ -4,7 +4,7 @@ using IFramework.Modules.Message;
 using IFramework.Modules.Coroutine;
 using System.Windows.Forms;
 using System.IO;
-using IFramework.Serialization.Csv;
+using IFramework.Serialization.DataTable;
 using System.Collections.Generic;
 namespace FormSever
 {
@@ -19,7 +19,7 @@ namespace FormSever
         }
         public static void WriteLogConfig()
         {
-            CsvWriter csvWriter = new CsvWriter(new StreamWriter(logConfigPath), new CsvRow(), new CsvExplainer());
+            DataWriter csvWriter = new DataWriter(new StreamWriter(logConfigPath), new DataRow(), new DataExplainer());
             csvWriter.Write(new List<Configs.LogConfig>() {
                     Configs.log
                 });
@@ -27,7 +27,7 @@ namespace FormSever
         }
         public static void WriteNetConfig()
         {
-            CsvWriter csvWriter = new CsvWriter(new StreamWriter(netConfigPath), new CsvRow(), new CsvExplainer());
+            DataWriter csvWriter = new DataWriter(new StreamWriter(netConfigPath), new DataRow(), new DataExplainer());
             csvWriter.Write(new List<Configs.NetConfig>() {
                     Configs.net
                 });
@@ -39,7 +39,7 @@ namespace FormSever
             {
                 WriteLogConfig();
             }
-            CsvReader cr = new CsvReader(new StreamReader(logConfigPath), new CsvRow(), new CsvExplainer());
+            DataReader cr = new DataReader(new StreamReader(logConfigPath), new DataRow(), new DataExplainer());
             Configs.log=cr.Get<Configs.LogConfig>()[0];
             cr.Dispose();
         }
@@ -47,7 +47,7 @@ namespace FormSever
         {
             if (!File.Exists(netConfigPath))
                 WriteNetConfig();
-            CsvReader cr = new CsvReader(new StreamReader(netConfigPath), new CsvRow(), new CsvExplainer());
+            DataReader cr = new DataReader(new StreamReader(netConfigPath), new DataRow(), new DataExplainer());
             Configs.net = cr.Get<Configs.NetConfig>()[0];
             cr.Dispose();
         }

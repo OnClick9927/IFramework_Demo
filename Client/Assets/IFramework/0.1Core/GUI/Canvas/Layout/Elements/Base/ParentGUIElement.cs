@@ -42,7 +42,7 @@ namespace IFramework.GUITool.LayoutDesign
             for (int i = 0; i < ele.ChildNodes.Count; i++)
             {
                 XmlElement child = ele.ChildNodes[i] as XmlElement;
-                Type type = typeof(GUIElement).GetSubTypesInAssemblys().ToList().Find((tmp) =>
+                Type type = GUIElements.elementTypes.ToList().Find((tmp) =>
                 {
                     return tmp.Name == child.GetAttribute("ElementType");
                 });

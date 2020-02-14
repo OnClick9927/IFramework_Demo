@@ -201,7 +201,7 @@ namespace IFramework
             ToolBarTree.OnGUI(rs[0]);
             sunwin.OnGUI(rs[1]);
             this.minSize = sunwin.minSize + new Vector2(0, ToolBarHeight);
-
+            Repaint();
             if (mask)
             {
                 GUI.backgroundColor = maskColor;

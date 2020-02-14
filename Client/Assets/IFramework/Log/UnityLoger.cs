@@ -23,7 +23,7 @@ namespace IFramework
                 case LogType.Warning:
                     Debug.LogWarning(message);
                     break;
-                case LogType.Default:
+                case LogType.Log:
                     Debug.Log(message);
                     break;
             }
@@ -39,7 +39,7 @@ namespace IFramework
                 case LogType.Warning:
                     Debug.LogWarningFormat(message as Object, format, paras);
                     break;
-                case LogType.Default:
+                case LogType.Log:
                     Debug.LogFormat(message as Object, format, paras);
                     break;
             }

@@ -213,7 +213,7 @@ namespace IFramework.Lua
             set;
         }
 
-        public event System.Action<int, double> AEvent;
+        public event System.Action<int, double> AEvent=null;
 
         public int this[string field]
         {

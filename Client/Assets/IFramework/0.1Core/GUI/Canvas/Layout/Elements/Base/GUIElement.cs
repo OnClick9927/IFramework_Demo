@@ -9,11 +9,16 @@
 using IFramework.Serialization;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml;
 using UnityEngine;
 
 namespace IFramework.GUITool.LayoutDesign
 {
+    public static class GUIElements
+    {
+        static public List<Type> elementTypes = typeof(GUIElement).GetSubTypesInAssemblys().ToList();
+    }
     public interface IGUIElement
     {
         string name { get; set; }

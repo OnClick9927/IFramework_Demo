@@ -19,13 +19,13 @@ namespace IFramework
             Log.loger = new UnityLoger();
             LogSetting setting = Resources.Load<LogSetting>(StoName);
             if (setting == null) return;
-            Log.LogEnable = setting.LogEnable;
-            Log.WarnningEnable = setting.WarnningEnable;
-            Log.ErrEnable = setting.ErrEnable;
-            Log.LogLevel = setting.LogLevel;
-            Log.WarnningLevel = setting.WarnningLevel;
-            Log.Enable = setting.Enable;
-            Log.ErrLevel = setting.ErrLevel;
+            Log.enable_L = setting.LogEnable;
+            Log.enable_W = setting.WarnningEnable;
+            Log.enable_E = setting.ErrEnable;
+            Log.lev_L = setting.LogLevel;
+            Log.lev_W = setting.WarnningLevel;
+            Log.enable = setting.Enable;
+            Log.lev_E = setting.ErrLevel;
         }
     }
 

@@ -27,14 +27,14 @@ namespace IFramework_Demo
         private void InitAppModules()
         {
             UIModule = Framework.env1.modules.CreateModule<UIModule>();
-            UIModule.AddLoader(UILoader);
-            UIPanel UILoader(Type type, string path, string name, UIPanelLayer layer, UIEventArgs arg)
-            {
-                GameObject go = Resources.Load<GameObject>(path);
-                UIPanel p= go.GetComponent<UIPanel>();
-                return p;
-            }
-            UIModule.Get<AppCoverPanel>("UI/AppCoverPanel", UIPanelLayer.Common, "AppCover",UIEventArgs.Allocate<UIEventArgs>());
+            //UIModule.AddLoader(UILoader);
+            //UIPanel UILoader(Type type, string path, string name, UIPanelLayer layer, UIEventArgs arg)
+            //{
+            //    GameObject go = Resources.Load<GameObject>(path);
+            //    UIPanel p= go.GetComponent<UIPanel>();
+            //    return p;
+            //}
+            //UIModule.Get<AppCoverPanel>("UI/AppCoverPanel", UIPanelLayer.Common, "AppCover",UIEventArgs.Allocate<UIEventArgs>());
         }
 
        

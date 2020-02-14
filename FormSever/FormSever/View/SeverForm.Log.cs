@@ -35,11 +35,11 @@ namespace FormSever
             Configs.log.WarnningEnable = this.Log_WarnEnable.Checked;
             Configs.log.ErrEnable= this.Log_ErrEnable.Checked;
 
-            if (!int.TryParse(this.Log_LogLev.Text, out Log.LogLevel))
+            if (!int.TryParse(this.Log_LogLev.Text, out Log.lev_L))
                 Log.E("Log Fresh Err LogLevel");
-            if (!int.TryParse(this.Log_WarnLev.Text, out Log.WarnningLevel))
+            if (!int.TryParse(this.Log_WarnLev.Text, out Log.lev_W))
                 Log.E("Log Fresh Err WarnningLevel");
-            if (!int.TryParse(this.Log_ErrLev.Text, out Log.ErrLevel))
+            if (!int.TryParse(this.Log_ErrLev.Text, out Log.lev_E))
                 Log.E("Log Fresh Err ErrLevel");
             if (!int.TryParse(this.Log_FontSize.Text, out Configs.log.FontSize))
                 Log.E("Log Fresh Err FontSize");

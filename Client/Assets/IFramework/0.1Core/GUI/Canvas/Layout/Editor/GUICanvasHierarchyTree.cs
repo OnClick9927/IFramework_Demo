@@ -239,8 +239,7 @@ namespace IFramework.GUITool.LayoutDesign
             }
             private void OnMenu(GenericMenu menu)
             {
-                var types = typeof(GUIElement).GetSubTypesInAssemblys()
-                .ToList()
+                var types = GUIElements.elementTypes
                 .FindAll((type) => { return !type.IsAbstract && type.IsDefined(typeof(GUIElementAttribute), false); });
                 types.ForEach((type) =>
                 {

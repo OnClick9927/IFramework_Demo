@@ -15,6 +15,10 @@ using UnityEngine;
 
 namespace IFramework.GUITool.RectDesign
 {
+    public static class GUIElements
+    {
+        static public List<Type> elementTypes = typeof(GUIElement).GetSubTypesInAssemblys().ToList();
+    }
     public interface IGUIElement
     {
         string name { get; set; }
@@ -539,7 +543,7 @@ namespace IFramework.GUITool.RectDesign
             for (int i = 0; i < ele.ChildNodes.Count; i++)
             {
                 XmlElement child = ele.ChildNodes[i] as XmlElement;
-                Type type = typeof(GUIElement).GetSubTypesInAssemblys().ToList().Find((tmp) =>
+                Type type = GUIElements.elementTypes.Find((tmp) =>
                 {
                     return tmp.Name == child.GetAttribute("ElementType");
                 });

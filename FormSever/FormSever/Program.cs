@@ -19,7 +19,7 @@ namespace FormSever
             timer.Tick += Trick;
             timer.Start();
 
-            Framework.InitEnv("", 0).Init();
+            Framework.InitEnv("",  EnvironmentType.Ev0).InitWithAttribute();
 
             Application.Run(new SeverForm());
 

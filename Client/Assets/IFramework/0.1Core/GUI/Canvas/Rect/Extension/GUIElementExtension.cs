@@ -37,7 +37,7 @@ namespace IFramework.GUITool.RectDesign
             doc.Load(path);
             if (doc.DocumentElement.Name != "Element_Prefab") return;
             string attr = doc.DocumentElement.GetAttribute("Type");
-            Type type = typeof(GUIElement).GetSubTypesInAssemblys().ToList().Find((t) => { return t.Name == attr; });
+            Type type = GUIElements.elementTypes.Find((t) => { return t.Name == attr; });
             GUIElement element = Activator.CreateInstance(type) as GUIElement;
             element.DeSerialize(doc.FirstChild.FirstChild as XmlElement);
             e.Element(element);

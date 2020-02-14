@@ -19,8 +19,8 @@ namespace IFramework.GUITool.RectDesign
         public GUICanvas canvas;
         public GUIElementSceneView()
         {
-            var designs = typeof(GUIElementEditor).GetSubTypesInAssemblys().ToList().FindAll((t) => { return t.IsDefined(typeof(CustomGUIElementAttribute), false); });
-            var eles = typeof(GUIElement).GetSubTypesInAssemblys();
+            var designs = GUIElementEditors.editorTypes.FindAll((t) => { return t.IsDefined(typeof(CustomGUIElementAttribute), false); });
+            var eles = GUIElements.elementTypes;
             foreach (var type in eles)
             {
                 var typeTree = type.GetTypeTree();

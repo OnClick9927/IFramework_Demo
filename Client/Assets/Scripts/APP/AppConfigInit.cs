@@ -13,7 +13,7 @@ using IFramework.Modules.Message;
 
 namespace IFramework_Demo
 {
-    [OnFrameworkInitClass(1)]
+    [OnFrameworkInitClass(   EnvironmentType.Ev1)]
     public static class AppConfigInit
     {
         static AppConfigInit()
@@ -43,13 +43,13 @@ namespace IFramework_Demo
         }
         private static void InitLog()
         {
-            Log.LogLevel = 0;
-            Log.WarnningLevel = 50;
-            Log.ErrLevel = 100;
-            Log.Enable = true;
-            Log.LogEnable = true;
-            Log.WarnningEnable = false;
-            Log.ErrEnable = true;
+            Log.lev_L = 0;
+            Log.lev_W = 50;
+            Log.lev_E = 100;
+            Log.enable = true;
+            Log.enable_L = true;
+            Log.enable_W = true;
+            Log.enable_E = true;
         }
     }
 }

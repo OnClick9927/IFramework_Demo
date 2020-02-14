@@ -80,14 +80,39 @@ namespace IFramework
         }
         private static void SetConfig(FrameworkConfigInfo config)
         {
-            string FrameWorkPath= ConfigPath.Remove(ConfigPath.IndexOf(RelativeCorePath)).ToRegularPath(); 
-            config.FrameWorkPath = FrameWorkPath;
-            config.CorePath = FrameWorkPath.CombinePath(RelativeCorePath).ToRegularPath();
-            config.CoreEditorPath = FrameWorkPath.CombinePath(RelativeCoreEditorPath).ToRegularPath();
+            string FrameWorkPath= ConfigPath.Remove(ConfigPath.IndexOf(RelativeCorePath)).ToRegularPath();
+            bool needupdate = false;
+            if (config.FrameWorkPath != FrameWorkPath)
+            {
+                config.FrameWorkPath = FrameWorkPath;
+                needupdate = true;
+            }
+            if (config.CorePath != FrameWorkPath.CombinePath(RelativeCorePath).ToRegularPath())
+            {
+                config.CorePath = FrameWorkPath.CombinePath(RelativeCorePath).ToRegularPath();
+                needupdate = true;
+            }
+            if (config.CoreEditorPath != FrameWorkPath.CombinePath(RelativeCoreEditorPath).ToRegularPath())
+            {
+                config.CoreEditorPath = FrameWorkPath.CombinePath(RelativeCoreEditorPath).ToRegularPath();
+                needupdate = true;
+            }
+            if (config.UtilPath != FrameWorkPath.CombinePath(RelativeUtilPath).ToRegularPath())
+            {
+                config.UtilPath = FrameWorkPath.CombinePath(RelativeUtilPath).ToRegularPath();
+                needupdate = true;
+            }
+            if (config.EditorPath != FrameWorkPath.CombinePath(RelativeEditorPath).ToRegularPath())
+            {
+                config.EditorPath = FrameWorkPath.CombinePath(RelativeEditorPath).ToRegularPath();
+                needupdate = true;
+            }
+            //config.CorePath = FrameWorkPath.CombinePath(RelativeCorePath).ToRegularPath();
+            //config.CoreEditorPath = FrameWorkPath.CombinePath(RelativeCoreEditorPath).ToRegularPath();
 
-            config.EditorPath = FrameWorkPath.CombinePath(RelativeEditorPath).ToRegularPath();
-            config.UtilPath = FrameWorkPath.CombinePath(RelativeUtilPath).ToRegularPath();
-
+            //config.EditorPath = FrameWorkPath.CombinePath(RelativeEditorPath).ToRegularPath();
+            //config.UtilPath = FrameWorkPath.CombinePath(RelativeUtilPath).ToRegularPath();
+            if (needupdate)
             ScriptableObj.Update<FrameworkConfigInfo>(config);
         }
 
