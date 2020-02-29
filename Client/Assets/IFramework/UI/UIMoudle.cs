@@ -112,20 +112,24 @@ namespace IFramework
 
         public Stack<UIPanel> UIStack;
         public Stack<UIPanel> UICache;
-        public UIPanel StackTop { get { return UIStack.Peek(); } }
         public int StackCount { get { return UIStack.Count; } }
         public int CacheCount { get { return UICache.Count; } }
         public bool IsInStack(UIPanel panel) { return UIStack.Contains(panel); }
         public bool IsInCache(UIPanel panel) { return UICache.Contains(panel); }
         public bool IsInUse(UIPanel panel) { return IsInCache(panel) || IsInStack(panel); }
         public UIPanel Current { get { return Peek(); } }
-        public UIPanel Peek() { return UIStack.Peek(); }
+        public UIPanel Peek()
+        {
+            if (UIStack.Count == 0)
+                return null;
+            return  UIStack.Peek();
+        }
         public UIPanel CachePeek() { return UICache.Peek(); }
     }
     public partial class UIModule : FrameworkModule
     {
-        public enum ModuleType
-        {
+        private enum ModuleType
+        { 
             MVP,
             MVVM
         }
@@ -356,18 +360,24 @@ namespace IFramework
         }
 
 
-        public void Push(UIPanel ui, UIEventArgs arg)
+        public void Push(UIPanel ui)
         {
+            UIEventArgs arg = UIEventArgs.Allocate<UIEventArgs>(this.container.env.envType);
+            arg.code = UIEventArgs.Code.Push;
             if (StackCount > 0)
                 arg.pressPanel = Current;
             arg.curPanel = ui;
 
             UIStack.Push(ui);
             InvokeUIModuleEventListenner(arg);
+            arg.Recyle();
             if (UICache.Count > 0) ClearCache();
         }
-        public void GoForWard(UIEventArgs arg)
+        public void GoForWard()
         {
+            UIEventArgs arg = UIEventArgs.Allocate<UIEventArgs>(this.container.env.envType);
+            arg.code = UIEventArgs.Code.GoForward;
+
             if (CacheCount <= 0) return;
             if (StackCount > 0)
                 arg.pressPanel = Current;
@@ -376,9 +386,12 @@ namespace IFramework
             arg.curPanel = ui;
             UIStack.Push(ui);
             InvokeUIModuleEventListenner(arg);
+            arg.Recyle();
         }
-        public void GoBack(UIEventArgs arg)
+        public void GoBack()
         {
+            UIEventArgs arg = UIEventArgs.Allocate<UIEventArgs>(this.container.env.envType);
+            arg.code = UIEventArgs.Code.GoBack;
             if (StackCount <= 0) return;
 
             var ui = UIStack.Pop();
@@ -388,6 +401,8 @@ namespace IFramework
             if (StackCount > 0)
                 arg.curPanel = Current;
             InvokeUIModuleEventListenner(arg);
+            arg.Recyle();
+
         }
         private void InvokeUIModuleEventListenner(UIEventArgs arg)
         {
@@ -460,9 +475,11 @@ namespace IFramework
             }
         }
 
-        public UIPanel Get(Type type, string name, UIEventArgs arg, string path="", UIPanelLayer layer= UIPanelLayer.Common)
+        public UIPanel Get(Type type, string name,  string path="", UIPanelLayer layer= UIPanelLayer.Common)
         {
             //if (UICache.Count > 0) ClearCache(arg);
+            if (Current!=null &&Current.PanelName == name && Current.GetType() == type)
+                return Current;
             switch (_moduleType)
             {
                 case ModuleType.MVP:
@@ -470,12 +487,12 @@ namespace IFramework
                     if (enity == null)
                     {
                         UIPanel ui = Load(type, path, layer, name);
-                        Push(ui, arg);
+                        Push(ui);
                         return ui;
                     }
                     else
                     {
-                        Push((enity.enity as UIEnity).panel, arg);
+                        Push((enity.enity as UIEnity).panel);
                         return (enity.enity as UIEnity).panel;
                     }
                 case ModuleType.MVVM:
@@ -483,12 +500,12 @@ namespace IFramework
                     if (group == null)
                     {
                         UIPanel ui = Load(type, path, layer, name);
-                        Push(ui, arg);
+                        Push(ui);
                         return ui;
                     }
                     else
                     {
-                        Push((group.view as UIView_MVVM).panel, arg);
+                        Push((group.view as UIView_MVVM).panel);
                         return (group.view as UIView_MVVM).panel;
                     }
                 default:
@@ -496,9 +513,9 @@ namespace IFramework
             }
             
         }
-        public T Get<T>(string name, UIEventArgs arg, string path = "", UIPanelLayer layer = UIPanelLayer.Common) where T : UIPanel
+        public T Get<T>(string name,  string path = "", UIPanelLayer layer = UIPanelLayer.Common) where T : UIPanel
         {
-            return (T)Get(typeof(T), name, arg, path, layer);
+            return (T)Get(typeof(T), name, path, layer);
         }
     }
 }

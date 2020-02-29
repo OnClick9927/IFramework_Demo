@@ -717,7 +717,7 @@ namespace IFramework.AB
         private ToolBarTree ToolBarTree;
         private void SubWinInit()
         {
-            tmpLayoutPath= FrameworkConfig.FrameworkPath.CombinePath("AssetBundle/Editor/Layout.xml");
+            tmpLayoutPath= EditorEnv.FrameworkPath.CombinePath("AssetBundle/Editor/Layout.xml");
             if (File.Exists(tmpLayoutPath))
                 tmpLayout = File.ReadAllText(tmpLayoutPath);
 
@@ -791,7 +791,7 @@ namespace IFramework.AB
         private ToolWindow toolWindow;
         private void ABInit()
         {
-            tmpLayout_ABBuildInfoPath = FrameworkConfig.FrameworkPath.CombinePath("AssetBundle/Editor/ABBLayout.xml");
+            tmpLayout_ABBuildInfoPath = EditorEnv.FrameworkPath.CombinePath("AssetBundle/Editor/ABBLayout.xml");
             LoadCollectInfo();
             if (string.IsNullOrEmpty(tmpLayout_ABBuildInfo))
                 if (File.Exists(tmpLayout_ABBuildInfoPath))
@@ -805,7 +805,7 @@ namespace IFramework.AB
         }
         private void LoadCollectInfo()
         {
-            EditorInfoPath = FrameworkConfig.FrameworkPath.CombinePath("AssetBundle/Editor/ABEditorInfo.xml");
+            EditorInfoPath = EditorEnv.FrameworkPath.CombinePath("AssetBundle/Editor/ABEditorInfo.xml");
             if (!File.Exists(EditorInfoPath))
             {
                 string xm= Xml.ToXmlString(new ABEditorInfo());

@@ -76,7 +76,7 @@ namespace IFramework
             searchField.onValueChange += (str) => {
                 input = str;
             };
-            StoPath = FrameworkConfig.UtilPath.CombinePath("Built_inIcon/Resources").CombinePath(IFIcons .StoName+ ".asset");
+            StoPath = EditorEnv.UtilPath.CombinePath("Built_inIcon/Resources").CombinePath(IFIcons .StoName+ ".asset");
             if (!System.IO.File.Exists(StoPath)) Fresh();
             sto = ScriptableObj.Load<IFEditorIconSto>(StoPath);
             Icons.Clear();

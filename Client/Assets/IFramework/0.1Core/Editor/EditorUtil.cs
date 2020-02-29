@@ -43,7 +43,7 @@ namespace IFramework
         {
             string unityPath = Process.GetCurrentProcess().MainModule.FileName;
             string assetPath = Application.dataPath.GetDirPath();
-            string batPath = FrameworkConfig.CoreEditorPath.CombinePath(@"ReStart.bat").ToAbsPath();
+            string batPath = EditorEnv.CoreEditorPath.CombinePath(@"ReStart.bat").ToAbsPath();
             int processId = Process.GetCurrentProcess().Id;
             CreatReStartBat(batPath);
             ProcessUtil.CreateProcess(batPath, string.Format("\"{0}\" \"{1}\" ", unityPath, assetPath, unityPath.Length));

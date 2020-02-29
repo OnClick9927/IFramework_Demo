@@ -105,7 +105,7 @@ namespace IFramework
         private void OnEnable()
         {
             LanwindowItem.window = this;
-            stoPath = FrameworkConfig.FrameworkPath.CombinePath("Lan/Resources/LanGroup.asset");
+            stoPath = EditorEnv.FrameworkPath.CombinePath("Lan/Resources/LanGroup.asset");
             LoadLanGroup();
             this.titleContent = new GUIContent("Lan", EditorGUIUtility.IconContent("d_WelcomeScreen.AssetStoreLogo").image);
             SubwinInit();

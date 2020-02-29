@@ -36,7 +36,7 @@ namespace IFramework
 
         private void OnEnable()
         {
-            StoPath = FrameworkConfig.EditorPath.
+            StoPath = EditorEnv.EditorPath.
                 CombinePath("GUIStyle/Resources/" + IFGUISkinUtil.AssetName+".asset");
             if (!System.IO.File.Exists(StoPath)) ScriptableObj.Create<IFGUISKin>(StoPath);
             Skin = ScriptableObj.Load<IFGUISKin>(StoPath);

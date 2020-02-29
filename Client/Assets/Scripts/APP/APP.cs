@@ -11,12 +11,18 @@ using IFramework;
 using UnityEngine;
 namespace IFramework_Demo
 {
+    public partial class APP
+    {
+        public const EnvironmentType envType = EnvironmentType.Ev1;
+        public static AppModule App { get { return Framework.env1.modules.App as AppModule; } }
+        public static UIModule UI { get { return App.UI; } }
+    }
+
     public partial class APP :MonoBehaviour
     {
-        private void Start()
+        private void Awake()
         {
-            Framework.InitEnv("RT", EnvironmentType.Ev1).InitWithAttribute();
-
+            Framework.InitEnv("RT", envType).InitWithAttribute();
         }
         private void Update()
         {

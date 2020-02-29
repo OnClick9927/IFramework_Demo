@@ -10,7 +10,11 @@ namespace IFramework
 {
     public class UIEventArgs : FrameworkArgs
     {
-        public bool isInspectorBtn;
+        public enum Code
+        {
+            GoBack,GoForward,Push
+        }
+        public Code code;
         public UIPanel popPanel;
         public UIPanel curPanel;
         public UIPanel pressPanel;

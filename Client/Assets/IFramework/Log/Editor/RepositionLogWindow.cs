@@ -65,7 +65,7 @@ namespace IFramework
         }
         public void LoadInfo()
         {
-            infoPath = FrameworkConfig.FrameworkPath.
+            infoPath = EditorEnv.FrameworkPath.
                 CombinePath("Log/Resources/" + RepositionLog.StoName + ".asset");
             if (!File.Exists(infoPath)) ScriptableObj.Create<LogSetting>(infoPath);
             info = ScriptableObj.Load<LogSetting>(infoPath);

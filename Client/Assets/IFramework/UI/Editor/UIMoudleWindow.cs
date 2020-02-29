@@ -218,7 +218,7 @@ namespace IFramework
 
             public override Vector2 GetWindowSize()
             {
-                return new Vector2(base.GetWindowSize().x,
+                return new Vector2(base.GetWindowSize().x*2,
                     Mathf.Min(600, list.Count * rowHeight + EditorStyles.toolbar.fixedHeight));
             }
 
@@ -527,14 +527,14 @@ namespace IFramework
                     {
                         if (GUILayout.Button("GoBack", GUILayout.Height(30)))
                         {
-                            moudle.GoBack(new UIEventArgs() { isInspectorBtn = true });
+                            moudle.GoBack();
                         }
                     }
                     using (new EditorGUI.DisabledScope(moudle.CacheCount <= 0))
                     {
                         if (GUILayout.Button("GoForWard", GUILayout.Height(30)))
                         {
-                            moudle.GoForWard(new UIEventArgs() { isInspectorBtn = true });
+                            moudle.GoForWard();
                         }
                     }
                     GUILayout.EndHorizontal();
@@ -581,6 +581,9 @@ namespace IFramework
             private string panelType;
             private string PanelGenDir;
             private string UIMapDir;
+            [SerializeField] string UIMapName = "UIMap_MVP";
+
+            string UIMap_CSName { get { return UIMapName.Append(".cs"); } }
             string uimapGenPath { get { return genpath.CombinePath("MapGen_MVP.txt"); } } 
             string sensorGenPath { get { return genpath.CombinePath("SensorGen_MVP.txt"); } }
             string policyGenPath { get { return genpath.CombinePath("PolicyGen_MVP.txt"); } }
@@ -592,10 +595,14 @@ namespace IFramework
 
             public void OnGUI()
             {
-
+                this.Space(5)
+                .DrawHorizontal(() => {
+                    this.Label("Check UIMap Script Name", Styles.toolbar);
+                    this.TextField(ref UIMapName);
+                });
                 this.DrawHorizontal(() =>
                 {
-                    this.Label("Drag UIMap Gen Dir", Styles.toolbar);
+                    this.Label("Drag UIMap Gen Directory", Styles.toolbar);
                     this.Label(UIMapDir);
                     Rect rect = GUILayoutUtility.GetLastRect();
                     if (string.IsNullOrEmpty(UIMapDir))
@@ -632,7 +639,7 @@ namespace IFramework
                         }
                         //string uimapGenPath = genpath.CombinePath("MapGen_MVP.txt");
                         CreateUIMapGen(uimapGenPath);
-                        WriteTxt(UIMapDir.CombinePath("UIMap_MVP.cs"), uimapGenPath);
+                        WriteTxt(UIMapDir.CombinePath(UIMap_CSName), uimapGenPath);
                         AssetDatabase.Refresh();
 
                     }, "Copy UIMap From Source");
@@ -676,7 +683,7 @@ namespace IFramework
                     .Space(10)
                     .DrawHorizontal(() =>
                     {
-                        this.Label("Drag Choose Panel Gen Dir", Styles.toolbar);
+                        this.Label("Drag Panel Gen Directory", Styles.toolbar);
                         this.Label(PanelGenDir);
                         Rect rect = GUILayoutUtility.GetLastRect();
                         if (string.IsNullOrEmpty(PanelGenDir))
@@ -719,7 +726,7 @@ namespace IFramework
                                    EditorWindow.focusedWindow.ShowNotification(new GUIContent("Set UI Map Gen Dir "));
                                    return;
                                }
-                               if (!File.Exists(UIMapDir.CombinePath("UIMap_MVP.cs")))
+                               if (!File.Exists(UIMapDir.CombinePath(UIMap_CSName)))
                                {
                                    EditorWindow.focusedWindow.ShowNotification(new GUIContent("Copy UI Map"));
                                    return;
@@ -754,7 +761,7 @@ namespace IFramework
                                WriteTxt(PanelGenDir.CombinePath(type.Append("Excutor.cs")), excutorGenPath);
                                WriteTxt(PanelGenDir.CombinePath(type.Append("View_MVP.cs")), viewGenPath);
                                WriteTxt(PanelGenDir.CombinePath(type.Append("Enity.cs")), EnityGenPath);
-                               WriteMap(UIMapDir.CombinePath("UIMap_MVP.cs"), UIMapDir.CombinePath("UIMap_MVP.cs"));
+                               WriteMap(UIMapDir.CombinePath(UIMap_CSName), UIMapDir.CombinePath(UIMap_CSName));
                                AssetDatabase.Refresh();
                            }, "Gen");
                     });
@@ -784,7 +791,7 @@ namespace IFramework
                         sw.WriteLine("");
                         sw.WriteLine("namespace #UserNameSpace#");
                         sw.WriteLine("{");
-                        sw.WriteLine("\tpublic class UIMap_MVP ");
+                        sw.WriteLine("\tpublic class #UserSCRIPTNAME# ");
                         sw.WriteLine("\t{");
                         sw.WriteLine("\t\tpublic static Dictionary<Type, Tuple<Type, Type, Type, Type, Type>> map =");
                         sw.WriteLine("\t\tnew Dictionary<Type, Tuple<Type, Type, Type, Type, Type>>()");
@@ -1049,7 +1056,21 @@ namespace IFramework
         [Serializable]
         private class MVVM_GenCodeView : ILayoutGUIDrawer
         {
-            private string UIMapDir;
+            [SerializeField] private string UIMapDir;
+            [SerializeField] private string PanelGenDir;
+            [SerializeField] string UIMapName = "UIMap_MVVM";
+
+            private List<string> panelTypes;
+            private string panelType;
+            private List<string> modelTypes;
+            private string modelType;
+
+            string uimapGenPath { get { return genpath.CombinePath("MapGen_MVVM.txt"); } }
+            string viewGenPath { get { return genpath.CombinePath("View_MVVM.txt"); } }
+            string VMGenPath { get { return genpath.CombinePath("VM_MVVM.txt"); } }
+            string UIMap_CSName { get { return UIMapName.Append( ".cs"); } }
+
+
             private int hashID;
             private bool DropdownButton(int id, Rect position, GUIContent content)
             {
@@ -1076,21 +1097,17 @@ namespace IFramework
                 }
                 return false;
             }
-            private List<string> panelTypes;
-            private string panelType;
-            private string PanelGenDir;
-            string uimapGenPath { get { return genpath.CombinePath("MapGen_MVVM.txt"); } }
-            string viewGenPath { get { return genpath.CombinePath("View_MVVM.txt"); } }
-            string VMGenPath { get { return genpath.CombinePath("VM_MVVM.txt"); } }
-
-
-            private List<string> modelTypes;
-            private string modelType;
             public void OnGUI()
             {
+                
+                this.Space(5)
+                    .DrawHorizontal(() => {
+                    this.Label("Check UIMap Script Name", Styles.toolbar);
+                    this.TextField(ref UIMapName);
+                });
                 this.DrawHorizontal(() =>
                 {
-                    this.Label("Drag UIMap Gen Dir", Styles.toolbar);
+                    this.Label("Drag UIMap Gen Directory", Styles.toolbar);
                     this.Label(UIMapDir);
                     Rect rect = GUILayoutUtility.GetLastRect();
                     if (string.IsNullOrEmpty(UIMapDir))
@@ -1127,7 +1144,7 @@ namespace IFramework
                               }
                            //   string uimapGenPath = genpath.CombinePath("MapGen_MVVM.txt");
                               CreateUIMapGen(uimapGenPath);
-                              WriteTxt(UIMapDir.CombinePath("UIMap_MVVM.cs"), uimapGenPath,null);
+                              WriteTxt(UIMapDir.CombinePath(UIMap_CSName), uimapGenPath,null);
                               AssetDatabase.Refresh();
 
                           }, "Copy UIMap From Source");
@@ -1200,7 +1217,7 @@ namespace IFramework
                     .Space(10)
                     .DrawHorizontal(() =>
                     {
-                        this.Label("Drag Choose Panel Gen Dir", Styles.toolbar);
+                        this.Label("Drag Panel Gen Directory", Styles.toolbar);
                         this.Label(PanelGenDir);
                         Rect rect = GUILayoutUtility.GetLastRect();
                         if (string.IsNullOrEmpty(PanelGenDir))
@@ -1247,7 +1264,7 @@ namespace IFramework
                                 EditorWindow.focusedWindow.ShowNotification(new GUIContent("Set UI Map Gen Dir "));
                                 return;
                             }
-                            if (!File.Exists(UIMapDir.CombinePath("UIMap_MVVM.cs")))
+                            if (!File.Exists(UIMapDir.CombinePath(UIMap_CSName)))
                             {
                                 EditorWindow.focusedWindow.ShowNotification(new GUIContent("Copy UI Map"));
                                 return;
@@ -1309,7 +1326,7 @@ namespace IFramework
                                     }
                                 );
 
-                               WriteMap(UIMapDir.CombinePath("UIMap_MVVM.cs"), UIMapDir.CombinePath("UIMap_MVVM.cs"));
+                               WriteMap(UIMapDir.CombinePath(UIMap_CSName), UIMapDir.CombinePath(UIMap_CSName));
                             AssetDatabase.Refresh();
                         }, "Gen");
                     });
@@ -1499,7 +1516,7 @@ namespace IFramework
                         sw.WriteLine("");
                         sw.WriteLine("namespace #UserNameSpace#");
                         sw.WriteLine("{");
-                        sw.WriteLine("\tpublic class UIMap_MVVM ");
+                        sw.WriteLine("\tpublic class #UserSCRIPTNAME# ");
                         sw.WriteLine("\t{");
                         sw.WriteLine("\t\tpublic static Dictionary<Type, Tuple<Type, Type, Type>> map =");
                         sw.WriteLine("\t\tnew Dictionary<Type, Tuple<Type, Type, Type>>()");
@@ -1523,7 +1540,7 @@ namespace IFramework
 
         private void OnEnable()
         {
-            genpath = FrameworkConfig.FrameworkPath.CombinePath("UI/Editor/Gen");
+            genpath = EditorEnv.FrameworkPath.CombinePath("UI/Editor/Gen");
             if (runTimeView == null)
                 runTimeView = new RunTimeView();
             runTimeView.OnEnable();

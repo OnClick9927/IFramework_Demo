@@ -15,7 +15,7 @@ namespace IFramework_Demo
 {
     public class AppModule : FrameworkAppModule
     {
-        public UIModule UIModule { get; private set; }
+        public UIModule UI { get; private set; }
         protected override bool needUpdate { get { return true; } }
         public NetClient netClient;
 
@@ -26,15 +26,18 @@ namespace IFramework_Demo
         }
         private void InitAppModules()
         {
-            UIModule = Framework.env1.modules.CreateModule<UIModule>();
-            //UIModule.AddLoader(UILoader);
-            //UIPanel UILoader(Type type, string path, string name, UIPanelLayer layer, UIEventArgs arg)
-            //{
-            //    GameObject go = Resources.Load<GameObject>(path);
-            //    UIPanel p= go.GetComponent<UIPanel>();
-            //    return p;
-            //}
-            //UIModule.Get<AppCoverPanel>("UI/AppCoverPanel", UIPanelLayer.Common, "AppCover",UIEventArgs.Allocate<UIEventArgs>());
+            UI = Framework.env1.modules.CreateModule<UIModule>();
+            UI.AddLoader(UILoader);
+            UIPanel UILoader(Type type, string path, string name, UIPanelLayer layer)
+            {
+                GameObject go = Resources.Load<GameObject>(path);
+                UIPanel p = go.GetComponent<UIPanel>();
+                return p;
+            }
+
+
+            UI.SetUseMVVM(UIMap_MVVM.map);
+            UI.Get<UpdatePanel>(UIConfig.Name<UpdatePanel>(), UIConfig.Path<UpdatePanel>(), UIConfig.Layer<UpdatePanel>());
         }
 
        

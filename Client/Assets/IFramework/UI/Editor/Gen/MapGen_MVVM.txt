@@ -13,7 +13,7 @@ using IFramework;
 
 namespace #UserNameSpace#
 {
-	public class UIMap_MVVM 
+	public class #UserSCRIPTNAME# 
 	{
 		public static Dictionary<Type, Tuple<Type, Type, Type>> map =
 		new Dictionary<Type, Tuple<Type, Type, Type>>()

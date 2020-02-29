@@ -29,11 +29,11 @@ namespace IFramework
                 string realPath = filePath.ToAbsPath();
                 string txt = File.ReadAllText(realPath);
                 if (!txt.Contains("#FAuthor#")) return;
-                txt = txt.Replace("#FAuthor#", FrameworkConfig.Author)
-                         .Replace("#FNameSpace#", FrameworkConfig.FrameworkName)
-                         .Replace("#FDescription#", FrameworkConfig.Description)
+                txt = txt.Replace("#FAuthor#", EditorEnv.Author)
+                         .Replace("#FNameSpace#", EditorEnv.FrameworkName)
+                         .Replace("#FDescription#", EditorEnv.Description)
                          .Replace("#FSCRIPTNAME#", Path.GetFileNameWithoutExtension(filePath))
-                         .Replace("#FVERSION#", FrameworkConfig.Version)
+                         .Replace("#FVERSION#", EditorEnv.Version)
                          .Replace("#FUNITYVERSION#", Application.unityVersion)
                          .Replace("#FDATE#", DateTime.Now.ToString("yyyy-MM-dd"));
                 File.WriteAllText(realPath, txt, Encoding.UTF8);
@@ -41,7 +41,7 @@ namespace IFramework
             }
         }
         private static string newScriptName = "newScript.cs";
-        private static string originScriptPath = FrameworkConfig.CorePath.CombinePath(@"ScriptCreater/Simple/Editor/CSharpScript.txt");
+        private static string originScriptPath = EditorEnv.CorePath.CombinePath(@"ScriptCreater/Simple/Editor/CSharpScript.txt");
 
         [MenuItem("Assets/IFramework/CSharpScript")]
         public static void CreateUIBase()
