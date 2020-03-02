@@ -316,7 +316,7 @@ namespace IFramework
                     NameSpaces.Add(comp.GetType().Namespace);
                 }
                 NameSpaces = NameSpaces.Distinct().ToList();
-                NameSpaces.ForEach((ns) => {
+                NameSpaces.ForEach((ns) => { 
                     string tmp= "using ".Append(ns);
                     if (!txt.Contains(tmp))
                         res = res.Append(tmp).Append(";\n");

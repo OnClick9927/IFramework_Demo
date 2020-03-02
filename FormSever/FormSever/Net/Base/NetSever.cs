@@ -3,21 +3,28 @@ using IFramework.Serialization;
 using IFramework.Net;
 using IFramework;
 using System.Text;
+using IFramework.Packets;
+using System.Collections.Generic;
 namespace FormSever.Net
 {
     public class NetSever:IDisposable
     {
-        NetConnectionTokenPool tcpTokenPool;
-        NetConnectionTokenPool udpTokenPool;
+        private NetConnectionTokenPool tcpTokenPool;
+        private NetConnectionTokenPool udpTokenPool;
 
-        TcpServerToken tcp;
-        UdpServerToken udp;
+        private TcpServerToken tcp;
+        private UdpServerToken udp;
 
-        PacketReader tcpPkgReader;
-        PacketReader udpPkgReader;
+        private Dictionary<SocketToken, PacketReader> _tcpPkgs;
+        private Dictionary<SocketToken, PacketReader> _udpPkgs;
 
-        Encoding encoding = Encoding.UTF8;
+        private Encoding encoding = Encoding.UTF8;
 
+        public event Action<SocketToken> onTcpConn;
+        public event Action<SocketToken> onTcpDisconn;
+
+        public event Action<SocketToken, INetMessage> onTcpMessage;
+        public event Action<SocketToken, INetMessage> onUdpMessage;
 
         public NetSever()
         {
@@ -35,8 +42,9 @@ namespace FormSever.Net
             udp = new UdpServerToken(Configs.net.UDPMaxConn, Configs.net.UDPBuffersize);
             udp.onReceive = OnUdpRec;
 
-            tcpPkgReader = new PacketReader(Configs.net.TCPBuffersize * 2);
-            udpPkgReader = new PacketReader(Configs.net.UDPBuffersize * 2);
+            _tcpPkgs = new Dictionary<SocketToken, PacketReader>();
+            _udpPkgs = new Dictionary<SocketToken, PacketReader>();
+           
 
         }
         public void Run()
@@ -50,31 +58,35 @@ namespace FormSever.Net
             tcp.Dispose();
             udp.Stop();
             udp.Dispose();
+            _tcpPkgs.Clear();
+            _udpPkgs.Clear();
         }
 
 
-        public event Action<SocketToken> onTcpConn;
-        public event Action<SocketToken> onTcpDisconn;
-
-        public event Action<SocketToken, INetMessage> onTcpMessage;
-        public event Action<SocketToken, INetMessage> onUdpMessage;
 
         private void OnUdpRec(SocketToken token, BufferSegment seg)
         {
-            Framework.env0.modules.Loom.RunOnMainThread(() => {
-                Log.E(token.endPoint.Address);
-            });
+
             var tok= udpTokenPool.GetTokenBySocketToken(token);
             if (tok == null)
                 udpTokenPool.AddToken(new NetConnectionToken(token));
-            udpPkgReader.Set(seg.buffer, seg.offset, seg.count);
-            var pkgs = udpPkgReader.Get();
+
+            PacketReader pr;
+            if (!_udpPkgs.TryGetValue(token, out pr))
+            {
+                pr = new PacketReader(Configs.net.UDPBuffersize);
+                _udpPkgs.Add(token, pr);
+            }
+
+
+            pr.Set(seg.buffer, seg.offset, seg.count);
+            var pkgs = pr.Get();
             if (pkgs != null)
             {
                 pkgs.ForEach((p) =>
                 {
                     INetMessage msg = Json.ToObject(NetMessageTool.GetTypeByID(p.pkgID), encoding.GetString(p.message)) as INetMessage;
-                    Framework.env0.modules.Loom.RunOnMainThread(() =>
+                    APP.env.modules.Loom.RunOnMainThread(() =>
                     {
                         if (onUdpMessage != null)
                         {
@@ -89,7 +101,7 @@ namespace FormSever.Net
         private void OnTcpAccept(SocketToken token)
         {
             tcpTokenPool.AddToken(new NetConnectionToken(token));
-            Framework.env0.modules.Loom.RunOnMainThread(() => {
+            APP.env.modules.Loom.RunOnMainThread(() => {
                 Log.L(string.Format("One Tcp Connect  {0}", token.endPoint.Address));
                 onTcpConn?.Invoke(token);
             });
@@ -97,31 +109,42 @@ namespace FormSever.Net
         private void OnTcpDisConnect(SocketToken token)
         {
             tcpTokenPool.RemoveToken(token);
-            Framework.env0.modules.Loom.RunOnMainThread(() => {
+            APP.env.modules.Loom.RunOnMainThread(() => {
                 Log.L(string .Format("One Tcp DisConnect  {0}", token.endPoint.Address));
                 onTcpDisconn?.Invoke(token);
             });
         }
-
         private void OnTcpRec(SocketToken token, BufferSegment seg)
         {
             tcpTokenPool.RefreshConnectionToken(token);
-            tcpPkgReader.Set(seg.buffer, seg.offset, seg.count);
-            var pkgs = tcpPkgReader.Get();
+            PacketReader pr;
+            if (!_tcpPkgs.TryGetValue(token,out pr))
+            {
+                pr = new PacketReader(Configs.net.TCPBuffersize);
+                _tcpPkgs.Add(token, pr);
+            }
+
+            pr.Set(seg.buffer, seg.offset, seg.count);
+
+         
+            var pkgs = pr.Get();
             if (pkgs != null)
             {
-                pkgs.ForEach((p) =>
+                for (int i = 0; i < pkgs.Count; i++)
                 {
-                    INetMessage msg = Json.ToObject(NetMessageTool.GetTypeByID(p.pkgID), encoding.GetString(p.message)) as INetMessage;
-                    Framework.env0.modules.Loom.RunOnMainThread(() =>
+                    var p = pkgs[i];
+                    Type type = NetMessageTool.GetTypeByID(p.pkgID);
+                    string msgstr = encoding.GetString(p.message);
+                    INetMessage msg = Json.ToObject(type, msgstr) as INetMessage;
+                    APP.env.modules.Loom.RunOnMainThread(() =>
                     {
                         if (onTcpMessage != null)
                         {
                             onTcpMessage(token, msg);
                         }
                     });
-
-                });
+                }
+               
             }
         }
 
@@ -131,8 +154,8 @@ namespace FormSever.Net
         {
             var bytes = encoding.GetBytes(Json.ToJsonString(message));
             Packet pac = new Packet(1, NetMessageTool.GetIDByType(message.GetType()), 1, bytes);
-            bytes = pac.Pack();
-            return new BufferSegment(bytes);
+            var  buffer = pac.Pack();
+            return new BufferSegment(buffer, buffer.Length);
         }
         public void SendTcpMessage(SocketToken token, INetMessage message)
         {

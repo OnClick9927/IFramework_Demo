@@ -4,19 +4,19 @@
         <name>IFramework</name>
     </assembly>
     <members>
-        <member name="T:IFramework.OnFrameworkInitClassAttribute">
+        <member name="T:IFramework.OnEnvironmentInitAttribute">
             <summary>
             框架初始化时候调用被标记的静态类
             </summary>
         </member>
-        <member name="P:IFramework.OnFrameworkInitClassAttribute.type">
+        <member name="P:IFramework.OnEnvironmentInitAttribute.type">
             <summary>
             配合初始化的版本 0，
             默认初始化，其他自行规定，用于区分环境，
             一般某个环境特有的静态类和环境编号一致
             </summary>
         </member>
-        <member name="M:IFramework.OnFrameworkInitClassAttribute.#ctor(IFramework.EnvironmentType)">
+        <member name="M:IFramework.OnEnvironmentInitAttribute.#ctor(IFramework.EnvironmentType)">
             <summary>
             Ctor
             </summary>
@@ -82,11 +82,6 @@
             环境是否已经初始化
             </summary>
         </member>
-        <member name="P:IFramework.FrameworkEnvironment.disposed">
-            <summary>
-            环境是否被释放
-            </summary>
-        </member>
         <member name="P:IFramework.FrameworkEnvironment.cyclePool">
             <summary>
             IRecyclable 实例的环境容器
@@ -141,7 +136,7 @@
             初始化环境，4.X 使用
             </summary>
         </member>
-        <member name="M:IFramework.FrameworkEnvironment.Dispose">
+        <member name="M:IFramework.FrameworkEnvironment.OnDispose">
             <summary>
             释放
             </summary>
@@ -156,17 +151,17 @@
             框架提供的模块
             </summary>
         </member>
-        <member name="T:IFramework.Modules.APP.FrameworkAppModule">
+        <member name="T:IFramework.Modules.FrameworkAppModule">
             <summary>
             一个app的总管理，需要自己写
             </summary>
         </member>
-        <member name="P:IFramework.Modules.APP.FrameworkAppModule.appVersion">
+        <member name="P:IFramework.Modules.FrameworkAppModule.appVersion">
             <summary>
             app 版本
             </summary>
         </member>
-        <member name="P:IFramework.Modules.APP.FrameworkAppModule.appName">
+        <member name="P:IFramework.Modules.FrameworkAppModule.appName">
             <summary>
             app名称
             </summary>
@@ -377,25 +372,25 @@
             模仿Ecs结构
             </summary>
         </member>
-        <member name="M:IFramework.Modules.ECS.ECSModule.CreateEnity``1">
+        <member name="M:IFramework.Modules.ECS.ECSModule.CreateEntity``1">
             <summary>
             创建实体，创建完，注册
             </summary>
-            <typeparam name="TEnity"></typeparam>
+            <typeparam name="TEntity"></typeparam>
             <returns></returns>
         </member>
-        <member name="M:IFramework.Modules.ECS.ECSModule.SubscribeEnity``1(``0)">
+        <member name="M:IFramework.Modules.ECS.ECSModule.SubscribeEntity``1(``0)">
             <summary>
             注册实体
             </summary>
-            <typeparam name="TEnity"></typeparam>
-            <param name="enity"></param>
+            <typeparam name="TEntity"></typeparam>
+            <param name="entity"></param>
         </member>
-        <member name="M:IFramework.Modules.ECS.ECSModule.UnSubscribeEnity(IFramework.Modules.ECS.IEnity)">
+        <member name="M:IFramework.Modules.ECS.ECSModule.UnSubscribeEntity(IFramework.Modules.ECS.IEntity)">
             <summary>
             解除注册实体
             </summary>
-            <param name="enity"></param>
+            <param name="entity"></param>
         </member>
         <member name="M:IFramework.Modules.ECS.ECSModule.SubscribeSystem(IFramework.Modules.ECS.IExcuteSystem)">
             <summary>
@@ -409,203 +404,207 @@
             </summary>
             <param name="system"></param>
         </member>
-        <member name="T:IFramework.Modules.ECS.IEnity">
+        <member name="T:IFramework.Modules.ECS.IEntity">
             <summary>
             实体
             </summary>
         </member>
-        <member name="P:IFramework.Modules.ECS.IEnity._mou">
+        <member name="P:IFramework.Modules.ECS.IEntity._mou">
             <summary>
             注册的模块
             </summary>
         </member>
-        <member name="M:IFramework.Modules.ECS.IEnity.GetComponent(System.Type)">
+        <member name="M:IFramework.Modules.ECS.IEntity.GetComponent(System.Type)">
             <summary>
             获取组件
             </summary>
             <param name="type"></param>
             <returns></returns>
         </member>
-        <member name="M:IFramework.Modules.ECS.IEnity.GetComponent``1">
+        <member name="M:IFramework.Modules.ECS.IEntity.GetComponent``1">
             <summary>
             湖区组件
             </summary>
             <typeparam name="T"></typeparam>
             <returns></returns>
         </member>
-        <member name="M:IFramework.Modules.ECS.IEnity.AddComponent(System.Type)">
+        <member name="M:IFramework.Modules.ECS.IEntity.AddComponent(System.Type)">
             <summary>
             添加组件
             </summary>
             <param name="type"></param>
             <returns></returns>
         </member>
-        <member name="M:IFramework.Modules.ECS.IEnity.AddComponent``1">
+        <member name="M:IFramework.Modules.ECS.IEntity.AddComponent``1">
             <summary>
             添加组件
             </summary>
             <typeparam name="T"></typeparam>
             <returns></returns>
         </member>
-        <member name="M:IFramework.Modules.ECS.IEnity.AddComponent(IFramework.Modules.ECS.IComponent)">
+        <member name="M:IFramework.Modules.ECS.IEntity.AddComponent(IFramework.Modules.ECS.IComponent,System.Boolean)">
             <summary>
             添加组件
             </summary>
             <param name="component"></param>
+            <param name="useSame"></param>
             <returns></returns>
         </member>
-        <member name="M:IFramework.Modules.ECS.IEnity.AddComponent``1(``0)">
+        <member name="M:IFramework.Modules.ECS.IEntity.AddComponent``1(``0,System.Boolean)">
             <summary>
             添加组件
             </summary>
             <typeparam name="T"></typeparam>
             <param name="component"></param>
+            <param name="useSame"></param>
             <returns></returns>
         </member>
-        <member name="M:IFramework.Modules.ECS.IEnity.RemoveComponent(System.Type)">
+        <member name="M:IFramework.Modules.ECS.IEntity.RemoveComponent(System.Type)">
             <summary>
             移除组件
             </summary>
             <param name="type"></param>
         </member>
-        <member name="M:IFramework.Modules.ECS.IEnity.RemoveComponent``1">
+        <member name="M:IFramework.Modules.ECS.IEntity.RemoveComponent``1">
             <summary>
             移除组件
             </summary>
             <typeparam name="T"></typeparam>
         </member>
-        <member name="M:IFramework.Modules.ECS.IEnity.ContainsComponent(System.Type)">
+        <member name="M:IFramework.Modules.ECS.IEntity.ContainsComponent(System.Type)">
             <summary>
             是否包含组件
             </summary>
             <param name="type"></param>
             <returns></returns>
         </member>
-        <member name="M:IFramework.Modules.ECS.IEnity.ContainsComponent``1">
+        <member name="M:IFramework.Modules.ECS.IEntity.ContainsComponent``1">
             <summary>
             是否包含组件
             </summary>
             <typeparam name="T"></typeparam>
             <returns></returns>
         </member>
-        <member name="M:IFramework.Modules.ECS.IEnity.ReFreshComponent(System.Type,IFramework.Modules.ECS.IComponent)">
+        <member name="M:IFramework.Modules.ECS.IEntity.ReFreshComponent(System.Type,IFramework.Modules.ECS.IComponent)">
             <summary>
             直接替换原组件，结构体必须使用这个方法刷新数据
             </summary>
             <param name="type"></param>
             <param name="component"></param>
         </member>
-        <member name="M:IFramework.Modules.ECS.IEnity.ReFreshComponent``1(``0)">
+        <member name="M:IFramework.Modules.ECS.IEntity.ReFreshComponent``1(``0)">
             <summary>
             直接替换原组件，结构体必须使用这个方法刷新数据
             </summary>
             <typeparam name="T"></typeparam>
             <param name="component"></param>
         </member>
-        <member name="M:IFramework.Modules.ECS.IEnity.Destory">
+        <member name="M:IFramework.Modules.ECS.IEntity.Destory">
             <summary>
             解除模块注册
             </summary>
         </member>
-        <member name="T:IFramework.Modules.ECS.Enity">
+        <member name="T:IFramework.Modules.ECS.Entity">
             <summary>
             实体
             </summary>
         </member>
-        <member name="P:IFramework.Modules.ECS.Enity._mou">
+        <member name="P:IFramework.Modules.ECS.Entity._mou">
             <summary>
             注册的模块
             </summary>
         </member>
-        <member name="M:IFramework.Modules.ECS.Enity.GetComponent(System.Type)">
+        <member name="M:IFramework.Modules.ECS.Entity.GetComponent(System.Type)">
             <summary>
             获取组件
             </summary>
             <param name="type"></param>
             <returns></returns>
         </member>
-        <member name="M:IFramework.Modules.ECS.Enity.GetComponent``1">
+        <member name="M:IFramework.Modules.ECS.Entity.GetComponent``1">
             <summary>
             湖区组件
             </summary>
             <typeparam name="T"></typeparam>
             <returns></returns>
         </member>
-        <member name="M:IFramework.Modules.ECS.Enity.AddComponent(System.Type)">
+        <member name="M:IFramework.Modules.ECS.Entity.AddComponent(System.Type)">
             <summary>
             添加组件
             </summary>
             <param name="type"></param>
             <returns></returns>
         </member>
-        <member name="M:IFramework.Modules.ECS.Enity.AddComponent``1">
+        <member name="M:IFramework.Modules.ECS.Entity.AddComponent``1">
             <summary>
             添加组件
             </summary>
             <typeparam name="T"></typeparam>
             <returns></returns>
         </member>
-        <member name="M:IFramework.Modules.ECS.Enity.AddComponent(IFramework.Modules.ECS.IComponent)">
+        <member name="M:IFramework.Modules.ECS.Entity.AddComponent(IFramework.Modules.ECS.IComponent,System.Boolean)">
             <summary>
             添加组件
             </summary>
             <param name="component"></param>
+            <param name="useSame"></param>
             <returns></returns>
         </member>
-        <member name="M:IFramework.Modules.ECS.Enity.AddComponent``1(``0)">
+        <member name="M:IFramework.Modules.ECS.Entity.AddComponent``1(``0,System.Boolean)">
             <summary>
             添加组件
             </summary>
             <typeparam name="T"></typeparam>
             <param name="component"></param>
+            <param name="useSame"></param>
             <returns></returns>
         </member>
-        <member name="M:IFramework.Modules.ECS.Enity.RemoveComponent(System.Type)">
+        <member name="M:IFramework.Modules.ECS.Entity.RemoveComponent(System.Type)">
             <summary>
             移除组件
             </summary>
             <param name="type"></param>
         </member>
-        <member name="M:IFramework.Modules.ECS.Enity.RemoveComponent``1">
+        <member name="M:IFramework.Modules.ECS.Entity.RemoveComponent``1">
             <summary>
             移除组件
             </summary>
             <typeparam name="T"></typeparam>
         </member>
-        <member name="M:IFramework.Modules.ECS.Enity.ContainsComponent(System.Type)">
+        <member name="M:IFramework.Modules.ECS.Entity.ContainsComponent(System.Type)">
             <summary>
             是否包含组件
             </summary>
             <param name="type"></param>
             <returns></returns>
         </member>
-        <member name="M:IFramework.Modules.ECS.Enity.ContainsComponent``1">
+        <member name="M:IFramework.Modules.ECS.Entity.ContainsComponent``1">
             <summary>
             是否包含组件
             </summary>
             <typeparam name="T"></typeparam>
             <returns></returns>
         </member>
-        <member name="M:IFramework.Modules.ECS.Enity.ReFreshComponent(System.Type,IFramework.Modules.ECS.IComponent)">
+        <member name="M:IFramework.Modules.ECS.Entity.ReFreshComponent(System.Type,IFramework.Modules.ECS.IComponent)">
             <summary>
             直接替换原组件，结构体必须使用这个方法刷新数据
             </summary>
             <param name="type"></param>
             <param name="component"></param>
         </member>
-        <member name="M:IFramework.Modules.ECS.Enity.ReFreshComponent``1(``0)">
+        <member name="M:IFramework.Modules.ECS.Entity.ReFreshComponent``1(``0)">
             <summary>
             直接替换原组件，结构体必须使用这个方法刷新数据
             </summary>
             <typeparam name="T"></typeparam>
             <param name="component"></param>
         </member>
-        <member name="M:IFramework.Modules.ECS.Enity.Destory">
+        <member name="M:IFramework.Modules.ECS.Entity.Destory">
             <summary>
             解除模块注册
             </summary>
         </member>
-        <member name="M:IFramework.Modules.ECS.Enity.OnDestory">
+        <member name="M:IFramework.Modules.ECS.Entity.OnDestory">
             <summary>
             解除模块注册时调用
             </summary>
@@ -614,7 +613,7 @@
             <summary>
             处理系统
             </summary>
-            <typeparam name="TEnity"></typeparam>
+            <typeparam name="TEntity"></typeparam>
         </member>
         <member name="M:IFramework.Modules.ECS.ExcuteSystem`1.#ctor(IFramework.Modules.ECS.ECSModule)">
             <summary>
@@ -622,7 +621,7 @@
             </summary>
             <param name="module"></param>
         </member>
-        <member name="M:IFramework.Modules.ECS.ExcuteSystem`1.GetEnitys">
+        <member name="M:IFramework.Modules.ECS.ExcuteSystem`1.GetEntitys">
             <summary>
             获取所有实体（模块内）
             </summary>
@@ -632,14 +631,14 @@
             <summary>
             适配
             </summary>
-            <param name="enity"></param>
+            <param name="entity"></param>
             <returns></returns>
         </member>
         <member name="M:IFramework.Modules.ECS.ExcuteSystem`1.Excute(`0)">
             <summary>
             操作合法实体
             </summary>
-            <param name="enity"></param>
+            <param name="entity"></param>
         </member>
         <member name="M:IFramework.Modules.ECS.ExcuteSystem`1.OnModuleDispose">
             <summary>
@@ -715,19 +714,9 @@
             代码块
             </summary>
         </member>
-        <member name="P:IFramework.Modules.FrameworkModule.name">
-            <summary>
-            模块名
-            </summary>
-        </member>
         <member name="P:IFramework.Modules.FrameworkModule.binded">
             <summary>
             是否绑定了
-            </summary>
-        </member>
-        <member name="P:IFramework.Modules.FrameworkModule.disposed">
-            <summary>
-            是否被释放
             </summary>
         </member>
         <member name="P:IFramework.Modules.FrameworkModule.container">
@@ -840,7 +829,7 @@
             </summary>
             <param name="dispose"></param>
         </member>
-        <member name="M:IFramework.Modules.FrameworkModuleContainer.Dispose">
+        <member name="M:IFramework.Modules.FrameworkModuleContainer.OnDispose">
             <summary>
             释放
             </summary>
@@ -850,19 +839,19 @@
             刷新
             </summary>
         </member>
-        <member name="T:IFramework.Modules.Loom.LoomModule">
+        <member name="T:IFramework.Modules.LoomModule">
             <summary>
             线程反馈模块
             </summary>
         </member>
-        <member name="M:IFramework.Modules.Loom.LoomModule.RunOnMainThread(System.Action,System.Single)">
+        <member name="M:IFramework.Modules.LoomModule.RunOnMainThread(System.Action,System.Single)">
             <summary>
             在主线程跑一个方法
             </summary>
             <param name="action"></param>
             <param name="time">延时</param>
         </member>
-        <member name="M:IFramework.Modules.Loom.LoomModule.RunOnSubThread(System.Action)">
+        <member name="M:IFramework.Modules.LoomModule.RunOnSubThread(System.Action)">
             <summary>
             在子线程跑一个方法
             </summary>
@@ -994,7 +983,7 @@
             <param name="param"></param>
             <returns></returns>
         </member>
-        <member name="T:IFramework.Modules.MVP.MVPEnity">
+        <member name="T:IFramework.Modules.MVP.MVPEntity">
             <summary>
             MVP结构的实体
             </summary>
@@ -1004,11 +993,11 @@
             MVp组
             </summary>
         </member>
-        <member name="M:IFramework.Modules.MVP.MVPGroup.#ctor(IFramework.Modules.MVP.MVPEnity,IFramework.Modules.MVP.SensorSystem,IFramework.Modules.MVP.PolicySystem,IFramework.Modules.MVP.PolicyExecutorSystem,IFramework.Modules.MVP.ViewSystem,System.String)">
+        <member name="M:IFramework.Modules.MVP.MVPGroup.#ctor(IFramework.Modules.MVP.MVPEntity,IFramework.Modules.MVP.SensorSystem,IFramework.Modules.MVP.PolicySystem,IFramework.Modules.MVP.PolicyExecutorSystem,IFramework.Modules.MVP.ViewSystem,System.String)">
             <summary>
             ctor
             </summary>
-            <param name="enity"></param>
+            <param name="entity"></param>
             <param name="sensor"></param>
             <param name="policy"></param>
             <param name="executor"></param>
@@ -1020,7 +1009,7 @@
             名字
             </summary>
         </member>
-        <member name="P:IFramework.Modules.MVP.MVPGroup.enity">
+        <member name="P:IFramework.Modules.MVP.MVPGroup.entity">
             <summary>
             实体
             </summary>
@@ -1095,7 +1084,7 @@
             消息转发
             </summary>
         </member>
-        <member name="P:IFramework.Modules.MVP.MVPSystem.enity">
+        <member name="P:IFramework.Modules.MVP.MVPSystem.entity">
             <summary>
             实体
             </summary>
@@ -1105,7 +1094,7 @@
             组释放时
             </summary>
         </member>
-        <member name="M:IFramework.Modules.MVP.MVPSystem.OnSetEnity(IFramework.Modules.MVP.MVPEnity)">
+        <member name="M:IFramework.Modules.MVP.MVPSystem.OnSetEntity(IFramework.Modules.MVP.MVPEntity)">
             <summary>
             被设置实体
             </summary>
@@ -1264,6 +1253,11 @@
             数据
             </summary>
         </member>
+        <member name="T:IFramework.Modules.MVVM.EmptyDataModel">
+            <summary>
+            空数据模型
+            </summary>
+        </member>
         <member name="T:IFramework.Modules.MVVM.MVVMGroup">
             <summary>
             MVVM 组结构
@@ -1420,6 +1414,11 @@
             数据
             </summary>
         </member>
+        <member name="M:IFramework.Modules.MVVM.ViewModel.Initialize">
+            <summary>
+            初始化
+            </summary>
+        </member>
         <member name="M:IFramework.Modules.MVVM.ViewModel.SyncModelValue">
             <summary>
             同步model数据
@@ -1450,29 +1449,29 @@
             方便书写
             </summary>
         </member>
-        <member name="T:IFramework.Modules.Threads.ThreadModule">
+        <member name="T:IFramework.Modules.ThreadModule">
             <summary>
             线程池模块
             </summary>
         </member>
-        <member name="M:IFramework.Modules.Threads.ThreadModule.RunTask(System.Action,System.Action)">
+        <member name="M:IFramework.Modules.ThreadModule.RunTask(System.Action,System.Action)">
             <summary>
             跑一个线程任务
             </summary>
             <param name="task"></param>
             <param name="callback"></param>
         </member>
-        <member name="T:IFramework.Modules.Timer.TaskState">
+        <member name="T:IFramework.Modules.TaskState">
             <summary>
             时间任务状态
             </summary>
         </member>
-        <member name="T:IFramework.Modules.Timer.TimerModule">
+        <member name="T:IFramework.Modules.TimerModule">
             <summary>
             计时器模块
             </summary>
         </member>
-        <member name="M:IFramework.Modules.Timer.TimerModule.RunTask(System.Double,System.Action,System.Action,System.Double,System.Int32)">
+        <member name="M:IFramework.Modules.TimerModule.RunTask(System.Double,System.Action,System.Action,System.Double,System.Int32)">
             <summary>
             运行一个时间任务
             </summary>
@@ -1483,25 +1482,25 @@
             <param name="count"></param>
             <returns></returns>
         </member>
-        <member name="M:IFramework.Modules.Timer.TimerModule.StopTask(System.String)">
+        <member name="M:IFramework.Modules.TimerModule.StopTask(System.String)">
             <summary>
             结束一个时间任务
             </summary>
             <param name="id"></param>
         </member>
-        <member name="M:IFramework.Modules.Timer.TimerModule.PauseTask(System.String)">
+        <member name="M:IFramework.Modules.TimerModule.PauseTask(System.String)">
             <summary>
             暂停一个时间任务
             </summary>
             <param name="id"></param>
         </member>
-        <member name="M:IFramework.Modules.Timer.TimerModule.UnPauseTask(System.String)">
+        <member name="M:IFramework.Modules.TimerModule.UnPauseTask(System.String)">
             <summary>
             重启一个任务
             </summary>
             <param name="id"></param>
         </member>
-        <member name="M:IFramework.Modules.Timer.TimerModule.GetTaskState(System.String)">
+        <member name="M:IFramework.Modules.TimerModule.GetTaskState(System.String)">
             <summary>
             获取任务的状态
             </summary>
@@ -1794,47 +1793,9 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="T:IFramework.ObservableValue`1">
-            <summary>
-            可观测树值
-            </summary>
-            <typeparam name="T"></typeparam>
-        </member>
-        <member name="F:IFramework.ObservableValue`1.ValuePropertyName">
-            <summary>
-            默认的名字
-            </summary>
-        </member>
-        <member name="P:IFramework.ObservableValue`1.value">
-            <summary>
-            具体的数值
-            </summary>
-        </member>
-        <member name="M:IFramework.ObservableValue`1.#ctor(`0)">
-            <summary>
-            Ctor
-            </summary>
-            <param name="value"></param>
-        </member>
-        <member name="M:IFramework.ObservableValue`1.Subscribe(System.Action)">
-            <summary>
-            注册 value 变化监听
-            </summary>
-            <param name="listener"></param>
-        </member>
-        <member name="M:IFramework.ObservableValue`1.UnSubscribe(System.Action)">
-            <summary>
-            取消注册 value 变化监听
-            </summary>
-            <param name="listener"></param>
-        </member>
-        <member name="M:IFramework.ObservableValue`1.op_Implicit(IFramework.ObservableValue{`0})~`0">
-            <summary>
-            方便书写，缩减代码
-            </summary>
-            <param name="value"></param>
-        </member>
         <member name="T:IFramework.ObservableObject">
+<<<<<<< HEAD
+=======
             <summary>
             可观测 Object
             </summary>
@@ -1934,17 +1895,698 @@
             <param name="_object"> ObservableObject </param>
             <param name="propertyName"> 属性名称 </param>
         </member>
+        <member name="T:IFramework.ObservableValue`1">
+            <summary>
+            可观测树值
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:IFramework.ObservableValue`1.ValuePropertyName">
+            <summary>
+            默认的名字
+            </summary>
+        </member>
+        <member name="P:IFramework.ObservableValue`1.value">
+            <summary>
+            具体的数值
+            </summary>
+        </member>
+        <member name="M:IFramework.ObservableValue`1.#ctor(`0)">
+            <summary>
+            Ctor
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:IFramework.ObservableValue`1.Subscribe(System.Action)">
+            <summary>
+            注册 value 变化监听
+            </summary>
+            <param name="listener"></param>
+        </member>
+        <member name="M:IFramework.ObservableValue`1.UnSubscribe(System.Action)">
+            <summary>
+            取消注册 value 变化监听
+            </summary>
+            <param name="listener"></param>
+        </member>
+        <member name="M:IFramework.ObservableValue`1.op_Implicit(IFramework.ObservableValue{`0})~`0">
+            <summary>
+            方便书写，缩减代码
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="T:IFramework.Serialization.DataTable.DataColumn">
+>>>>>>> 8dd9a8102242bc54e0da87325961219c8f72c436
+            <summary>
+            每一个格子
+            </summary>
+        </member>
+        <member name="F:IFramework.Serialization.DataTable.DataColumn.HeadLineName">
+            <summary>
+            标题名称
+            </summary>
+        </member>
+        <member name="F:IFramework.Serialization.DataTable.DataColumn.StrValue">
+            <summary>
+            string 数据
+            </summary>
+        </member>
+        <member name="T:IFramework.Serialization.DataTable.DataColumnNameAttribute">
+            <summary>
+            设置数据表标题
+            </summary>
+        </member>
+        <member name="M:IFramework.Serialization.DataTable.DataColumnNameAttribute.#ctor(System.String)">
+            <summary>
+            ctor
+            </summary>
+            <param name="name">名称</param>
+        </member>
+        <member name="P:IFramework.Serialization.DataTable.DataColumnNameAttribute.name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="T:IFramework.Serialization.DataTable.DataIgnoreAttribute">
+            <summary>
+            数据表忽略的成员
+            </summary>
+        </member>
+        <member name="T:IFramework.Serialization.DataTable.DataReader">
+            <summary>
+            数据表读者
+            </summary>
+        </member>
+        <member name="M:IFramework.Serialization.DataTable.DataReader.#ctor(System.IO.StreamReader,IFramework.Serialization.DataTable.IDataRow,IFramework.Serialization.DataTable.IDataExplainer)">
+            <summary>
+            Ctor
+            </summary>
+            <param name="streamReader">流读者</param>
+            <param name="rowReader">行读者</param>
+            <param name="explainer">数据解释器</param>
+        </member>
+        <member name="M:IFramework.Serialization.DataTable.DataReader.#ctor(System.String,IFramework.Serialization.DataTable.IDataRow,IFramework.Serialization.DataTable.IDataExplainer)">
+            <summary>
+            Ctor
+            </summary>
+            <param name="text">数据表字符串</param>
+            <param name="rowReader">行读者</param>
+            <param name="explainer">数据解释器</param>
+        </member>
+        <member name="M:IFramework.Serialization.DataTable.DataReader.Dispose">
+            <summary>
+            释放
+            </summary>
+        </member>
+        <member name="M:IFramework.Serialization.DataTable.DataReader.Get``1">
+            <summary>
+            获取一张表数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="T:IFramework.Serialization.DataTable.DataWriter">
+            <summary>
+            数据写入者
+            </summary>
+        </member>
+        <member name="M:IFramework.Serialization.DataTable.DataWriter.#ctor(System.IO.StreamWriter,IFramework.Serialization.DataTable.IDataRow,IFramework.Serialization.DataTable.IDataExplainer)">
+            <summary>
+            Ctor
+            </summary>
+            <param name="streamWriter">流写者</param>
+            <param name="rowWriter">行写者</param>
+            <param name="explainer">数据解释器</param>
+        </member>
+<<<<<<< HEAD
+        <member name="M:IFramework.ObservableObject.OnDispose">
+=======
+        <member name="M:IFramework.Serialization.DataTable.DataWriter.#ctor(IFramework.Serialization.DataTable.IDataRow,IFramework.Serialization.DataTable.IDataExplainer)">
+            <summary>
+            Ctor
+            </summary>
+            <param name="rowWriter">行写者</param>
+            <param name="explainer">数据解释器</param>
+        </member>
+        <member name="M:IFramework.Serialization.DataTable.DataWriter.Dispose">
+            <summary>
+            释放
+            </summary>
+        </member>
+        <member name="M:IFramework.Serialization.DataTable.DataWriter.WriteString``1(System.Collections.Generic.List{``0})">
+>>>>>>> 8dd9a8102242bc54e0da87325961219c8f72c436
+            <summary>
+            写入到string
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="source">数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:IFramework.Serialization.DataTable.DataWriter.Write``1(System.Collections.Generic.List{``0})">
+            <summary>
+            写入一个表
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="source"></param>
+        </member>
+        <member name="T:IFramework.Serialization.DataTable.IDataExplainer">
+            <summary>
+            string 解释器
+            </summary>
+        </member>
+        <member name="M:IFramework.Serialization.DataTable.IDataExplainer.CreatInstance``1(System.Collections.Generic.List{IFramework.Serialization.DataTable.DataColumn},System.Collections.Generic.Dictionary{System.Reflection.MemberInfo,System.String})">
+            <summary>
+            根据格子反序列化一个实例
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cols"></param>
+            <param name="membersDic">需要反序列化的成员</param>
+            <returns></returns>
+        </member>
+        <member name="M:IFramework.Serialization.DataTable.IDataExplainer.GetColumns``1(``0,System.Collections.Generic.Dictionary{System.Reflection.MemberInfo,System.String})">
+            <summary>
+            根据 具体类型 获取单个数据格子数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="t"></param>
+            <param name="membersDic">需要序列化的成员</param>
+            <returns></returns>
+        </member>
+        <member name="T:IFramework.Serialization.DataTable.DataExplainer">
+            <summary>
+            string 解释器
+            </summary>
+        </member>
+        <member name="M:IFramework.Serialization.DataTable.DataExplainer.CreatInstance``1">
+            <summary>
+            创建实例
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:IFramework.Serialization.DataTable.DataExplainer.CreatInstance``1(System.Collections.Generic.List{IFramework.Serialization.DataTable.DataColumn},System.Collections.Generic.Dictionary{System.Reflection.MemberInfo,System.String})">
+            <summary>
+            根据格子反序列化一个实例
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cols"></param>
+            <param name="membersDic">需要反序列化的成员</param>
+            <returns></returns>
+        </member>
+        <member name="M:IFramework.Serialization.DataTable.DataExplainer.GetColumns``1(``0,System.Collections.Generic.Dictionary{System.Reflection.MemberInfo,System.String})">
+            <summary>
+            根据 具体类型 获取单个数据格子数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="t"></param>
+            <param name="membersDic">需要序列化的成员</param>
+            <returns></returns>
+        </member>
+        <member name="T:IFramework.Serialization.DataTable.IDataRow">
+            <summary>
+            数据行
+            </summary>
+        </member>
+        <member name="M:IFramework.Serialization.DataTable.IDataRow.ReadLine(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            读取一行
+            </summary>
+            <param name="val">行String</param>
+            <param name="headNames">标题行</param>
+            <returns></returns>
+        </member>
+        <member name="M:IFramework.Serialization.DataTable.IDataRow.ReadHeadLine(System.String)">
+            <summary>
+            读取标题行
+            </summary>
+            <param name="val">行String</param>
+            <returns></returns>
+        </member>
+        <member name="M:IFramework.Serialization.DataTable.IDataRow.WriteLine(System.Collections.Generic.List{IFramework.Serialization.DataTable.DataColumn})">
+            <summary>
+            写入一行
+            </summary>
+            <param name="cols">写入的信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:IFramework.Serialization.DataTable.IDataRow.WriteHeadLine(System.Collections.Generic.List{System.String})">
+            <summary>
+            写入标题行
+            </summary>
+            <param name="headNames">写入的标题</param>
+            <returns></returns>
+        </member>
+        <member name="T:IFramework.Serialization.DataTable.DataRow">
+            <summary>
+            数据行
+            </summary>
+        </member>
+        <member name="M:IFramework.Serialization.DataTable.DataRow.ReadLine(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            读取一行
+            </summary>
+            <param name="val">行String</param>
+            <param name="headNames">标题行</param>
+            <returns></returns>
+        </member>
+        <member name="M:IFramework.Serialization.DataTable.DataRow.SpilitRow(System.String)">
+            <summary>
+            切割一行
+            </summary>
+            <param name="val"></param>
+            <returns></returns>
+        </member>
+        <member name="M:IFramework.Serialization.DataTable.DataRow.ReadHeadLine(System.String)">
+            <summary>
+            读取标题行
+            </summary>
+            <param name="val">行String</param>
+            <returns></returns>
+        </member>
+        <member name="M:IFramework.Serialization.DataTable.DataRow.WriteLine(System.Collections.Generic.List{IFramework.Serialization.DataTable.DataColumn})">
+            <summary>
+            写入一行
+            </summary>
+            <param name="cols">写入的信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:IFramework.Serialization.DataTable.DataRow.WriteHeadLine(System.Collections.Generic.List{System.String})">
+            <summary>
+            写入标题行
+            </summary>
+            <param name="headNames">写入的标题</param>
+            <returns></returns>
+        </member>
+        <member name="T:IFramework.ObservableValue`1">
+            <summary>
+            可观测树值
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+<<<<<<< HEAD
+        <member name="F:IFramework.ObservableValue`1.ValuePropertyName">
+=======
+        <member name="P:IFramework.Utility.Astar.AStarMap2X.Item(IFramework.Point2)">
+>>>>>>> 8dd9a8102242bc54e0da87325961219c8f72c436
+            <summary>
+            默认的名字
+            </summary>
+<<<<<<< HEAD
+=======
+            <returns></returns>
+>>>>>>> 8dd9a8102242bc54e0da87325961219c8f72c436
+        </member>
+        <member name="P:IFramework.ObservableValue`1.value">
+            <summary>
+            具体的数值
+            </summary>
+        </member>
+        <member name="M:IFramework.ObservableValue`1.#ctor(`0)">
+            <summary>
+            Ctor
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:IFramework.ObservableValue`1.Subscribe(System.Action)">
+            <summary>
+            注册 value 变化监听
+            </summary>
+            <param name="listener"></param>
+        </member>
+        <member name="M:IFramework.ObservableValue`1.UnSubscribe(System.Action)">
+            <summary>
+            取消注册 value 变化监听
+            </summary>
+            <param name="listener"></param>
+        </member>
+        <member name="M:IFramework.ObservableValue`1.op_Implicit(IFramework.ObservableValue{`0})~`0">
+            <summary>
+            方便书写，缩减代码
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="T:IFramework.RecyclableObject">
+            <summary>
+            可回收类
+            </summary>
+        </member>
+        <member name="P:IFramework.RecyclableObject.recyled">
+            <summary>
+            是否被回收
+            </summary>
+        </member>
+        <member name="P:IFramework.RecyclableObject.dataDirty">
+            <summary>
+            数据是否发生改变
+            </summary>
+        </member>
+        <member name="P:IFramework.RecyclableObject.env">
+            <summary>
+            当前所处环境
+            </summary>
+        </member>
+<<<<<<< HEAD
+        <member name="M:IFramework.RecyclableObject.Allocate(System.Type,IFramework.EnvironmentType)">
+=======
+        <member name="P:IFramework.Utility.Astar.AStarMap3X.Item(IFramework.Point3)">
+>>>>>>> 8dd9a8102242bc54e0da87325961219c8f72c436
+            <summary>
+            分配一个实例
+            </summary>
+<<<<<<< HEAD
+            <param name="type">类型</param>
+            <param name=" envType"></param>
+=======
+>>>>>>> 8dd9a8102242bc54e0da87325961219c8f72c436
+            <returns></returns>
+        </member>
+        <member name="M:IFramework.RecyclableObject.Allocate(System.Type,IFramework.FrameworkEnvironment)">
+            <summary>
+            分配一个实例
+            </summary>
+            <param name="type"></param>
+            <param name="env"></param>
+            <returns></returns>
+        </member>
+        <member name="M:IFramework.RecyclableObject.Allocate``1(IFramework.EnvironmentType)">
+            <summary>
+            分配一个实例
+            </summary>
+            <typeparam name="T"> RecyclableObject </typeparam>
+            <param name=" envType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:IFramework.RecyclableObject.Allocate``1(IFramework.FrameworkEnvironment)">
+            <summary>
+            分配一个实例
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="env"></param>
+            <returns></returns>
+        </member>
+        <member name="M:IFramework.RecyclableObject.OnAllocate">
+            <summary>
+            被分配时
+            </summary>
+        </member>
+        <member name="M:IFramework.RecyclableObject.Recyle">
+            <summary>
+            回收
+            </summary>
+        </member>
+        <member name="M:IFramework.RecyclableObject.ResetData">
+            <summary>
+            重置数据
+            </summary>
+        </member>
+<<<<<<< HEAD
+        <member name="M:IFramework.RecyclableObject.SetDataDirty">
+            <summary>
+            设置数据发生改动
+            </summary>
+        </member>
+        <member name="M:IFramework.RecyclableObject.OnRecyle">
+            <summary>
+            被回收时
+            </summary>
+        </member>
+        <member name="M:IFramework.RecyclableObject.OnDataReset">
+=======
+        <member name="P:IFramework.Utility.Astar.AStarNode2X.mapPos">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:IFramework.Utility.Astar.AStarNode2X.#ctor(IFramework.Point2,IFramework.Utility.Astar.AStarNodeType)">
+>>>>>>> 8dd9a8102242bc54e0da87325961219c8f72c436
+            <summary>
+            数据重置时
+            </summary>
+<<<<<<< HEAD
+=======
+            <param name="mapPos"></param>
+            <param name="nodeType"></param>
+>>>>>>> 8dd9a8102242bc54e0da87325961219c8f72c436
+        </member>
+        <member name="T:IFramework.Serialization.DataTable.DataColumn">
+            <summary>
+            每一个格子
+            </summary>
+        </member>
+        <member name="F:IFramework.Serialization.DataTable.DataColumn.HeadLineName">
+            <summary>
+            标题名称
+            </summary>
+        </member>
+        <member name="F:IFramework.Serialization.DataTable.DataColumn.StrValue">
+            <summary>
+            string 数据
+            </summary>
+        </member>
+        <member name="T:IFramework.Serialization.DataTable.DataColumnNameAttribute">
+            <summary>
+            设置数据表标题
+            </summary>
+        </member>
+        <member name="M:IFramework.Serialization.DataTable.DataColumnNameAttribute.#ctor(System.String)">
+            <summary>
+            ctor
+            </summary>
+            <param name="name">名称</param>
+        </member>
+        <member name="P:IFramework.Serialization.DataTable.DataColumnNameAttribute.name">
+            <summary>
+            名称
+            </summary>
+        </member>
+<<<<<<< HEAD
+        <member name="T:IFramework.Serialization.DataTable.DataIgnoreAttribute">
+            <summary>
+            数据表忽略的成员
+            </summary>
+        </member>
+        <member name="T:IFramework.Serialization.DataTable.DataReader">
+            <summary>
+            数据表读者
+            </summary>
+        </member>
+        <member name="M:IFramework.Serialization.DataTable.DataReader.#ctor(System.IO.StreamReader,IFramework.Serialization.DataTable.IDataRow,IFramework.Serialization.DataTable.IDataExplainer)">
+            <summary>
+            Ctor
+=======
+        <member name="P:IFramework.Utility.Astar.AStarNode3X.mapPos">
+            <summary>
+            
+>>>>>>> 8dd9a8102242bc54e0da87325961219c8f72c436
+            </summary>
+            <param name="streamReader">流读者</param>
+            <param name="rowReader">行读者</param>
+            <param name="explainer">数据解释器</param>
+        </member>
+<<<<<<< HEAD
+        <member name="M:IFramework.Serialization.DataTable.DataReader.#ctor(System.String,IFramework.Serialization.DataTable.IDataRow,IFramework.Serialization.DataTable.IDataExplainer)">
+=======
+        <member name="M:IFramework.Utility.Astar.AStarNode3X.#ctor(IFramework.Point3,IFramework.Utility.Astar.AStarNodeType)">
+>>>>>>> 8dd9a8102242bc54e0da87325961219c8f72c436
+            <summary>
+            Ctor
+            </summary>
+<<<<<<< HEAD
+            <param name="text">数据表字符串</param>
+            <param name="rowReader">行读者</param>
+            <param name="explainer">数据解释器</param>
+=======
+>>>>>>> 8dd9a8102242bc54e0da87325961219c8f72c436
+        </member>
+        <member name="M:IFramework.Serialization.DataTable.DataReader.Dispose">
+            <summary>
+            释放
+            </summary>
+        </member>
+        <member name="M:IFramework.Serialization.DataTable.DataReader.Get``1">
+            <summary>
+            获取一张表数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="T:IFramework.Serialization.DataTable.DataWriter">
+            <summary>
+            数据写入者
+            </summary>
+        </member>
+        <member name="M:IFramework.Serialization.DataTable.DataWriter.#ctor(System.IO.StreamWriter,IFramework.Serialization.DataTable.IDataRow,IFramework.Serialization.DataTable.IDataExplainer)">
+            <summary>
+            Ctor
+            </summary>
+            <param name="streamWriter">流写者</param>
+            <param name="rowWriter">行写者</param>
+            <param name="explainer">数据解释器</param>
+        </member>
+        <member name="M:IFramework.Serialization.DataTable.DataWriter.#ctor(IFramework.Serialization.DataTable.IDataRow,IFramework.Serialization.DataTable.IDataExplainer)">
+            <summary>
+            Ctor
+            </summary>
+            <param name="rowWriter">行写者</param>
+            <param name="explainer">数据解释器</param>
+        </member>
+        <member name="M:IFramework.Serialization.DataTable.DataWriter.Dispose">
+            <summary>
+            释放
+            </summary>
+        </member>
+        <member name="M:IFramework.Serialization.DataTable.DataWriter.WriteString``1(System.Collections.Generic.List{``0})">
+            <summary>
+            写入到string
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="source">数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:IFramework.Serialization.DataTable.DataWriter.Write``1(System.Collections.Generic.List{``0})">
+            <summary>
+            写入一个表
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="source"></param>
+        </member>
+        <member name="T:IFramework.Serialization.DataTable.IDataExplainer">
+            <summary>
+            string 解释器
+            </summary>
+        </member>
+        <member name="M:IFramework.Serialization.DataTable.IDataExplainer.CreatInstance``1(System.Collections.Generic.List{IFramework.Serialization.DataTable.DataColumn},System.Collections.Generic.Dictionary{System.Reflection.MemberInfo,System.String})">
+            <summary>
+            根据格子反序列化一个实例
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cols"></param>
+            <param name="membersDic">需要反序列化的成员</param>
+            <returns></returns>
+        </member>
+        <member name="M:IFramework.Serialization.DataTable.IDataExplainer.GetColumns``1(``0,System.Collections.Generic.Dictionary{System.Reflection.MemberInfo,System.String})">
+            <summary>
+            根据 具体类型 获取单个数据格子数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="t"></param>
+            <param name="membersDic">需要序列化的成员</param>
+            <returns></returns>
+        </member>
+        <member name="T:IFramework.Serialization.DataTable.DataExplainer">
+            <summary>
+            string 解释器
+            </summary>
+        </member>
+        <member name="M:IFramework.Serialization.DataTable.DataExplainer.CreatInstance``1">
+            <summary>
+            创建实例
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:IFramework.Serialization.DataTable.DataExplainer.CreatInstance``1(System.Collections.Generic.List{IFramework.Serialization.DataTable.DataColumn},System.Collections.Generic.Dictionary{System.Reflection.MemberInfo,System.String})">
+            <summary>
+            根据格子反序列化一个实例
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cols"></param>
+            <param name="membersDic">需要反序列化的成员</param>
+            <returns></returns>
+        </member>
+        <member name="M:IFramework.Serialization.DataTable.DataExplainer.GetColumns``1(``0,System.Collections.Generic.Dictionary{System.Reflection.MemberInfo,System.String})">
+            <summary>
+            根据 具体类型 获取单个数据格子数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="t"></param>
+            <param name="membersDic">需要序列化的成员</param>
+            <returns></returns>
+        </member>
+        <member name="T:IFramework.Serialization.DataTable.IDataRow">
+            <summary>
+            数据行
+            </summary>
+        </member>
+        <member name="M:IFramework.Serialization.DataTable.IDataRow.ReadLine(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            读取一行
+            </summary>
+            <param name="val">行String</param>
+            <param name="headNames">标题行</param>
+            <returns></returns>
+        </member>
+        <member name="M:IFramework.Serialization.DataTable.IDataRow.ReadHeadLine(System.String)">
+            <summary>
+            读取标题行
+            </summary>
+            <param name="val">行String</param>
+            <returns></returns>
+        </member>
+        <member name="M:IFramework.Serialization.DataTable.IDataRow.WriteLine(System.Collections.Generic.List{IFramework.Serialization.DataTable.DataColumn})">
+            <summary>
+            写入一行
+            </summary>
+            <param name="cols">写入的信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:IFramework.Serialization.DataTable.IDataRow.WriteHeadLine(System.Collections.Generic.List{System.String})">
+            <summary>
+            写入标题行
+            </summary>
+            <param name="headNames">写入的标题</param>
+            <returns></returns>
+        </member>
+        <member name="T:IFramework.Serialization.DataTable.DataRow">
+            <summary>
+            数据行
+            </summary>
+        </member>
+        <member name="M:IFramework.Serialization.DataTable.DataRow.ReadLine(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            读取一行
+            </summary>
+            <param name="val">行String</param>
+            <param name="headNames">标题行</param>
+            <returns></returns>
+        </member>
+        <member name="M:IFramework.Serialization.DataTable.DataRow.SpilitRow(System.String)">
+            <summary>
+            切割一行
+            </summary>
+            <param name="val"></param>
+            <returns></returns>
+        </member>
+        <member name="M:IFramework.Serialization.DataTable.DataRow.ReadHeadLine(System.String)">
+            <summary>
+            读取标题行
+            </summary>
+            <param name="val">行String</param>
+            <returns></returns>
+        </member>
+        <member name="M:IFramework.Serialization.DataTable.DataRow.WriteLine(System.Collections.Generic.List{IFramework.Serialization.DataTable.DataColumn})">
+            <summary>
+            写入一行
+            </summary>
+            <param name="cols">写入的信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:IFramework.Serialization.DataTable.DataRow.WriteHeadLine(System.Collections.Generic.List{System.String})">
+            <summary>
+            写入标题行
+            </summary>
+            <param name="headNames">写入的标题</param>
+            <returns></returns>
+        </member>
         <member name="T:IFramework.Utility.Astar.AStarMap2X">
             <summary>
             二维A* 地图
             </summary>
         </member>
-        <member name="P:IFramework.Utility.Astar.AStarMap2X.Item(System.Int32,System.Int32)">
+        <member name="P:IFramework.Utility.Astar.AStarMap2X.Item(IFramework.Point2)">
             <summary>
             便于调用点位
             </summary>
-            <param name="x"></param>
-            <param name="y"></param>
             <returns></returns>
         </member>
         <member name="P:IFramework.Utility.Astar.AStarMap2X.WalkSideways">
@@ -2001,13 +2643,10 @@
             Ctor
             </summary>
         </member>
-        <member name="P:IFramework.Utility.Astar.AStarMap3X.Item(System.Int32,System.Int32,System.Int32)">
+        <member name="P:IFramework.Utility.Astar.AStarMap3X.Item(IFramework.Point3)">
             <summary>
             便于调用点位
             </summary>
-            <param name="x"></param>
-            <param name="y"></param>
-            <param name="z"></param>
             <returns></returns>
         </member>
         <member name="M:IFramework.Utility.Astar.AStarMap3X.ReadMap``1(System.Func{``0,IFramework.Utility.Astar.AStarNodeType},``0[0:,0:,0:],System.Boolean)">
@@ -2054,22 +2693,16 @@
             父节点，用于返回路径
             </summary>
         </member>
-        <member name="P:IFramework.Utility.Astar.AStarNode2X.Y">
+        <member name="P:IFramework.Utility.Astar.AStarNode2X.mapPos">
             <summary>
-            地图位置 坐标
+            
             </summary>
         </member>
-        <member name="P:IFramework.Utility.Astar.AStarNode2X.X">
-            <summary>
-            地图位置 坐标
-            </summary>
-        </member>
-        <member name="M:IFramework.Utility.Astar.AStarNode2X.#ctor(System.Int32,System.Int32,IFramework.Utility.Astar.AStarNodeType)">
+        <member name="M:IFramework.Utility.Astar.AStarNode2X.#ctor(IFramework.Point2,IFramework.Utility.Astar.AStarNodeType)">
             <summary>
             ctor
             </summary>
-            <param name="mapPosX"></param>
-            <param name="mapPosY"></param>
+            <param name="mapPos"></param>
             <param name="nodeType"></param>
         </member>
         <member name="M:IFramework.Utility.Astar.AStarNode2X.SetDefaultParent(IFramework.Utility.Astar.IAStarNode)">
@@ -2107,29 +2740,15 @@
             父节点，用于返回路径
             </summary>
         </member>
-        <member name="P:IFramework.Utility.Astar.AStarNode3X.Z">
+        <member name="P:IFramework.Utility.Astar.AStarNode3X.mapPos">
             <summary>
-            地图位置 坐标
+            
             </summary>
         </member>
-        <member name="P:IFramework.Utility.Astar.AStarNode3X.Y">
-            <summary>
-            地图位置 坐标
-            </summary>
-        </member>
-        <member name="P:IFramework.Utility.Astar.AStarNode3X.X">
-            <summary>
-            地图位置 坐标
-            </summary>
-        </member>
-        <member name="M:IFramework.Utility.Astar.AStarNode3X.#ctor(System.Int32,System.Int32,System.Int32,IFramework.Utility.Astar.AStarNodeType)">
+        <member name="M:IFramework.Utility.Astar.AStarNode3X.#ctor(IFramework.Point3,IFramework.Utility.Astar.AStarNodeType)">
             <summary>
             ctor
             </summary>
-            <param name="mapPosX"></param>
-            <param name="mapPosY"></param>
-            <param name="mapPosZ"></param>
-            <param name="nodeType"></param>
         </member>
         <member name="M:IFramework.Utility.Astar.AStarNode3X.SetDefaultParent(IFramework.Utility.Astar.IAStarNode)">
             <summary>
@@ -2860,243 +3479,6 @@
             <param name="wsUrl"></param>
             <returns></returns>
         </member>
-        <member name="T:IFramework.Serialization.DataTable.DataColumn">
-            <summary>
-            每一个格子
-            </summary>
-        </member>
-        <member name="F:IFramework.Serialization.DataTable.DataColumn.HeadLineName">
-            <summary>
-            标题名称
-            </summary>
-        </member>
-        <member name="F:IFramework.Serialization.DataTable.DataColumn.StrValue">
-            <summary>
-            string 数据
-            </summary>
-        </member>
-        <member name="T:IFramework.Serialization.DataTable.DataColumnNameAttribute">
-            <summary>
-            设置数据表标题
-            </summary>
-        </member>
-        <member name="M:IFramework.Serialization.DataTable.DataColumnNameAttribute.#ctor(System.String)">
-            <summary>
-            ctor
-            </summary>
-            <param name="name">名称</param>
-        </member>
-        <member name="P:IFramework.Serialization.DataTable.DataColumnNameAttribute.name">
-            <summary>
-            名称
-            </summary>
-        </member>
-        <member name="T:IFramework.Serialization.DataTable.DataIgnoreAttribute">
-            <summary>
-            数据表忽略的成员
-            </summary>
-        </member>
-        <member name="T:IFramework.Serialization.DataTable.DataReader">
-            <summary>
-            数据表读者
-            </summary>
-        </member>
-        <member name="M:IFramework.Serialization.DataTable.DataReader.#ctor(System.IO.StreamReader,IFramework.Serialization.DataTable.IDataRow,IFramework.Serialization.DataTable.IDataExplainer)">
-            <summary>
-            Ctor
-            </summary>
-            <param name="streamReader">流读者</param>
-            <param name="rowReader">行读者</param>
-            <param name="explainer">数据解释器</param>
-        </member>
-        <member name="M:IFramework.Serialization.DataTable.DataReader.#ctor(System.String,IFramework.Serialization.DataTable.IDataRow,IFramework.Serialization.DataTable.IDataExplainer)">
-            <summary>
-            Ctor
-            </summary>
-            <param name="text">数据表字符串</param>
-            <param name="rowReader">行读者</param>
-            <param name="explainer">数据解释器</param>
-        </member>
-        <member name="M:IFramework.Serialization.DataTable.DataReader.Dispose">
-            <summary>
-            释放
-            </summary>
-        </member>
-        <member name="M:IFramework.Serialization.DataTable.DataReader.Get``1">
-            <summary>
-            获取一张表数据
-            </summary>
-            <typeparam name="T"></typeparam>
-            <returns></returns>
-        </member>
-        <member name="T:IFramework.Serialization.DataTable.DataWriter">
-            <summary>
-            数据写入者
-            </summary>
-        </member>
-        <member name="M:IFramework.Serialization.DataTable.DataWriter.#ctor(System.IO.StreamWriter,IFramework.Serialization.DataTable.IDataRow,IFramework.Serialization.DataTable.IDataExplainer)">
-            <summary>
-            Ctor
-            </summary>
-            <param name="streamWriter">流写者</param>
-            <param name="rowWriter">行写者</param>
-            <param name="explainer">数据解释器</param>
-        </member>
-        <member name="M:IFramework.Serialization.DataTable.DataWriter.#ctor(IFramework.Serialization.DataTable.IDataRow,IFramework.Serialization.DataTable.IDataExplainer)">
-            <summary>
-            Ctor
-            </summary>
-            <param name="rowWriter">行写者</param>
-            <param name="explainer">数据解释器</param>
-        </member>
-        <member name="M:IFramework.Serialization.DataTable.DataWriter.Dispose">
-            <summary>
-            释放
-            </summary>
-        </member>
-        <member name="M:IFramework.Serialization.DataTable.DataWriter.WriteString``1(System.Collections.Generic.List{``0})">
-            <summary>
-            写入到string
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="source">数据</param>
-            <returns></returns>
-        </member>
-        <member name="M:IFramework.Serialization.DataTable.DataWriter.Write``1(System.Collections.Generic.List{``0})">
-            <summary>
-            写入一个表
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="source"></param>
-        </member>
-        <member name="T:IFramework.Serialization.DataTable.IDataExplainer">
-            <summary>
-            string 解释器
-            </summary>
-        </member>
-        <member name="M:IFramework.Serialization.DataTable.IDataExplainer.CreatInstance``1(System.Collections.Generic.List{IFramework.Serialization.DataTable.DataColumn},System.Collections.Generic.Dictionary{System.Reflection.MemberInfo,System.String})">
-            <summary>
-            根据格子反序列化一个实例
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="cols"></param>
-            <param name="membersDic">需要反序列化的成员</param>
-            <returns></returns>
-        </member>
-        <member name="M:IFramework.Serialization.DataTable.IDataExplainer.GetColumns``1(``0,System.Collections.Generic.Dictionary{System.Reflection.MemberInfo,System.String})">
-            <summary>
-            根据 具体类型 获取单个数据格子数据
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="t"></param>
-            <param name="membersDic">需要序列化的成员</param>
-            <returns></returns>
-        </member>
-        <member name="T:IFramework.Serialization.DataTable.DataExplainer">
-            <summary>
-            string 解释器
-            </summary>
-        </member>
-        <member name="M:IFramework.Serialization.DataTable.DataExplainer.CreatInstance``1">
-            <summary>
-            创建实例
-            </summary>
-            <typeparam name="T"></typeparam>
-            <returns></returns>
-        </member>
-        <member name="M:IFramework.Serialization.DataTable.DataExplainer.CreatInstance``1(System.Collections.Generic.List{IFramework.Serialization.DataTable.DataColumn},System.Collections.Generic.Dictionary{System.Reflection.MemberInfo,System.String})">
-            <summary>
-            根据格子反序列化一个实例
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="cols"></param>
-            <param name="membersDic">需要反序列化的成员</param>
-            <returns></returns>
-        </member>
-        <member name="M:IFramework.Serialization.DataTable.DataExplainer.GetColumns``1(``0,System.Collections.Generic.Dictionary{System.Reflection.MemberInfo,System.String})">
-            <summary>
-            根据 具体类型 获取单个数据格子数据
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="t"></param>
-            <param name="membersDic">需要序列化的成员</param>
-            <returns></returns>
-        </member>
-        <member name="T:IFramework.Serialization.DataTable.IDataRow">
-            <summary>
-            数据行
-            </summary>
-        </member>
-        <member name="M:IFramework.Serialization.DataTable.IDataRow.ReadLine(System.String,System.Collections.Generic.List{System.String})">
-            <summary>
-            读取一行
-            </summary>
-            <param name="val">行String</param>
-            <param name="headNames">标题行</param>
-            <returns></returns>
-        </member>
-        <member name="M:IFramework.Serialization.DataTable.IDataRow.ReadHeadLine(System.String)">
-            <summary>
-            读取标题行
-            </summary>
-            <param name="val">行String</param>
-            <returns></returns>
-        </member>
-        <member name="M:IFramework.Serialization.DataTable.IDataRow.WriteLine(System.Collections.Generic.List{IFramework.Serialization.DataTable.DataColumn})">
-            <summary>
-            写入一行
-            </summary>
-            <param name="cols">写入的信息</param>
-            <returns></returns>
-        </member>
-        <member name="M:IFramework.Serialization.DataTable.IDataRow.WriteHeadLine(System.Collections.Generic.List{System.String})">
-            <summary>
-            写入标题行
-            </summary>
-            <param name="headNames">写入的标题</param>
-            <returns></returns>
-        </member>
-        <member name="T:IFramework.Serialization.DataTable.DataRow">
-            <summary>
-            数据行
-            </summary>
-        </member>
-        <member name="M:IFramework.Serialization.DataTable.DataRow.ReadLine(System.String,System.Collections.Generic.List{System.String})">
-            <summary>
-            读取一行
-            </summary>
-            <param name="val">行String</param>
-            <param name="headNames">标题行</param>
-            <returns></returns>
-        </member>
-        <member name="M:IFramework.Serialization.DataTable.DataRow.SpilitRow(System.String)">
-            <summary>
-            切割一行
-            </summary>
-            <param name="val"></param>
-            <returns></returns>
-        </member>
-        <member name="M:IFramework.Serialization.DataTable.DataRow.ReadHeadLine(System.String)">
-            <summary>
-            读取标题行
-            </summary>
-            <param name="val">行String</param>
-            <returns></returns>
-        </member>
-        <member name="M:IFramework.Serialization.DataTable.DataRow.WriteLine(System.Collections.Generic.List{IFramework.Serialization.DataTable.DataColumn})">
-            <summary>
-            写入一行
-            </summary>
-            <param name="cols">写入的信息</param>
-            <returns></returns>
-        </member>
-        <member name="M:IFramework.Serialization.DataTable.DataRow.WriteHeadLine(System.Collections.Generic.List{System.String})">
-            <summary>
-            写入标题行
-            </summary>
-            <param name="headNames">写入的标题</param>
-            <returns></returns>
-        </member>
         <member name="T:IFramework.IEnumerableExtension">
             <summary>
             集合静态扩展
@@ -3251,6 +3633,15 @@
             </summary>
             <param name="self"></param>
             <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="M:IFramework.IntExtension.Clamp(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            约束数值大小
+            </summary>
+            <param name="self"></param>
+            <param name="max"></param>
+            <param name="min"></param>
             <returns></returns>
         </member>
         <member name="T:IFramework.IO">
@@ -3422,94 +3813,10 @@
             框架内传递的所有消息的基类
             </summary>
         </member>
-        <member name="T:IFramework.IRecyclable">
+        <member name="T:IFramework.FrameworkArgs">
             <summary>
             可回收接口
             </summary>
-        </member>
-        <member name="T:IFramework.RecyclableObject">
-            <summary>
-            可回收类
-            </summary>
-        </member>
-        <member name="P:IFramework.RecyclableObject.recyled">
-            <summary>
-            是否被回收
-            </summary>
-        </member>
-        <member name="P:IFramework.RecyclableObject.dataDirty">
-            <summary>
-            数据是否发生改变
-            </summary>
-        </member>
-        <member name="P:IFramework.RecyclableObject.env">
-            <summary>
-            当前所处环境
-            </summary>
-        </member>
-        <member name="M:IFramework.RecyclableObject.Allocate(System.Type,IFramework.EnvironmentType)">
-            <summary>
-            分配一个实例
-            </summary>
-            <param name="type">类型</param>
-            <param name=" envType"></param>
-            <returns></returns>
-        </member>
-        <member name="M:IFramework.RecyclableObject.Allocate(System.Type,IFramework.FrameworkEnvironment)">
-            <summary>
-            分配一个实例
-            </summary>
-            <param name="type"></param>
-            <param name="env"></param>
-            <returns></returns>
-        </member>
-        <member name="M:IFramework.RecyclableObject.Allocate``1(IFramework.EnvironmentType)">
-            <summary>
-            分配一个实例
-            </summary>
-            <typeparam name="T"> RecyclableObject </typeparam>
-            <param name=" envType"></param>
-            <returns></returns>
-        </member>
-        <member name="M:IFramework.RecyclableObject.Allocate``1(IFramework.FrameworkEnvironment)">
-            <summary>
-            分配一个实例
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="env"></param>
-            <returns></returns>
-        </member>
-        <member name="M:IFramework.RecyclableObject.OnAllocate">
-            <summary>
-            被分配时
-            </summary>
-        </member>
-        <member name="M:IFramework.RecyclableObject.Recyle">
-            <summary>
-            回收
-            </summary>
-        </member>
-        <member name="M:IFramework.RecyclableObject.ResetData">
-            <summary>
-            重置数据
-            </summary>
-        </member>
-        <member name="M:IFramework.RecyclableObject.SetDataDirty">
-            <summary>
-            设置数据发生改动
-            </summary>
-        </member>
-        <member name="M:IFramework.RecyclableObject.OnRecyle">
-            <summary>
-            被回收时
-            </summary>
-        </member>
-        <member name="M:IFramework.RecyclableObject.OnDataReset">
-            <summary>
-            数据重置时
-            </summary>
-        </member>
-        <member name="T:IFramework.FrameworkArgs">
             <summary>
             可回收消息基类
             </summary>
@@ -3922,6 +4229,76 @@
             <param name="self"></param>
             <param name="assembly"></param>
             <returns></returns>
+        </member>
+        <member name="T:IFramework.ValueCurve">
+            <summary>
+            用于取值的曲线
+            </summary>
+        </member>
+        <member name="P:IFramework.ValueCurve.count">
+            <summary>
+            点的总个数
+            </summary>
+        </member>
+        <member name="P:IFramework.ValueCurve.step">
+            <summary>
+            步长
+            </summary>
+        </member>
+        <member name="M:IFramework.ValueCurve.#ctor(System.Collections.Generic.List{IFramework.Point2},System.Single)">
+            <summary>
+            ctor
+            </summary>
+            <param name="points"></param>
+            <param name="step"></param>
+        </member>
+        <member name="M:IFramework.ValueCurve.AddPoint(IFramework.Point2)">
+            <summary>
+            添加点
+            </summary>
+            <param name="point"></param>
+        </member>
+        <member name="M:IFramework.ValueCurve.RemovePoint(IFramework.Point2)">
+            <summary>
+            移除点
+            </summary>
+            <param name="point"></param>
+        </member>
+        <member name="M:IFramework.ValueCurve.GetStep(System.Int32)">
+            <summary>
+            获取一步
+            </summary>
+            <param name="step"></param>
+            <returns></returns>
+        </member>
+        <member name="M:IFramework.ValueCurve.GetPercent(System.Single)">
+            <summary>
+            按照百分比获取步
+            </summary>
+            <param name="mul"></param>
+            <returns></returns>
+        </member>
+        <member name="M:IFramework.ValueCurve.GetYWithX(System.Single)">
+            <summary>
+            通过x获取y
+            </summary>
+            <param name="x"></param>
+            <returns></returns>
+        </member>
+        <member name="M:IFramework.ValueCurve.ClacSteps">
+            <summary>
+            计算每一步
+            </summary>
+        </member>
+        <member name="P:IFramework.ValueCurve.ccurve">
+            <summary>
+            0，0 -- 1，1 对称往上拱起
+            </summary>
+        </member>
+        <member name="P:IFramework.ValueCurve.scurve">
+            <summary>
+             0，0 -- 1，1 s形状
+            </summary>
         </member>
     </members>
 </doc>

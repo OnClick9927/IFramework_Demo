@@ -12,6 +12,21 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -22,6 +37,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -33,9 +49,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="IFramework, Version=0.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="IFramework, Version=0.0.0.2, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Plugins\IFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Activities.Build" />
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Plugins\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -56,11 +77,18 @@
     <Compile Include="APP\AppMoudle.cs" />
     <Compile Include="APP\Config\Configs.cs" />
     <Compile Include="APP\Config\LogConfig.cs" />
-    <Compile Include="Net\Handlers\INetMessageHangdler.cs" />
-    <Compile Include="Net\Handlers\TestHandler.cs" />
-    <Compile Include="Net\Messages\INetMessage.cs" />
-    <Compile Include="Net\Tool\NetMessageHandleTool.cs" />
-    <Compile Include="Net\Tool\NetMessageTool.cs" />
+    <Compile Include="Data\AbstractDatas.cs" />
+    <Compile Include="Data\Datas.cs" />
+    <Compile Include="Data\IData.cs" />
+    <Compile Include="Data\IDatas.cs" />
+    <Compile Include="Data\UserDatas.cs" />
+    <Compile Include="Net\Base\INetMessageHangdler.cs" />
+    <Compile Include="Net\LoginHandler.cs" />
+    <Compile Include="Net\RegisterHandler.cs" />
+    <Compile Include="Net\TestHandler.cs" />
+    <Compile Include="Net\Base\INetMessage.cs" />
+    <Compile Include="Net\Base\NetMessageHandleTool.cs" />
+    <Compile Include="Net\Base\NetMessageTool.cs" />
     <Compile Include="View\SeverForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -69,7 +97,7 @@
     </Compile>
     <Compile Include="APP\Logger_Winfom.cs" />
     <Compile Include="APP\Config\NetConfig.cs" />
-    <Compile Include="Net\NetSever.cs" />
+    <Compile Include="Net\Base\NetSever.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="View\SeverForm.resx">
@@ -103,6 +131,17 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 和 x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

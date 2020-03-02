@@ -1,21 +1,22 @@
 ﻿using IFramework;
-using IFramework.Modules.Loom;
 using IFramework.Modules.Message;
 using IFramework.Modules.Coroutine;
 using System.Windows.Forms;
 using System.IO;
 using IFramework.Serialization.DataTable;
 using System.Collections.Generic;
+using IFramework.Modules;
+
 namespace FormSever
 {
     public partial class APP
     {
         private static void InitFrameworkMoudles()
         {
-            Framework.env0.modules.Loom = Framework.env0.modules.CreateModule<LoomModule>();
-            Framework.env0.modules.Message = Framework.env0.modules.CreateModule<MessageModule>();
-            Framework.env0.modules.Coroutine= Framework.env0.modules.CreateModule<CoroutineModule>();
-            Framework.env0.modules.App= Framework.env0.modules.CreateModule<AppMoudle>();
+            APP.env.modules.Loom = APP.env.modules.CreateModule<LoomModule>();
+            APP.env.modules.Message = APP.env.modules.CreateModule<MessageModule>();
+            APP.env.modules.Coroutine= APP.env.modules.CreateModule<CoroutineModule>();
+            APP.env.modules.App= APP.env.modules.CreateModule<AppMoudle>();
         }
         public static void WriteLogConfig()
         {
@@ -52,7 +53,7 @@ namespace FormSever
             cr.Dispose();
         }
     }
-    [OnFrameworkInitClass]
+    [OnEnvironmentInit]
     public static partial class APP
     {
         static private string configPath = Application.ExecutablePath.GetDirPath().CombinePath("Configs");
@@ -71,7 +72,13 @@ namespace FormSever
 
        
     }
+    public partial class APP
+    {
+        public static Data.Datas datas { get{ return (Framework.env0.modules.App as AppMoudle).datas; } }
+        public static FrameworkEnvironment env { get { return Framework.env0; } }
+        public static Net.NetSever net { get { return (Framework.env0.modules.App as AppMoudle).net; } }
 
+    }
 
 
 }

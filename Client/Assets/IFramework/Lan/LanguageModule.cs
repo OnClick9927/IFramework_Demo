@@ -156,13 +156,14 @@ namespace IFramework
             lanPairLoaders = new List<Func<List<LanPair>>>();
             lanObservers = new List<LanObserver>();
         }
-
         protected override void OnDispose()
         {
             lanPairs.Clear();
             lanPairLoaders.Clear();
             lanObservers.Clear();
         }
+      
+      
 
         protected override void OnUpdate()
         {

@@ -920,26 +920,27 @@ namespace IFramework.GUITool
 
         private static XmlElement SerializeField<T>(XmlElement root, string name, T value)
         {
-            try
+            XmlElement ele = root.OwnerDocument.CreateElement(name);
+            if (value != null)
             {
-                XmlElement ele = root.OwnerDocument.CreateElement(name);
-                if (value != null)
-                {
-                    Type type = value.GetType();
-                    XmlNode node = root.OwnerDocument.CreateTextNode(StringConvert.ConvertToString(value, type));
-                    ele.AppendChild(node);
-                    root.AppendChild(ele);
-                }
-                else if (name != "UserData")
-                {
-                    Log.W("SubWin    "  + name + "  value is mull,will not Serializate");
-                }
-                return root;
+                Type type = value.GetType();
+                XmlNode node = root.OwnerDocument.CreateTextNode(StringConvert.ConvertToString(value, type));
+                ele.AppendChild(node);
+                root.AppendChild(ele);
             }
-            catch (Exception)
+            else if (name != "UserData")
             {
-                throw new Exception(name);
+                Log.W("SubWin    " + name + "  value is mull,will not Serializate");
             }
+            return root;
+            //try
+            //{
+               
+            //}
+            //catch (Exception)
+            //{
+            //    throw new Exception(name);
+            //}
 
         }
         private static void DeSerializeField<T>(XmlElement root, string name, ref T obj)

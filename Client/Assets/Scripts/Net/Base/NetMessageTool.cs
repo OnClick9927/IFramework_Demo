@@ -14,7 +14,7 @@ using IFramework;
 
 namespace IFramework_Demo
 {
-    [OnFrameworkInitClass]
+    [OnEnvironmentInit]
     public static class NetMessageTool
     {
         static Dictionary<uint, Type> messageDIc;

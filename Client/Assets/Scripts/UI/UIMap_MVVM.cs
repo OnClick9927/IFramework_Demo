@@ -22,6 +22,7 @@ namespace IFramework_Demo
 			{typeof(IFramework_Demo.AppCoverPanel),Tuple.Create(typeof(IFramework_Demo.AppCoverPanelData),typeof(IFramework_Demo.AppCoverPanelView),typeof(IFramework_Demo.AppCoverPanelViewModel))},
 			{typeof(IFramework_Demo.LoadPanel),Tuple.Create(typeof(IFramework_Demo.LoadPanelData),typeof(IFramework_Demo.LoadPanelView),typeof(IFramework_Demo.LoadPanelViewModel))},
 			{typeof(IFramework_Demo.RegisterPanel),Tuple.Create(typeof(IFramework_Demo.RegisterPanelData),typeof(IFramework_Demo.RegisterPanelView),typeof(IFramework_Demo.RegisterPanelViewModel))},
+			{typeof(IFramework_Demo.StatusPanel),Tuple.Create(typeof(IFramework_Demo.StatusPanelData),typeof(IFramework_Demo.StatusPanelView),typeof(IFramework_Demo.StatusPanelViewModel))},
 //ToDo
 		};
 	}

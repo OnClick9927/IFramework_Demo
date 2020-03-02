@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace IFramework
 {
-    [OnFrameworkInitClass]
+    [OnEnvironmentInit]
     static class HierarchyOverride
     {
         private const string menuItemPath = "IFramework/Tool/HierarchyExtension";

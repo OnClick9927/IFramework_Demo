@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using IFramework.Net;
-
-namespace FormSever.Net.Handlers
+﻿using IFramework.Net;
+using IFramework;
+namespace FormSever.Net
 {
+    [NetMessage(1)]
+    class TestMessage : INetMessage
+    {
+        public int index = 666;
+
+    }
     class TestHandler : NetMessageHandler
     {
         protected override void OnTcpConn(SocketToken token)
@@ -20,10 +21,16 @@ namespace FormSever.Net.Handlers
 
         protected override void OnTcpMessage(SocketToken token, INetMessage message)
         {
+            //Log.L((message as TestMessage).index);
+            //net.SendTcpMessage(token, message);
         }
 
         protected override void OnUdpMessage(SocketToken token, INetMessage message)
         {
         }
     }
+
+
+
+   
 }

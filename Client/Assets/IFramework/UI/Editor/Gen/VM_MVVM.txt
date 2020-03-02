@@ -1,0 +1,25 @@
+/*********************************************************************************
+ *Author:         #User#
+ *Version:        #UserVERSION#
+ *UnityVersion:   #UserUNITYVERSION#
+ *Date:           #UserDATE#
+ *Description:    #UserDescription#
+ *History:        #UserDATE#--
+*********************************************************************************/
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using IFramework;
+
+namespace #UserNameSpace#
+{
+	public class #UserSCRIPTNAME# : TUIViewModel_MVVM<#ModelType#>
+	{
+#FieldString#
+		protected override void SyncModelValue()
+		{
+#SyncModelValue#
+		}
+
+	}
+}

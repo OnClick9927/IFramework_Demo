@@ -117,23 +117,30 @@ namespace IFramework
         public bool IsInStack(UIPanel panel) { return UIStack.Contains(panel); }
         public bool IsInCache(UIPanel panel) { return UICache.Contains(panel); }
         public bool IsInUse(UIPanel panel) { return IsInCache(panel) || IsInStack(panel); }
-        public UIPanel Current { get { return Peek(); } }
-        public UIPanel Peek()
+        public UIPanel Current
         {
-            if (UIStack.Count == 0)
-                return null;
-            return  UIStack.Peek();
+            get
+            {
+                if (UIStack.Count == 0)
+                    return null;
+                return UIStack.Peek();
+            }
         }
-        public UIPanel CachePeek() { return UICache.Peek(); }
+        public UIPanel CachePeek()
+        {
+            if (UICache.Count == 0)
+                return null;
+            return UICache.Peek();
+        }
     }
     public partial class UIModule : FrameworkModule
     {
         private enum ModuleType
-        { 
+        {
             MVP,
             MVVM
         }
-        private class UIGroups :IDisposable
+        private class UIGroups : IDisposable
         {
             private ModuleType _moduleType;
             private MVPModule _mvpModule;
@@ -142,7 +149,7 @@ namespace IFramework
             private MVVMModule _mvvmModule;
             private Dictionary<Type, Tuple<Type, Type, Type>> _mvvmMap;
 
-            public UIGroups(ModuleType moduleType, Dictionary<Type, Tuple<Type, Type, Type, Type, Type>> map) 
+            public UIGroups(ModuleType moduleType, Dictionary<Type, Tuple<Type, Type, Type, Type, Type>> map)
             {
                 _mvpModule = CreatInstance<MVPModule>("UIGroup");
                 this._moduleType = moduleType;
@@ -164,15 +171,15 @@ namespace IFramework
                 Tuple<Type, Type, Type, Type, Type> tuple;
                 _mvpMap.TryGetValue(panel.GetType(), out tuple);
                 if (tuple == null) throw new Exception(string.Format("Could Not Find map with Type: {0}", panel.GetType()));
-                var enity = Activator.CreateInstance(tuple.Item1) as UIEnity;
-                    enity.panel = panel;
+                var entity = Activator.CreateInstance(tuple.Item1) as UIEntity;
+                entity.panel = panel;
 
                 var sensor = Activator.CreateInstance(tuple.Item2) as UISensor_MVP;
                 var policy = Activator.CreateInstance(tuple.Item3) as UIPolicy_MVP;
                 var executor = Activator.CreateInstance(tuple.Item4) as UIExecutor_MVP;
                 var view = Activator.CreateInstance(tuple.Item5) as UIView_MVP;
 
-                MVPGroup group = new MVPGroup(enity, sensor, policy, executor, view, panel.PanelName);
+                MVPGroup group = new MVPGroup(entity, sensor, policy, executor, view, panel.PanelName);
                 _mvpModule.AddGroup(group);
                 return group;
             }
@@ -274,15 +281,15 @@ namespace IFramework
             UIStack.Clear();
             UICache.Clear();
             loaders.Clear();
-            if (_uiGroups!=null)
+            if (_uiGroups != null)
                 _uiGroups.Dispose();
-            if (Canvas!=null)
+            if (Canvas != null)
                 GameObject.Destroy(Canvas.gameObject);
         }
-
+      
         protected override void OnUpdate()
         {
-            if (_uiGroups!=null)
+            if (_uiGroups != null)
                 _uiGroups.Update();
         }
 
@@ -328,12 +335,12 @@ namespace IFramework
                 switch (_moduleType)
                 {
                     case ModuleType.MVP:
-                        var enity = _uiGroups.MVPSubscribe(ui);
-                        (enity.sensor as IUIModuleEventListenner).OnLoad();
+                        var entity = _uiGroups.MVPSubscribe(ui);
+                        (entity.sensor as IUIModuleEventListenner).OnLoad();
                         break;
                     case ModuleType.MVVM:
-                        var enity2 = _uiGroups.MVVMSubscribe(ui);
-                        (enity2.view as IUIModuleEventListenner).OnLoad();
+                        var entity2 = _uiGroups.MVVMSubscribe(ui);
+                        (entity2.view as IUIModuleEventListenner).OnLoad();
                         break;
                 }
 
@@ -346,7 +353,7 @@ namespace IFramework
         {
             return (T)Load(typeof(T), path, layer, name);
         }
-        public bool HaveLoadPanel( string panelName)
+        public bool HaveLoadPanel(string panelName)
         {
             switch (_moduleType)
             {
@@ -413,7 +420,7 @@ namespace IFramework
                         (_uiGroups.FindMVPGroup(arg.pressPanel).sensor as IUIModuleEventListenner).OnPress(arg);
                     if (arg.popPanel != null)
                         (_uiGroups.FindMVPGroup(arg.popPanel).sensor as IUIModuleEventListenner).OnPop(arg);
-                    if (arg.curPanel!=null)
+                    if (arg.curPanel != null)
                         (_uiGroups.FindMVPGroup(arg.curPanel).sensor as IUIModuleEventListenner).OnTop(arg);
 
                     break;
@@ -475,16 +482,17 @@ namespace IFramework
             }
         }
 
-        public UIPanel Get(Type type, string name,  string path="", UIPanelLayer layer= UIPanelLayer.Common)
+        public UIPanel Get(Type type, string name, string path = "", UIPanelLayer layer = UIPanelLayer.Common)
         {
             //if (UICache.Count > 0) ClearCache(arg);
-            if (Current!=null &&Current.PanelName == name && Current.GetType() == type)
+
+            if (Current!=null && Current.PanelName == name && Current.GetType() == type)
                 return Current;
             switch (_moduleType)
             {
                 case ModuleType.MVP:
-                    var enity = _uiGroups.FindMVPGroup(name);
-                    if (enity == null)
+                    var entity = _uiGroups.FindMVPGroup(name);
+                    if (entity == null)
                     {
                         UIPanel ui = Load(type, path, layer, name);
                         Push(ui);
@@ -492,8 +500,8 @@ namespace IFramework
                     }
                     else
                     {
-                        Push((enity.enity as UIEnity).panel);
-                        return (enity.enity as UIEnity).panel;
+                        Push((entity.entity as UIEntity).panel);
+                        return (entity.entity as UIEntity).panel;
                     }
                 case ModuleType.MVVM:
                     var group = _uiGroups.FindMVVMGroup(name);
@@ -511,9 +519,9 @@ namespace IFramework
                 default:
                     return null;
             }
-            
+
         }
-        public T Get<T>(string name,  string path = "", UIPanelLayer layer = UIPanelLayer.Common) where T : UIPanel
+        public T Get<T>(string name, string path = "", UIPanelLayer layer = UIPanelLayer.Common) where T : UIPanel
         {
             return (T)Get(typeof(T), name, path, layer);
         }

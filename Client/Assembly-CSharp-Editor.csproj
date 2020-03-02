@@ -209,7 +209,9 @@
     <None Include="Assets\XLua\Src\Editor\Template\LuaClassWrapGCM.tpl.txt" />
     <None Include="Assets\XLua\Src\Editor\Template\LuaWrapPusher.tpl.txt" />
     <None Include="Assets\XLua\Src\Editor\Template\LuaDelegateBridge.tpl.txt" />
+    <None Include="Assets\IFramework\UI\Editor\Gen\View_MVVM.txt" />
     <None Include="Assets\IFramework\0.1Core\ScriptCreater\Editor\FormatScript.txt" />
+    <None Include="Assets\IFramework\UI\Editor\Gen\VM_MVVM.txt" />
     <None Include="Assets\IFramework\AssetBundle\Editor\Layout.xml" />
     <None Include="Assets\XLua\Src\Editor\Template\TemplateCommon.lua.txt" />
     <None Include="Assets\XLua\Src\Editor\Template\LuaEnumWrap.tpl.txt" />

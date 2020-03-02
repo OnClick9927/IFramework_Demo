@@ -8,16 +8,26 @@
 *********************************************************************************/
 using System;
 using IFramework;
-using IFramework.Modules.APP;
+using IFramework.Modules;
 using UnityEngine;
+using IFramework.Modules.Message;
 
 namespace IFramework_Demo
 {
-    public class AppModule : FrameworkAppModule
+
+    public struct FpsArg:IEventArgs
+    {
+        public float fps;
+    }
+    public struct ConnArg:IEventArgs
+    {
+        public bool conn;
+    }
+    public class AppModule : FrameworkAppModule,IMessagePublisher
     {
         public UIModule UI { get; private set; }
         protected override bool needUpdate { get { return true; } }
-        public NetClient netClient;
+        public NetClient net { get; private set; }
 
         protected override void Awake()
         {
@@ -37,6 +47,9 @@ namespace IFramework_Demo
 
 
             UI.SetUseMVVM(UIMap_MVVM.map);
+
+
+            UI.Get<StatusPanel>(UIConfig.Name<StatusPanel>(), UIConfig.Path<StatusPanel>(), UIConfig.Layer<StatusPanel>());
             UI.Get<UpdatePanel>(UIConfig.Name<UpdatePanel>(), UIConfig.Path<UpdatePanel>(), UIConfig.Layer<UpdatePanel>());
         }
 
@@ -44,32 +57,34 @@ namespace IFramework_Demo
 
         private void InitNet()
         {
-            netClient = new NetClient();
-            var em = NetMessageHandleTool.TcpFunc.GetEnumerator();
-            while (em.MoveNext())
-                netClient.onTcpMessage += em.Current;
-            em = NetMessageHandleTool.UdpFunc.GetEnumerator();
-            while (em.MoveNext())
-                netClient.onUdpMessage += em.Current;
-            var em1 = NetMessageHandleTool.TcpConn.GetEnumerator();
-            while (em.MoveNext())
-                netClient.onTcpConn += em1.Current;
-            em1 = NetMessageHandleTool.TcpDisConn.GetEnumerator();
-            while (em.MoveNext())
-                netClient.onTcpDisConn += em1.Current;
-            netClient.onTcpDisConn += NetClient_onTcpDisConn;
-            netClient.onTcpConn += NetClient_onTcpConn;
-            netClient.Run();
+            net = new NetClient();
+
+            var Hs = NetMessageHandleTool.Handlers;
+
+            for (int i = 0; i < Hs.Count; i++)
+            {
+                net.onTcpMessage += Hs[i].OnTcpMessage;
+                net.onTcpConn += Hs[i].OnTcpConn;
+                net.onTcpDisConn += Hs[i].OnTcpDisConn;
+                net.onUdpMessage += Hs[i].OnUdpMessage;
+
+            }
+
+            net.onTcpDisConn += NetClient_onTcpDisConn;
+            net.onTcpConn += NetClient_onTcpConn;
+            net.Run();
             void NetClient_onTcpConn()
             {
-
+                APP.message.Publish(this, 0, new ConnArg() { conn = true });
             }
 
             void NetClient_onTcpDisConn()
             {
                 try
                 {
-                    netClient.Run();
+                    APP.message.Publish(this, 0, new ConnArg() { conn = false });
+
+                    net.Run();
                 }
                 catch (Exception)
                 {
@@ -82,11 +97,24 @@ namespace IFramework_Demo
 
         protected override void OnDispose()
         {
-            netClient?.Dispose();
+            net?.Dispose();
         }
-
+        public float updateInterval = 0.5F;
+        private double lastInterval;
+        private int frames = 0;
+        private float fps;
         protected override void OnUpdate()
         {
+            ++frames;
+            float timeNow = Time.realtimeSinceStartup;
+            if (timeNow > lastInterval + updateInterval)
+            {
+                fps = (float)(frames / (timeNow - lastInterval));
+                frames = 0;
+                lastInterval = timeNow;
+            }
+
+            APP.message.Publish(this, 0, new FpsArg() { fps = fps });
 
         }
     }

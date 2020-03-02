@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace FormSever.Net
 {
-    [OnFrameworkInitClass]
+    [OnEnvironmentInit]
     public static class NetMessageTool
     {
         static Dictionary<uint, Type> messageDIc;

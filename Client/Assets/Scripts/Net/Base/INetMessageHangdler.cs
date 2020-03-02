@@ -25,7 +25,7 @@ namespace IFramework_Demo
     }
     abstract class NetMessageHandler : INetMessageHangdler
     {
-        protected NetClient netClient { get { return (Framework.env1.modules.App as AppModule).netClient; } }
+        protected NetClient net { get { return (Framework.env1.modules.App as AppModule).net; } }
         protected abstract void OnTcpMessage(SocketToken token, INetMessage message);
         protected abstract void OnUdpMessage(SocketToken token, INetMessage message);
         protected abstract void OnTcpConn();
@@ -49,6 +49,37 @@ namespace IFramework_Demo
         void INetMessageHangdler.OnTcpDisConn()
         {
             OnTcpDisConn();
+        }
+    }
+    [NetMessage(1)]
+    class TestMessage : INetMessage
+    {
+        public int index = 666;
+    }
+    class TestNetHandler : NetMessageHandler
+    {
+        protected override void OnTcpConn()
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                net.SendTcpMessage(new TestMessage() { index = 777 });
+
+            }
+        }
+
+        protected override void OnTcpDisConn()
+        {
+
+        }
+
+        protected override void OnTcpMessage(SocketToken token, INetMessage message)
+        {
+            Log.L(message);
+        }
+
+        protected override void OnUdpMessage(SocketToken token, INetMessage message)
+        {
+
         }
     }
 }

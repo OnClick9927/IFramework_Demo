@@ -11,6 +11,7 @@ using System;
 using System.Text;
 using IFramework;
 using IFramework.Net;
+using IFramework.Packets;
 using IFramework.Serialization;
 
 namespace IFramework_Demo
@@ -101,7 +102,7 @@ namespace IFramework_Demo
             var bytes = encoding.GetBytes(Json.ToJsonString(message));
             Packet pac = new Packet(1, NetMessageTool.GetIDByType(message.GetType()), 1, bytes);
             bytes = pac.Pack();
-            return new BufferSegment(bytes);
+            return new BufferSegment(bytes,0,bytes.Length);
         }
 
         public void SendTcpMessage(INetMessage message)

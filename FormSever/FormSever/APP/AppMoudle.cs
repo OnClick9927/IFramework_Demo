@@ -1,42 +1,43 @@
 ﻿using FormSever.Net;
 using IFramework;
-using IFramework.Modules.APP;
+using IFramework.Modules;
 namespace FormSever
 {
     class AppMoudle : FrameworkAppModule
     {
         protected override bool needUpdate { get { return true; } }
-        public NetSever netSever { get; private set; }
+        public NetSever net { get; private set; }
         private void InitNet()
         {
-            netSever = new NetSever();
-            var em = NetMessageHandleTool.TcpFunc.GetEnumerator();
-            while (em.MoveNext())
-                netSever.onTcpMessage += em.Current;
-            em = NetMessageHandleTool.UdpFunc.GetEnumerator();
-            while (em.MoveNext())
-                netSever.onUdpMessage += em.Current;
+            net = new NetSever();
+            var Hs = NetMessageHandleTool.Handlers;
 
-            var em1 = NetMessageHandleTool.TcpConn.GetEnumerator();
-            while (em.MoveNext())
-                netSever.onTcpConn += em1.Current;
+            for (int i = 0; i < Hs.Count; i++)
+            {
+                net.onTcpMessage += Hs[i].OnTcpMessage;
+                net.onTcpConn += Hs[i].OnTcpConn;
+                net.onTcpDisconn += Hs[i].OnTcpDisConn;
+                net.onUdpMessage += Hs[i].OnUdpMessage;
+            }
+            net.Run();
+        }
 
-            em1 = NetMessageHandleTool.TcpDisConn.GetEnumerator();
-            while (em.MoveNext())
-                netSever.onTcpDisconn += em1.Current;
+        public Data.Datas datas { get; private set; }
 
-         //   Framework.Container.RegisterInstance(netSever);
-            netSever.Run();
-            Log.L("APP Run");
+        private void InitDatas()
+        {
+            datas = new Data.Datas();
+            datas.Load();
         }
         protected override void Awake()
         {
             InitNet();
+            InitDatas();
         }
 
         protected override void OnDispose()
         {
-            netSever?.Dispose();
+            net?.Dispose();
         }
 
         protected override void OnUpdate()

@@ -589,7 +589,7 @@ namespace IFramework
             string policyGenPath { get { return genpath.CombinePath("PolicyGen_MVP.txt"); } }
             string excutorGenPath { get { return genpath.CombinePath("ExcutorGen_MVP.txt"); } }
             string viewGenPath { get { return genpath.CombinePath("ViewGen_MVP.txt"); } }
-            string EnityGenPath { get { return genpath.CombinePath("EnityGen_MVP.txt"); } }
+            string EntityGenPath { get { return genpath.CombinePath("EntityGen_MVP.txt"); } }
             
 
 
@@ -743,24 +743,19 @@ namespace IFramework
                                    return;
                                }
                                string type = panelType.Split('.').ToList().Last();
-                               //string sensorGenPath = genpath.CombinePath("SensorGen_MVP.txt");
-                               //string policyGenPath = genpath.CombinePath("PolicyGen_MVP.txt");
 
-                               //string excutorGenPath = genpath.CombinePath("ExcutorGen_MVP.txt");
-                               //string viewGenPath = genpath.CombinePath("ViewGen_MVP.txt");
-                               //string EnityGenPath = genpath.CombinePath("EnityGen_MVP.txt");
 
                                CreateSensorGen(sensorGenPath);
                                CreatePolicyGen(policyGenPath);
                                CreatePolicyExcutorGen(excutorGenPath);
                                CreateViewGen(viewGenPath);
-                               CreateEnityGen(EnityGenPath);
+                               CreateEntityGen(EntityGenPath);
 
                                WriteTxt(PanelGenDir.CombinePath(type.Append("Sensor.cs")), sensorGenPath);
                                WriteTxt(PanelGenDir.CombinePath(type.Append("Policy.cs")), policyGenPath);
                                WriteTxt(PanelGenDir.CombinePath(type.Append("Excutor.cs")), excutorGenPath);
                                WriteTxt(PanelGenDir.CombinePath(type.Append("View_MVP.cs")), viewGenPath);
-                               WriteTxt(PanelGenDir.CombinePath(type.Append("Enity.cs")), EnityGenPath);
+                               WriteTxt(PanelGenDir.CombinePath(type.Append("Entity.cs")), EntityGenPath);
                                WriteMap(UIMapDir.CombinePath(UIMap_CSName), UIMapDir.CombinePath(UIMap_CSName));
                                AssetDatabase.Refresh();
                            }, "Gen");
@@ -808,7 +803,7 @@ namespace IFramework
                 }
                 AssetDatabase.Refresh();
             }
-            private static void CreateEnityGen(string genSourcePath)
+            private static void CreateEntityGen(string genSourcePath)
             {
                 if (File.Exists(genSourcePath)) return;
                 using (FileStream fs = new FileStream(genSourcePath, FileMode.Create, FileAccess.Write))
@@ -832,7 +827,7 @@ namespace IFramework
                         sw.WriteLine("");
                         sw.WriteLine("namespace #UserNameSpace#");
                         sw.WriteLine("{");
-                        sw.WriteLine("\tpublic class #UserSCRIPTNAME# : UIEnity");
+                        sw.WriteLine("\tpublic class #UserSCRIPTNAME# : UIEntity");
                         sw.WriteLine("\t{");
                         sw.WriteLine("\t}");
 
@@ -1047,7 +1042,7 @@ namespace IFramework
                 var txt = File.ReadAllText(sourcePath);
                 string flag = "//ToDo";
 
-                string tmp = string.Format("typeof({0}),Tuple.Create(typeof({0}Enity),typeof({0}Sensor),typeof({0}Policy),typeof({0}Excutor),typeof({0}View))", panelType);
+                string tmp = string.Format("typeof({0}),Tuple.Create(typeof({0}Entity),typeof({0}Sensor),typeof({0}Policy),typeof({0}Excutor),typeof({0}View))", panelType);
                 tmp = tmp.Append("},\n").AppendHead("\t\t\t{").Append(flag);
                 txt = txt.Replace(flag, tmp);
                 File.WriteAllText(writePath, txt, System.Text.Encoding.UTF8);

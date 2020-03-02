@@ -27,15 +27,15 @@ namespace FormSever
 
         private static void Application_ApplicationExit(object sender, EventArgs e)
         {
-            Framework.env0.Update();
-            Framework.env0.Dispose();
+            APP.env.Update();
+            APP.env.Dispose();
             timer.Stop();
             timer = null;
         }
 
         private static void Trick(object sender, EventArgs e)
         {
-            Framework.env0.Update();
+            APP.env.Update();
         }
     }
 }

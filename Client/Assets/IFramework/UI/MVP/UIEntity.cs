@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace IFramework
 {
-    public class UIEnity : MVPEnity
+    public class UIEntity : MVPEntity
     {
         public UIPanel panel;
         protected override void OnDestory()

@@ -7,13 +7,13 @@
  *History:        2020-02-13--
 *********************************************************************************/
 using IFramework;
+using IFramework.Modules;
 using IFramework.Modules.Coroutine;
-using IFramework.Modules.Loom;
 using IFramework.Modules.Message;
 
 namespace IFramework_Demo
 {
-    [OnFrameworkInitClass(   EnvironmentType.Ev1)]
+    [OnEnvironmentInit(   EnvironmentType.Ev1)]
     public static class AppConfigInit
     {
         static AppConfigInit()
@@ -24,10 +24,10 @@ namespace IFramework_Demo
         }
         private static void InitFrameworkMoudles()
         {
-            Framework.env1.modules.Coroutine = Framework.env1.modules.CreateModule<CoroutineModule>();
-            Framework.env1.modules.Loom = Framework.env1.modules.CreateModule<LoomModule>();
-            Framework.env1.modules.Message = Framework.env1.modules.CreateModule<MessageModule>();
-            Framework.env1.modules.App = Framework.env1.modules.CreateModule<AppModule>();
+            APP.env.modules.Coroutine = APP.env.modules.CreateModule<CoroutineModule>();
+            APP.env.modules.Loom = APP.env.modules.CreateModule<LoomModule>();
+            APP.env.modules.Message = APP.env.modules.CreateModule<MessageModule>();
+            APP.env.modules.App = APP.env.modules.CreateModule<AppModule>();
         }
         private static void InitNetConfig()
         {
