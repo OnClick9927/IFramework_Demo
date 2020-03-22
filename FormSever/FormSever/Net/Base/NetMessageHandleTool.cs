@@ -9,14 +9,14 @@ namespace FormSever.Net
     [OnEnvironmentInit]
     static class NetMessageHandleTool
     {
-       public  readonly static List<INetMessageHangdler> Handlers;
+       public  readonly static List<INetMessageHandler> Handlers;
        
         static NetMessageHandleTool()
         {
-            Handlers = typeof(INetMessageHangdler).GetSubTypesInAssemblys()
+            Handlers = typeof(INetMessageHandler).GetSubTypesInAssemblys()
                 .Select((type) => {
                     if (!type.IsAbstract)
-                        return Activator.CreateInstance(type) as INetMessageHangdler;
+                        return Activator.CreateInstance(type) as INetMessageHandler;
                     return null;
                 }).ToList();
 

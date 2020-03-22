@@ -13,7 +13,8 @@ using IFramework;
 
 namespace IFramework_Demo
 {
-	public class RegisterPanelViewModel : TUIViewModel_MVVM<RegisterPanelData>
+
+    public class RegisterPanelViewModel : TUIViewModel_MVVM<RegisterPanelData>
 	{
  		private String _account;
 		public String account
@@ -34,14 +35,69 @@ namespace IFramework_Demo
 				SetProperty(ref _password, value, this.GetPropertyName(() => _password));
 			}
 		}
+        private String _name;
+        public String Name
+        {
+            get { return GetProperty(ref _name, this.GetPropertyName(() => _name)); }
+            private set
+            {
+                Tmodel.name = value;
+                SetProperty(ref _name, value, this.GetPropertyName(() => _name));
+            }
+        }
 
-
-		protected override void SyncModelValue()
+        protected override void SyncModelValue()
 		{
  			this.account = Tmodel.account;
 			this.password = Tmodel.password;
-
+            this.Name = Tmodel.name;
 		}
+        protected override void SubscribeMessage()
+        {
+            base.SubscribeMessage();
+            message.Subscribe<RegisterPanelView>(ListenView);
+            APP.message.Subscribe<RegisterMessageHandler>(ListenNet);
+        }
+        protected override void UnSubscribeMessage()
+        {
+            base.UnSubscribeMessage();
+            message.Unsubscribe<RegisterPanelView>(ListenView);
+            APP.message.Unsubscribe<RegisterMessageHandler>(ListenNet);
 
-	}
+
+        }
+
+        private void ListenNet(Type publishType, int code, IEventArgs args, object[] param)
+        {
+            RegisterResponse res = param[0] as RegisterResponse;
+            if (res.sucess)
+            {
+                APP.UI.GoBack();
+            }
+
+        }
+
+        private void ListenView(Type publishType, int code, IEventArgs args, object[] param)
+        {
+            if (args is RegisterPanelViewArg)
+            {
+                RegisterPanelViewArg arg = (RegisterPanelViewArg)args;
+                if (arg.ok)
+                {
+                    APP.net.SendTcpMessage(new RegisterRequest()
+                    {
+                        account=arg.acc,
+                        psd=arg.psd,
+                        name=arg.name
+                    });
+                }
+                else
+                {
+                    account = arg.acc;
+                    password = arg.psd;
+                    Name = arg.name;
+                }
+            }
+        }
+    }
 }

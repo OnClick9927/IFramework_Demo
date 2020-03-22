@@ -15,7 +15,7 @@ using IFramework.Net;
 
 namespace IFramework_Demo
 {
-    interface INetMessageHangdler
+    interface INetMessageHandler
     {
         void OnTcpMessage(SocketToken token, INetMessage message);
         void OnUdpMessage(SocketToken token, INetMessage message);
@@ -23,7 +23,7 @@ namespace IFramework_Demo
         void OnTcpDisConn();
 
     }
-    abstract class NetMessageHandler : INetMessageHangdler
+    abstract class NetMessageHandler : INetMessageHandler
     {
         protected NetClient net { get { return (Framework.env1.modules.App as AppModule).net; } }
         protected abstract void OnTcpMessage(SocketToken token, INetMessage message);
@@ -31,55 +31,25 @@ namespace IFramework_Demo
         protected abstract void OnTcpConn();
         protected abstract void OnTcpDisConn();
 
-        void INetMessageHangdler.OnTcpMessage(SocketToken token, INetMessage message)
+        void INetMessageHandler.OnTcpMessage(SocketToken token, INetMessage message)
         {
             OnTcpMessage(token, message);
         }
 
-        void INetMessageHangdler.OnUdpMessage(SocketToken token, INetMessage message)
+        void INetMessageHandler.OnUdpMessage(SocketToken token, INetMessage message)
         {
             OnUdpMessage(token, message);
         }
 
-        void INetMessageHangdler.OnTcpConn()
+        void INetMessageHandler.OnTcpConn()
         {
             OnTcpConn();
         }
 
-        void INetMessageHangdler.OnTcpDisConn()
+        void INetMessageHandler.OnTcpDisConn()
         {
             OnTcpDisConn();
         }
     }
-    [NetMessage(1)]
-    class TestMessage : INetMessage
-    {
-        public int index = 666;
-    }
-    class TestNetHandler : NetMessageHandler
-    {
-        protected override void OnTcpConn()
-        {
-            for (int i = 0; i < 2; i++)
-            {
-                net.SendTcpMessage(new TestMessage() { index = 777 });
 
-            }
-        }
-
-        protected override void OnTcpDisConn()
-        {
-
-        }
-
-        protected override void OnTcpMessage(SocketToken token, INetMessage message)
-        {
-            Log.L(message);
-        }
-
-        protected override void OnUdpMessage(SocketToken token, INetMessage message)
-        {
-
-        }
-    }
 }

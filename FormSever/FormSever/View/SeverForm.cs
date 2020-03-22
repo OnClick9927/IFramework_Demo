@@ -19,6 +19,9 @@ namespace FormSever
             ReadNetConfig();
         }
 
-
+        private void data_save_Click(object sender, EventArgs e)
+        {
+            APP.datas.Save();
+        }
     }
 }

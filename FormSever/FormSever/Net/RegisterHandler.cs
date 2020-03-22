@@ -1,4 +1,5 @@
 ﻿using IFramework.Net;
+using IFramework;
 namespace FormSever.Net
 {
     [NetMessage(4)]
@@ -30,11 +31,12 @@ namespace FormSever.Net
                 RegisterRequest req = message as RegisterRequest;
                 string err;
                 bool bo = APP.datas.users.AddUser(req.account, req.name, req.psd, out err);
+                Log.L(string.Format("User Register  {0}  {1}  {2}  {3}", req.account, req.name, req.psd, err));
                 net.SendTcpMessage(token, new RegisterResponse()
                 {
                     account = req.account,
                     psd = req.psd,
-                    name =req. name,
+                    name = req.name,
                     sucess = bo,
                     err = err
                 });

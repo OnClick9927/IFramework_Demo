@@ -17,5 +17,6 @@ namespace IFramework_Demo
 	{
         public string account;
         public string password;
+        public string name;
 	}
 }

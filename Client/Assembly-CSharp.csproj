@@ -219,6 +219,7 @@
     <Compile Include="Assets\Scripts\Net\Base\NetConfig.cs" />
     <Compile Include="Assets\Scripts\Net\Base\NetMessageHandleTool.cs" />
     <Compile Include="Assets\Scripts\Net\Base\NetMessageTool.cs" />
+    <Compile Include="Assets\Scripts\Net\RegisterMessageHandler.cs" />
     <Compile Include="Assets\Scripts\UI\AppCover\AppCoverPanel.cs" />
     <Compile Include="Assets\Scripts\UI\AppCover\AppCoverPanelData.cs" />
     <Compile Include="Assets\Scripts\UI\AppCover\AppCoverPanelView.cs" />

@@ -178,7 +178,7 @@ namespace FormSever.Net
             var ie = udpTokenPool.ReadNext();
             foreach (var item in ie)
             {
-                SendTcpMessage(item.Token, message);
+                SendUdpMessage(item.Token, message);
             }
         }
     }

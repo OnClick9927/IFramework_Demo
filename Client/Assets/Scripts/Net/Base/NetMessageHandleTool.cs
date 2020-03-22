@@ -18,7 +18,7 @@ namespace IFramework_Demo
     [OnEnvironmentInit]
     static class NetMessageHandleTool
     {
-       public  readonly static List<INetMessageHangdler> Handlers;
+       public  readonly static List<INetMessageHandler> Handlers;
         //public static IEnumerable<Action<SocketToken, INetMessage>> TcpFunc;
         //public static IEnumerable<Action<SocketToken, INetMessage>> UdpFunc;
         //public static IEnumerable<Action> TcpConn;
@@ -26,10 +26,10 @@ namespace IFramework_Demo
 
         static NetMessageHandleTool()
         {
-            Handlers = typeof(INetMessageHangdler).GetSubTypesInAssemblys()
+            Handlers = typeof(INetMessageHandler).GetSubTypesInAssemblys()
                 .Select((type) => {
                     if (!type.IsAbstract)
-                        return Activator.CreateInstance(type) as INetMessageHangdler;
+                        return Activator.CreateInstance(type) as INetMessageHandler;
                     return null;
                 }).ToList();
 

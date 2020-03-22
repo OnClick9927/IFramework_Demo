@@ -13,7 +13,15 @@ using IFramework;
 using IFramework.Modules.NodeAction;
 namespace IFramework_Demo
 {
-	public class RegisterPanelView : TUIView_MVVM<RegisterPanelViewModel, RegisterPanel>
+    public struct RegisterPanelViewArg:IEventArgs
+    {
+        public string name;
+        public string psd;
+        public string acc;
+        public bool ok;
+    }
+
+    public class RegisterPanelView : TUIView_MVVM<RegisterPanelViewModel, RegisterPanel>
 	{
 		protected override void BindProperty()
 		{
@@ -27,8 +35,56 @@ namespace IFramework_Demo
 
 		protected override void OnLoad()
 		{
+
+            Tpanel.ok.onClick.AddListener(() => {
+
+                message.Publish(this, 1, new RegisterPanelViewArg() {
+                    name = Tpanel.Name.text,
+                    psd=Tpanel.psd.text,
+                    acc=Tpanel.account.text,
+                    ok=true
+
+                 });
+            });
+
+            Tpanel.Name.onEndEdit.AddListener((name) =>
+            {
+
+                message.Publish(this, 1, new RegisterPanelViewArg()
+                {
+                    name = Tpanel.Name.text,
+                    psd = Tpanel.psd.text,
+                    acc = Tpanel.account.text,
+                    ok = false
+
+                });
+            });
+            Tpanel.psd.onEndEdit.AddListener((name) =>
+            {
+
+                message.Publish(this, 1, new RegisterPanelViewArg()
+                {
+                    name = Tpanel.Name.text,
+                    psd = Tpanel.psd.text,
+                    acc = Tpanel.account.text,
+                    ok = false
+
+                });
+            });
+            Tpanel.account.onEndEdit.AddListener((name) =>
+            {
+
+                message.Publish(this, 1, new RegisterPanelViewArg()
+                {
+                    name = Tpanel.Name.text,
+                    psd = Tpanel.psd.text,
+                    acc = Tpanel.account.text,
+                    ok = false
+
+                });
+            });
             this.Sequence(APP.envType)
-                .TimeSpan(TimeSpan.FromSeconds(10))
+                .TimeSpan(TimeSpan.FromSeconds(200))
                 .OnRecyle(() => { APP.UI.GoBack(); })
                 .Run();
         }

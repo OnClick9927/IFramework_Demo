@@ -28,6 +28,7 @@ namespace FormSever
         private static void Application_ApplicationExit(object sender, EventArgs e)
         {
             APP.env.Update();
+            APP.datas.Save();
             APP.env.Dispose();
             timer.Stop();
             timer = null;

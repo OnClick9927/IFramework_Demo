@@ -88,6 +88,8 @@ namespace FormSever
             this.Port = new System.Windows.Forms.TextBox();
             this.Port000 = new System.Windows.Forms.Label();
             this.Run = new System.Windows.Forms.Button();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.data_save = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.Pages.SuspendLayout();
             this.TCP.SuspendLayout();
@@ -105,6 +107,7 @@ namespace FormSever
             this.splitContainer1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // Clear
@@ -158,6 +161,7 @@ namespace FormSever
             // 
             this.Pages.Controls.Add(this.TCP);
             this.Pages.Controls.Add(this.LogPage);
+            this.Pages.Controls.Add(this.tabPage1);
             this.Pages.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Pages.Font = new System.Drawing.Font("宋体", 15F);
             this.Pages.Location = new System.Drawing.Point(0, 0);
@@ -811,6 +815,27 @@ namespace FormSever
             this.Run.Size = new System.Drawing.Size(75, 23);
             this.Run.TabIndex = 4;
             // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.data_save);
+            this.tabPage1.Location = new System.Drawing.Point(4, 35);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(1152, 317);
+            this.tabPage1.TabIndex = 2;
+            this.tabPage1.Text = "Data";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // data_save
+            // 
+            this.data_save.Location = new System.Drawing.Point(803, 146);
+            this.data_save.Name = "data_save";
+            this.data_save.Size = new System.Drawing.Size(201, 77);
+            this.data_save.TabIndex = 0;
+            this.data_save.Text = "save";
+            this.data_save.UseVisualStyleBackColor = true;
+            this.data_save.Click += new System.EventHandler(this.data_save_Click);
+            // 
             // SeverForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -847,6 +872,7 @@ namespace FormSever
             this.panel2.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            this.tabPage1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -914,6 +940,8 @@ namespace FormSever
         private System.Windows.Forms.CheckBox Log_ErrEnable;
         private System.Windows.Forms.CheckBox Log_WarnEnable;
         private System.Windows.Forms.CheckBox Log_Enable;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.Button data_save;
     }
   
 }

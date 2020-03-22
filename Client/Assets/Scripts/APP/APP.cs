@@ -18,11 +18,11 @@ namespace IFramework_Demo
         public static UIModule UI { get { return App.UI; } }
         public static FrameworkEnvironment env { get { return Framework.env1; } }
 
-        public static NetClient net { get { return APP.net; } }
+        public static NetClient net { get { return APP.App.net; } }
 
         public static IFramework.Modules.Message.MessageModule message{ get { return env.modules.Message; } }
     }
-
+     
     public partial class APP :MonoBehaviour
     {
         private void Awake()
