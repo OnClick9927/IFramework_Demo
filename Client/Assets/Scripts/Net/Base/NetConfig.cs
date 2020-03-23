@@ -13,15 +13,12 @@ namespace IFramework_Demo
     static class NetConfig
     {
 
-        public static int TCPBuffersize=1024;
-        public static int UDPBuffersize=1024;
+        public static int TCPBuffersize=8192;
 
-        public static int UDPPort=1234;
         public static int TCPPort=12345;
 
-        internal static int BufferNumber=64;
+        internal static int BufferNumber=4;
         internal static string TCPIP= "127.0.0.1";
-        internal static string UDPIP= "127.0.0.1";
     }
 
 }

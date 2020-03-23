@@ -267,7 +267,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u871C\u6843\u4EBA\u5927\u4F5C\u6218"
+  m_Text: War Of Pixels
 --- !u!1 &7696446286098965306
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
-﻿using IFramework.Net;
+﻿using IFramework;
+using IFramework.Net;
 namespace FormSever.Net
 {
     [NetMessage(2)]
@@ -15,6 +16,12 @@ namespace FormSever.Net
         public string name;
         public bool sucess;
         public string err;
+    }
+    [NetMessage(10)]
+    class loginBroadCast : INetMessage
+    {
+        public string account;
+        public string name;
     }
     class LoginHandler : NetMessageHandler
     {
@@ -33,6 +40,8 @@ namespace FormSever.Net
                 string err;
                 string name;
                 bool bo = APP.datas.users.TryLogin(req.account, req.psd,out name,out err);
+                Log.L(string.Format("User Login  {0}  {1}  {2}  {3}", req.account, name, req.psd, err));
+
                 net.SendTcpMessage(token, new LoginResponse()
                 {
                     account = req.account,
@@ -42,14 +51,20 @@ namespace FormSever.Net
                     err = err
 
                 });
+                if (bo)
+                {
+                    net.SendTcpMessageToAll(new loginBroadCast()
+                    {
+                        account=req.account,
+                        name=name
+                    });
+                }
             }
 
         }
 
 
 
-        protected override void OnUdpMessage(SocketToken token, INetMessage message)
-        {
-        }
+      
     }
 }

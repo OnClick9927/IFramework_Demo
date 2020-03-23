@@ -10,11 +10,14 @@ using System.Collections;
 using System.Collections.Generic;
 using IFramework;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace IFramework_Demo
 {
 	public class LoadPanel : UIPanel
 	{
-
-	}
+        public InputField account;
+        public InputField psd;
+        public Button ok;
+    }
 }

@@ -11,6 +11,7 @@ namespace FormSever
 {
     public partial class APP
     {
+
         private static void InitFrameworkMoudles()
         {
             APP.env.modules.Loom = APP.env.modules.CreateModule<LoomModule>();
@@ -74,9 +75,19 @@ namespace FormSever
     }
     public partial class APP
     {
+        internal static SeverForm form;
+
         public static Data.Datas datas { get{ return (Framework.env0.modules.App as AppMoudle).datas; } }
         public static FrameworkEnvironment env { get { return Framework.env0; } }
         public static Net.NetSever net { get { return (Framework.env0.modules.App as AppMoudle).net; } }
+        public static Game.GameMap gameMap
+        {
+            get { return (Framework.env0.modules.App as AppMoudle).gameMap; }
+        }
+        public static MessageModule message
+        {
+            get { return Framework.env0.modules.Message; }
+        }
 
     }
 

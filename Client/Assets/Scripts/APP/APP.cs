@@ -21,6 +21,11 @@ namespace IFramework_Demo
         public static NetClient net { get { return APP.App.net; } }
 
         public static IFramework.Modules.Message.MessageModule message{ get { return env.modules.Message; } }
+
+        public static string acc;
+        public static string uname;
+        internal static string psd;
+        internal const int NetMaxConnCount=10;
     }
      
     public partial class APP :MonoBehaviour

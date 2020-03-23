@@ -1,6 +1,7 @@
 ﻿using FormSever.Net;
 using IFramework;
 using IFramework.Modules;
+using IFramework.Modules.NodeAction;
 namespace FormSever
 {
     class AppMoudle : FrameworkAppModule
@@ -17,26 +18,33 @@ namespace FormSever
                 net.onTcpMessage += Hs[i].OnTcpMessage;
                 net.onTcpConn += Hs[i].OnTcpConn;
                 net.onTcpDisconn += Hs[i].OnTcpDisConn;
-                net.onUdpMessage += Hs[i].OnUdpMessage;
             }
             net.Run();
         }
 
         public Data.Datas datas { get; private set; }
+        public Game.GameMap gameMap { get; private set; }
 
         private void InitDatas()
         {
             datas = new Data.Datas();
+            gameMap = new Game.GameMap();
             datas.Load();
+            gameMap.Load();
         }
         protected override void Awake()
         {
             InitNet();
             InitDatas();
+
+           
+
         }
 
         protected override void OnDispose()
         {
+            datas.Save();
+            gameMap.Save();
             net?.Dispose();
         }
 

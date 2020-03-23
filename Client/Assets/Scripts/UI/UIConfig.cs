@@ -23,7 +23,8 @@ namespace IFramework_Demo
                    {typeof(RegisterPanel),Tuple.Create("RegisterPanel","UI/RegisterPanel",UIPanelLayer.Common )},
                    {typeof(LoadPanel),Tuple.Create("LoadPanel","UI/LoadPanel",UIPanelLayer.Common )},
                    {typeof(StatusPanel),Tuple.Create("StatusPanel","UI/StatusPanel",UIPanelLayer.Top )},
-
+                   {typeof(GamePanel),Tuple.Create("GamePanel","UI/GamePanel",UIPanelLayer.Common )},
+                    {typeof(TipPanel),Tuple.Create("TipPanel","UI/TipPanel",UIPanelLayer.Top )},
                };
         public static string Name<T>()
         {

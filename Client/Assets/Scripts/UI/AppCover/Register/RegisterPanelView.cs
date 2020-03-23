@@ -7,19 +7,10 @@
  *History:        2020-03-01--
 *********************************************************************************/
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using IFramework;
 using IFramework.Modules.NodeAction;
 namespace IFramework_Demo
 {
-    public struct RegisterPanelViewArg:IEventArgs
-    {
-        public string name;
-        public string psd;
-        public string acc;
-        public bool ok;
-    }
 
     public class RegisterPanelView : TUIView_MVVM<RegisterPanelViewModel, RegisterPanel>
 	{
@@ -83,25 +74,38 @@ namespace IFramework_Demo
 
                 });
             });
-            this.Sequence(APP.envType)
-                .TimeSpan(TimeSpan.FromSeconds(200))
-                .OnRecyle(() => { APP.UI.GoBack(); })
-                .Run();
+          
         }
 
         protected override void OnPop(UIEventArgs arg)
         {
             Hide();
+            if (node != null)
+            {
+                node.Recyle();
+                node = null;
+            }
         }
 
         protected override void OnPress(UIEventArgs arg)
         {
             Hide();
+            if (node!=null)
+            {
+                node.Recyle();
+                node = null;
+            }
         }
 
+        SequenceNode node;
         protected override void OnTop(UIEventArgs arg)
         {
+            
             Show();
+            node= this.Sequence(APP.envType)
+              .TimeSpan(TimeSpan.FromSeconds(200))
+              .OnCompelete(() => { Log.L("rs"); APP.UI.GoBack(); })
+              .Run();
         }
 
     }

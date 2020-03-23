@@ -14,7 +14,7 @@ using IFramework.Modules.NodeAction;
 
 namespace IFramework_Demo
 {
-	public class LoadPanelView : TUIView_MVVM<LoadPanelViewModel, LoadPanel>
+    public class LoadPanelView : TUIView_MVVM<LoadPanelViewModel, LoadPanel>
 	{
 		protected override void BindProperty()
 		{
@@ -28,25 +28,69 @@ namespace IFramework_Demo
 
         protected override void OnLoad()
         {
-            this.Sequence(APP.envType)
-                .TimeSpan(TimeSpan.FromSeconds(10))
-                .OnRecyle(() => { APP.UI.GoBack(); })
-                .Run();
+            Tpanel.ok.onClick.AddListener(() => {
+
+                message.Publish(this, 1, new LoadPanelViewArg()
+                {
+                    psd = Tpanel.psd.text,
+                    acc = Tpanel.account.text,
+                    ok = true
+
+                });
+            });
+
+            Tpanel.psd.onEndEdit.AddListener((name) =>
+            {
+
+                message.Publish(this, 1, new LoadPanelViewArg()
+                {
+                    psd = Tpanel.psd.text,
+                    acc = Tpanel.account.text,
+                    ok = false
+
+                });
+            });
+            Tpanel.account.onEndEdit.AddListener((name) =>
+            {
+
+                message.Publish(this, 1, new LoadPanelViewArg()
+                {
+                    psd = Tpanel.psd.text,
+                    acc = Tpanel.account.text,
+                    ok = false
+
+                });
+            });
         }
 
         protected override void OnPop(UIEventArgs arg)
         {
             Hide();
+            if (node != null)
+            {
+                node.Recyle();
+                node = null;
+            }
         }
 
         protected override void OnPress(UIEventArgs arg)
         {
             Hide();
+            if (node != null)
+            {
+                node.Recyle();
+                node = null;
+            }
         }
+        SequenceNode node;
 
         protected override void OnTop(UIEventArgs arg)
         {
             Show();
+            node = this.Sequence(APP.envType)
+            .TimeSpan(TimeSpan.FromSeconds(20))
+            .OnCompelete(() => { Log.L("rs"); APP.UI.GoBack(); })
+            .Run();
         }
     }
 }

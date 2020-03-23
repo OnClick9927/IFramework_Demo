@@ -5,7 +5,6 @@ namespace FormSever.Net
     interface INetMessageHandler
     {
         void OnTcpMessage(SocketToken token, INetMessage message);
-        void OnUdpMessage(SocketToken token, INetMessage message);
         void OnTcpConn(SocketToken token);
         void OnTcpDisConn(SocketToken token);
 
@@ -14,7 +13,6 @@ namespace FormSever.Net
     {
         protected NetSever net { get { return (Framework.env0.modules.App as AppMoudle).net; } }
         protected abstract void OnTcpMessage(SocketToken token, INetMessage message);
-        protected abstract void OnUdpMessage(SocketToken token, INetMessage message);
         protected abstract void OnTcpConn(SocketToken token);
         protected abstract void OnTcpDisConn(SocketToken token);
 
@@ -23,10 +21,7 @@ namespace FormSever.Net
             OnTcpMessage(token, message);
         }
 
-        void INetMessageHandler.OnUdpMessage(SocketToken token, INetMessage message)
-        {
-            OnUdpMessage(token, message);
-        }
+      
 
         void INetMessageHandler.OnTcpConn(SocketToken token)
         {

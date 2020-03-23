@@ -35,13 +35,61 @@ namespace IFramework_Demo
 			}
 		}
 
-
-		protected override void SyncModelValue()
+      
+        protected override void SyncModelValue()
 		{
  			this.account = Tmodel.account;
 			this.password = Tmodel.password;
 
 		}
+        protected override void SubscribeMessage()
+        {
+            base.SubscribeMessage();
+            message.Subscribe<LoadPanelView>(ListenView);
+            APP.message.Subscribe<LoginMessageHandler>(ListenNet);
 
-	}
+
+        }
+
+        private void ListenNet(Type publishType, int code, IEventArgs args, object[] param)
+        {
+            LoginResponse res = param[0] as LoginResponse;
+            if (res!=null && res.sucess)
+            {
+                APP.acc = res.account;
+                APP.uname = res.name;
+                APP.psd = password;
+                APP.UI.Get<GamePanel>(UIConfig.Name<GamePanel>(), UIConfig.Path<GamePanel>(), UIConfig.Layer<GamePanel>());
+            }
+        }
+
+        private void ListenView(Type publishType, int code, IEventArgs args, object[] param)
+        {
+            if (args is LoadPanelViewArg)
+            {
+                LoadPanelViewArg arg = (LoadPanelViewArg)args;
+                if (arg.ok)
+                {
+                    APP.net.SendTcpMessage(new LoginRequest()
+                    {
+                        account = arg.acc,
+                        psd = arg.psd,
+                    });
+                }
+                else
+                {
+                    account = arg.acc;
+                    password = arg.psd;
+                }
+            }
+        }
+
+        protected override void UnSubscribeMessage()
+        {
+            base.UnSubscribeMessage();
+            message.Unsubscribe<LoadPanelView>(ListenView);
+            APP.message.Unsubscribe<LoginMessageHandler>(ListenNet);
+
+        }
+    }
 }

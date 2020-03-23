@@ -33,8 +33,6 @@ namespace IFramework_Demo
             }
         }
 
-        protected override void OnUdpMessage(SocketToken token, INetMessage message)
-        {
-        }
+       
     }
 }

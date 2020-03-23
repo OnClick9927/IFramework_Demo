@@ -23,6 +23,8 @@ namespace IFramework_Demo
 			{typeof(IFramework_Demo.LoadPanel),Tuple.Create(typeof(IFramework_Demo.LoadPanelData),typeof(IFramework_Demo.LoadPanelView),typeof(IFramework_Demo.LoadPanelViewModel))},
 			{typeof(IFramework_Demo.RegisterPanel),Tuple.Create(typeof(IFramework_Demo.RegisterPanelData),typeof(IFramework_Demo.RegisterPanelView),typeof(IFramework_Demo.RegisterPanelViewModel))},
 			{typeof(IFramework_Demo.StatusPanel),Tuple.Create(typeof(IFramework_Demo.StatusPanelData),typeof(IFramework_Demo.StatusPanelView),typeof(IFramework_Demo.StatusPanelViewModel))},
+			{typeof(IFramework_Demo.GamePanel),Tuple.Create(typeof(IFramework_Demo.GamePanelData),typeof(IFramework_Demo.GamePanelView),typeof(IFramework_Demo.GamePanelViewModel))},
+			{typeof(IFramework_Demo.TipPanel),Tuple.Create(typeof(IFramework_Demo.TipPanelData),typeof(IFramework_Demo.TipPanelView),typeof(IFramework_Demo.TipPanelViewModel))},
 //ToDo
 		};
 	}

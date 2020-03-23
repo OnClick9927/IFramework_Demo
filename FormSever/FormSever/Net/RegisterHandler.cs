@@ -43,6 +43,5 @@ namespace FormSever.Net
             }
         }
 
-        protected override void OnUdpMessage(SocketToken token, INetMessage message) { }
     }
 }

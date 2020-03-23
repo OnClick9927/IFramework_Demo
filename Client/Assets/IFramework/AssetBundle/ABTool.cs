@@ -43,7 +43,7 @@ namespace IFramework.AB
             return null;
         }
 #if UNITY_EDITOR
-        private static string GetPlatformForAssetBundles(BuildTarget target)
+        private static string GetPlatformForAssetBundles(UnityEditor.BuildTarget target)
         {
             if (target == BuildTarget.Android) return "Android";
             if (target == BuildTarget.tvOS) return "tvOS";

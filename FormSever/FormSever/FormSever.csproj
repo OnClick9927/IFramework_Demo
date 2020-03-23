@@ -82,7 +82,10 @@
     <Compile Include="Data\IData.cs" />
     <Compile Include="Data\IDatas.cs" />
     <Compile Include="Data\UserDatas.cs" />
+    <Compile Include="Game\GameMap.cs" />
     <Compile Include="Net\Base\INetMessageHangdler.cs" />
+    <Compile Include="Net\ChatHandler.cs" />
+    <Compile Include="Net\GameHandler.cs" />
     <Compile Include="Net\LoginHandler.cs" />
     <Compile Include="Net\RegisterHandler.cs" />
     <Compile Include="Net\TestHandler.cs" />

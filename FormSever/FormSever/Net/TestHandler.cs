@@ -25,9 +25,7 @@ namespace FormSever.Net
             //net.SendTcpMessage(token, message);
         }
 
-        protected override void OnUdpMessage(SocketToken token, INetMessage message)
-        {
-        }
+
     }
 
 

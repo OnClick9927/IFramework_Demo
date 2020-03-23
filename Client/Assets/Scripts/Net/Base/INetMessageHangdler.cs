@@ -18,7 +18,6 @@ namespace IFramework_Demo
     interface INetMessageHandler
     {
         void OnTcpMessage(SocketToken token, INetMessage message);
-        void OnUdpMessage(SocketToken token, INetMessage message);
         void OnTcpConn();
         void OnTcpDisConn();
 
@@ -27,7 +26,6 @@ namespace IFramework_Demo
     {
         protected NetClient net { get { return (Framework.env1.modules.App as AppModule).net; } }
         protected abstract void OnTcpMessage(SocketToken token, INetMessage message);
-        protected abstract void OnUdpMessage(SocketToken token, INetMessage message);
         protected abstract void OnTcpConn();
         protected abstract void OnTcpDisConn();
 
@@ -36,11 +34,7 @@ namespace IFramework_Demo
             OnTcpMessage(token, message);
         }
 
-        void INetMessageHandler.OnUdpMessage(SocketToken token, INetMessage message)
-        {
-            OnUdpMessage(token, message);
-        }
-
+      
         void INetMessageHandler.OnTcpConn()
         {
             OnTcpConn();

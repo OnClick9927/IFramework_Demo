@@ -48,18 +48,6 @@ namespace FormSever
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.TCPBufferSize = new System.Windows.Forms.TextBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.UDPTimeOut = new System.Windows.Forms.TextBox();
-            this.UDPCheckSpace = new System.Windows.Forms.TextBox();
-            this.UDPMaxCon = new System.Windows.Forms.TextBox();
-            this.UDPPort = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.UDPBufferSize = new System.Windows.Forms.TextBox();
             this.Net_Fresh = new System.Windows.Forms.Button();
             this.LogPage = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
@@ -81,6 +69,16 @@ namespace FormSever
             this.Log_LogEnable = new System.Windows.Forms.CheckBox();
             this.Log_Enable = new System.Windows.Forms.CheckBox();
             this.Log_Fresh = new System.Windows.Forms.Button();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.Picture = new System.Windows.Forms.PictureBox();
+            this.data_save = new System.Windows.Forms.Button();
+            this.SendMessagePage = new System.Windows.Forms.TabPage();
+            this.Message_gap_slider = new System.Windows.Forms.HScrollBar();
+            this.MessageGap = new System.Windows.Forms.Label();
+            this.MessageCount = new System.Windows.Forms.Label();
+            this.MesaggSlider = new System.Windows.Forms.HScrollBar();
+            this.message_send = new System.Windows.Forms.Button();
+            this.message_message = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -88,18 +86,17 @@ namespace FormSever
             this.Port = new System.Windows.Forms.TextBox();
             this.Port000 = new System.Windows.Forms.Label();
             this.Run = new System.Windows.Forms.Button();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.data_save = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.Pages.SuspendLayout();
             this.TCP.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
             this.LogPage.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Picture)).BeginInit();
+            this.SendMessagePage.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -107,7 +104,6 @@ namespace FormSever
             this.splitContainer1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // Clear
@@ -162,6 +158,7 @@ namespace FormSever
             this.Pages.Controls.Add(this.TCP);
             this.Pages.Controls.Add(this.LogPage);
             this.Pages.Controls.Add(this.tabPage1);
+            this.Pages.Controls.Add(this.SendMessagePage);
             this.Pages.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Pages.Font = new System.Drawing.Font("宋体", 15F);
             this.Pages.Location = new System.Drawing.Point(0, 0);
@@ -175,7 +172,6 @@ namespace FormSever
             // 
             this.TCP.BackColor = System.Drawing.SystemColors.GrayText;
             this.TCP.Controls.Add(this.groupBox1);
-            this.TCP.Controls.Add(this.groupBox2);
             this.TCP.Controls.Add(this.Net_Fresh);
             this.TCP.ForeColor = System.Drawing.SystemColors.WindowText;
             this.TCP.Location = new System.Drawing.Point(4, 35);
@@ -329,149 +325,6 @@ namespace FormSever
             this.TCPBufferSize.Name = "TCPBufferSize";
             this.TCPBufferSize.Size = new System.Drawing.Size(268, 36);
             this.TCPBufferSize.TabIndex = 5;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupBox2.AutoSize = true;
-            this.groupBox2.Controls.Add(this.tableLayoutPanel3);
-            this.groupBox2.Cursor = System.Windows.Forms.Cursors.Default;
-            this.groupBox2.Font = new System.Drawing.Font("宋体", 15F);
-            this.groupBox2.ForeColor = System.Drawing.Color.Yellow;
-            this.groupBox2.Location = new System.Drawing.Point(432, 22);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(0);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox2.Size = new System.Drawing.Size(376, 270);
-            this.groupBox2.TabIndex = 8;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "UDP";
-            // 
-            // tableLayoutPanel3
-            // 
-            this.tableLayoutPanel3.ColumnCount = 2;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel3.Controls.Add(this.UDPTimeOut, 1, 4);
-            this.tableLayoutPanel3.Controls.Add(this.UDPCheckSpace, 1, 3);
-            this.tableLayoutPanel3.Controls.Add(this.UDPMaxCon, 1, 2);
-            this.tableLayoutPanel3.Controls.Add(this.UDPPort, 1, 1);
-            this.tableLayoutPanel3.Controls.Add(this.label6, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.label7, 0, 1);
-            this.tableLayoutPanel3.Controls.Add(this.label8, 0, 2);
-            this.tableLayoutPanel3.Controls.Add(this.label9, 0, 4);
-            this.tableLayoutPanel3.Controls.Add(this.label10, 0, 3);
-            this.tableLayoutPanel3.Controls.Add(this.UDPBufferSize, 1, 0);
-            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 29);
-            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(0);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 5;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 22F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 22F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(376, 241);
-            this.tableLayoutPanel3.TabIndex = 0;
-            // 
-            // UDPTimeOut
-            // 
-            this.UDPTimeOut.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.UDPTimeOut.Location = new System.Drawing.Point(142, 192);
-            this.UDPTimeOut.Margin = new System.Windows.Forms.Padding(0);
-            this.UDPTimeOut.Name = "UDPTimeOut";
-            this.UDPTimeOut.Size = new System.Drawing.Size(276, 36);
-            this.UDPTimeOut.TabIndex = 9;
-            // 
-            // UDPCheckSpace
-            // 
-            this.UDPCheckSpace.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.UDPCheckSpace.Location = new System.Drawing.Point(142, 144);
-            this.UDPCheckSpace.Margin = new System.Windows.Forms.Padding(0);
-            this.UDPCheckSpace.Name = "UDPCheckSpace";
-            this.UDPCheckSpace.Size = new System.Drawing.Size(276, 36);
-            this.UDPCheckSpace.TabIndex = 8;
-            // 
-            // UDPMaxCon
-            // 
-            this.UDPMaxCon.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.UDPMaxCon.Location = new System.Drawing.Point(142, 96);
-            this.UDPMaxCon.Margin = new System.Windows.Forms.Padding(0);
-            this.UDPMaxCon.Name = "UDPMaxCon";
-            this.UDPMaxCon.Size = new System.Drawing.Size(276, 36);
-            this.UDPMaxCon.TabIndex = 7;
-            // 
-            // UDPPort
-            // 
-            this.UDPPort.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.UDPPort.Location = new System.Drawing.Point(142, 48);
-            this.UDPPort.Margin = new System.Windows.Forms.Padding(0);
-            this.UDPPort.Name = "UDPPort";
-            this.UDPPort.Size = new System.Drawing.Size(276, 36);
-            this.UDPPort.TabIndex = 6;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(0, 0);
-            this.label6.Margin = new System.Windows.Forms.Padding(0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(142, 25);
-            this.label6.TabIndex = 0;
-            this.label6.Text = "BufferSize";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(0, 48);
-            this.label7.Margin = new System.Windows.Forms.Padding(0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(64, 25);
-            this.label7.TabIndex = 1;
-            this.label7.Text = "Port";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(0, 96);
-            this.label8.Margin = new System.Windows.Forms.Padding(0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(103, 25);
-            this.label8.TabIndex = 2;
-            this.label8.Text = "MaxConn";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(0, 192);
-            this.label9.Margin = new System.Windows.Forms.Padding(0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(103, 25);
-            this.label9.TabIndex = 3;
-            this.label9.Text = "TimeOut";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(0, 144);
-            this.label10.Margin = new System.Windows.Forms.Padding(0);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(142, 25);
-            this.label10.TabIndex = 4;
-            this.label10.Text = "CheckSpace";
-            // 
-            // UDPBufferSize
-            // 
-            this.UDPBufferSize.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.UDPBufferSize.Location = new System.Drawing.Point(142, 0);
-            this.UDPBufferSize.Margin = new System.Windows.Forms.Padding(0);
-            this.UDPBufferSize.Name = "UDPBufferSize";
-            this.UDPBufferSize.Size = new System.Drawing.Size(276, 36);
-            this.UDPBufferSize.TabIndex = 5;
             // 
             // Net_Fresh
             // 
@@ -733,6 +586,106 @@ namespace FormSever
             this.Log_Fresh.UseVisualStyleBackColor = false;
             this.Log_Fresh.Click += new System.EventHandler(this.Log_Fresh_Click);
             // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.Picture);
+            this.tabPage1.Controls.Add(this.data_save);
+            this.tabPage1.Location = new System.Drawing.Point(4, 35);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(1152, 317);
+            this.tabPage1.TabIndex = 2;
+            this.tabPage1.Text = "Data";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // Picture
+            // 
+            this.Picture.Location = new System.Drawing.Point(3, 3);
+            this.Picture.Name = "Picture";
+            this.Picture.Size = new System.Drawing.Size(300, 300);
+            this.Picture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.Picture.TabIndex = 1;
+            this.Picture.TabStop = false;
+            // 
+            // data_save
+            // 
+            this.data_save.Location = new System.Drawing.Point(803, 146);
+            this.data_save.Name = "data_save";
+            this.data_save.Size = new System.Drawing.Size(201, 77);
+            this.data_save.TabIndex = 0;
+            this.data_save.Text = "save";
+            this.data_save.UseVisualStyleBackColor = true;
+            this.data_save.Click += new System.EventHandler(this.data_save_Click);
+            // 
+            // SendMessagePage
+            // 
+            this.SendMessagePage.Controls.Add(this.Message_gap_slider);
+            this.SendMessagePage.Controls.Add(this.MessageGap);
+            this.SendMessagePage.Controls.Add(this.MessageCount);
+            this.SendMessagePage.Controls.Add(this.MesaggSlider);
+            this.SendMessagePage.Controls.Add(this.message_send);
+            this.SendMessagePage.Controls.Add(this.message_message);
+            this.SendMessagePage.Location = new System.Drawing.Point(4, 35);
+            this.SendMessagePage.Name = "SendMessagePage";
+            this.SendMessagePage.Padding = new System.Windows.Forms.Padding(3);
+            this.SendMessagePage.Size = new System.Drawing.Size(1152, 317);
+            this.SendMessagePage.TabIndex = 3;
+            this.SendMessagePage.Text = "SendMessage";
+            this.SendMessagePage.UseVisualStyleBackColor = true;
+            // 
+            // Message_gap_slider
+            // 
+            this.Message_gap_slider.Location = new System.Drawing.Point(31, 244);
+            this.Message_gap_slider.Minimum = -1;
+            this.Message_gap_slider.Name = "Message_gap_slider";
+            this.Message_gap_slider.Size = new System.Drawing.Size(677, 21);
+            this.Message_gap_slider.TabIndex = 5;
+            this.Message_gap_slider.Scroll += new System.Windows.Forms.ScrollEventHandler(this.Message_gap_slider_Scroll);
+            // 
+            // MessageGap
+            // 
+            this.MessageGap.AutoSize = true;
+            this.MessageGap.Location = new System.Drawing.Point(26, 187);
+            this.MessageGap.Name = "MessageGap";
+            this.MessageGap.Size = new System.Drawing.Size(168, 25);
+            this.MessageGap.TabIndex = 4;
+            this.MessageGap.Text = "label6666666";
+            // 
+            // MessageCount
+            // 
+            this.MessageCount.AutoSize = true;
+            this.MessageCount.Location = new System.Drawing.Point(26, 86);
+            this.MessageCount.Name = "MessageCount";
+            this.MessageCount.Size = new System.Drawing.Size(168, 25);
+            this.MessageCount.TabIndex = 3;
+            this.MessageCount.Text = "label6666666";
+            // 
+            // MesaggSlider
+            // 
+            this.MesaggSlider.Location = new System.Drawing.Point(31, 137);
+            this.MesaggSlider.Minimum = -1;
+            this.MesaggSlider.Name = "MesaggSlider";
+            this.MesaggSlider.Size = new System.Drawing.Size(677, 21);
+            this.MesaggSlider.TabIndex = 2;
+            this.MesaggSlider.Scroll += new System.Windows.Forms.ScrollEventHandler(this.hScrollBar1_Scroll);
+            // 
+            // message_send
+            // 
+            this.message_send.Location = new System.Drawing.Point(791, 226);
+            this.message_send.Name = "message_send";
+            this.message_send.Size = new System.Drawing.Size(252, 60);
+            this.message_send.TabIndex = 1;
+            this.message_send.Text = "Send";
+            this.message_send.UseVisualStyleBackColor = true;
+            this.message_send.Click += new System.EventHandler(this.message_send_Click);
+            // 
+            // message_message
+            // 
+            this.message_message.Location = new System.Drawing.Point(22, 19);
+            this.message_message.Name = "message_message";
+            this.message_message.Size = new System.Drawing.Size(812, 36);
+            this.message_message.TabIndex = 0;
+            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.logView);
@@ -815,27 +768,6 @@ namespace FormSever
             this.Run.Size = new System.Drawing.Size(75, 23);
             this.Run.TabIndex = 4;
             // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.data_save);
-            this.tabPage1.Location = new System.Drawing.Point(4, 35);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1152, 317);
-            this.tabPage1.TabIndex = 2;
-            this.tabPage1.Text = "Data";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // data_save
-            // 
-            this.data_save.Location = new System.Drawing.Point(803, 146);
-            this.data_save.Name = "data_save";
-            this.data_save.Size = new System.Drawing.Size(201, 77);
-            this.data_save.TabIndex = 0;
-            this.data_save.Text = "save";
-            this.data_save.UseVisualStyleBackColor = true;
-            this.data_save.Click += new System.EventHandler(this.data_save_Click);
-            // 
             // SeverForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -856,14 +788,15 @@ namespace FormSever
             this.groupBox1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.tableLayoutPanel3.ResumeLayout(false);
-            this.tableLayoutPanel3.PerformLayout();
             this.LogPage.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel5.PerformLayout();
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
+            this.tabPage1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.Picture)).EndInit();
+            this.SendMessagePage.ResumeLayout(false);
+            this.SendMessagePage.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -872,7 +805,6 @@ namespace FormSever
             this.panel2.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            this.tabPage1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -896,18 +828,6 @@ namespace FormSever
         private System.Windows.Forms.Label Port000;
         private System.Windows.Forms.Button Run;
         private System.Windows.Forms.Button Net_Fresh;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        private System.Windows.Forms.TextBox UDPTimeOut;
-        private System.Windows.Forms.TextBox UDPCheckSpace;
-        private System.Windows.Forms.TextBox UDPMaxCon;
-        private System.Windows.Forms.TextBox UDPPort;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox UDPBufferSize;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.TextBox TCPTimeOut;
@@ -942,6 +862,14 @@ namespace FormSever
         private System.Windows.Forms.CheckBox Log_Enable;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.Button data_save;
+        public System.Windows.Forms.PictureBox Picture;
+        private System.Windows.Forms.TabPage SendMessagePage;
+        private System.Windows.Forms.TextBox message_message;
+        private System.Windows.Forms.Button message_send;
+        private System.Windows.Forms.HScrollBar MesaggSlider;
+        private System.Windows.Forms.Label MessageCount;
+        private System.Windows.Forms.HScrollBar Message_gap_slider;
+        private System.Windows.Forms.Label MessageGap;
     }
   
 }

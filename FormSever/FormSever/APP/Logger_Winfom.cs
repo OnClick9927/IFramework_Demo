@@ -36,6 +36,10 @@ namespace FormSever
 
         public void Log(LogType logType, object messages, params object[] paras)
         {
+            if (m_view.Items.Count>1000)
+            {
+                m_view.Items.Clear();
+            }
             m_view.Items.Add(new ListViewItem());
 
             var item = m_view.Items[m_view.Items.Count - 1];

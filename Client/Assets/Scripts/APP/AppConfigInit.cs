@@ -31,15 +31,12 @@ namespace IFramework_Demo
         }
         private static void InitNetConfig()
         {
-            NetConfig.TCPBuffersize = 1024;
-            NetConfig.UDPBuffersize = 1024;
+            NetConfig.TCPBuffersize = 8192;
 
-            NetConfig.UDPPort = 12345;
             NetConfig.TCPPort = 12346;
 
             NetConfig.BufferNumber = 64;
-            NetConfig.TCPIP = "127.0.0.1";
-            NetConfig.UDPIP = "127.0.0.1";
+            NetConfig.TCPIP = "180.76.149.93";
         }
         private static void InitLog()
         {
