@@ -87,8 +87,8 @@ namespace IFramework_Demo
         protected override void UnSubscribeMessage()
         {
             base.UnSubscribeMessage();
-            message.Unsubscribe<LoadPanelView>(ListenView);
-            APP.message.Unsubscribe<LoginMessageHandler>(ListenNet);
+            message.UnSubscribe<LoadPanelView>(ListenView);
+            APP.message.UnSubscribe<LoginMessageHandler>(ListenNet);
 
         }
     }

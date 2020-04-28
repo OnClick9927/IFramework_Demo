@@ -1,12 +1,11 @@
 ﻿using FormSever.Net;
 using IFramework;
 using IFramework.Modules;
-using IFramework.Modules.NodeAction;
+using IFramework.NodeAction;
 namespace FormSever
 {
     class AppMoudle : FrameworkAppModule
     {
-        protected override bool needUpdate { get { return true; } }
         public NetSever net { get; private set; }
         private void InitNet()
         {

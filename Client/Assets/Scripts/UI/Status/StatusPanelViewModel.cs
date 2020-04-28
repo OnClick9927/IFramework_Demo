@@ -66,7 +66,7 @@ namespace IFramework_Demo
         protected override void UnSubscribeMessage()
         {
             base.UnSubscribeMessage();
-            APP.message.Unsubscribe<AppModule>(FPS_Conn);
+            APP.message.UnSubscribe<AppModule>(FPS_Conn);
 
         }
     }

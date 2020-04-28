@@ -26,10 +26,10 @@ namespace IFramework
         private ProjectConfigInfo Info;
         private void OnEnable()
         {
-            if (File.Exists(EditorProjectConfig.ProjectConfigInfoPath))
-                Info = ScriptableObj.Load<ProjectConfigInfo>(EditorProjectConfig.ProjectConfigInfoPath);
+            if (File.Exists(ProjectConfig.ProjectConfigInfoPath))
+                Info = ScriptableObj.Load<ProjectConfigInfo>(ProjectConfig.ProjectConfigInfoPath);
             else
-                Info = ScriptableObj.Create<ProjectConfigInfo>(EditorProjectConfig.ProjectConfigInfoPath);
+                Info = ScriptableObj.Create<ProjectConfigInfo>(ProjectConfig.ProjectConfigInfoPath);
         }
         private void OnDisable()
         {

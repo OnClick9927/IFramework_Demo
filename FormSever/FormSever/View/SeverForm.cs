@@ -2,7 +2,7 @@
 using IFramework;
 using System;
 using System.Windows.Forms;
-using IFramework.Modules.NodeAction;
+using IFramework.NodeAction;
 namespace FormSever
 {
     public partial class SeverForm : Form

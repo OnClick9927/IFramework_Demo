@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using IFramework;
 using UnityEngine.UI;
 using UnityEngine;
-using IFramework.Modules.MVVM;
+using IFramework.Tweens;
 namespace IFramework_Demo
 {
 
@@ -66,6 +66,7 @@ namespace IFramework_Demo
             {
 
                 Text.text = pmdQueue.Dequeue();
+
                 yield return new WaitForFixedUpdate();
 
                 float distance = Text.preferredWidth*2f + rect_w;
@@ -74,14 +75,9 @@ namespace IFramework_Demo
                 while (tLoop-- > 0)
                 {
                     Text.rectTransform.localPosition = v3;
-                    float temp=0;
-                    int quecnt = pmdQueue.Count;
-
-
-                    while (temp < distance)
+                    var a= Text.rectTransform.DoLocalMove(new Vector3(v3.x - distance * 1.2f, orgPos.y, orgPos.z), 5);
+                    while (!a.recyled)
                     {
-                        temp += Time.deltaTime*speed;
-                        Text.rectTransform.localPosition = new Vector3(v3.x-temp*1.2f, orgPos.y, orgPos.z);
                         yield return null;
                     }
                 }
@@ -114,15 +110,10 @@ namespace IFramework_Demo
             errText.text = txt;
             errText.transform.parent.transform.localPosition = err_orgPos;
 
-            float addOne= Time.deltaTime * speed;
-
-            float tmp=0;
-
-            while (len > tmp)
+            var tv=  errText.transform.parent.transform.DoLocalMove(new Vector3(err_orgPos.x, err_orgPos.y + len, err_orgPos.z), 1);
+            while (!tv.recyled)
             {
-                tmp += addOne;
                 yield return 0;
-                errText.transform.parent.transform.localPosition = new Vector3(err_orgPos.x, err_orgPos.y+tmp,err_orgPos.z);
             }
             errText.transform.parent.gameObject.SetActive(false);
              err_ie = null;
@@ -185,13 +176,9 @@ namespace IFramework_Demo
         }
         private IEnumerator DM(float distanse,float width,Text tran,Vector2 org,float speed)
         {
-            while (distanse>0)
-            {
-                distanse -= Time.deltaTime*speed;
-                width -= Time.deltaTime*speed;
-                yield return 0;
-                tran. transform.position = new Vector2(width, org.y);
-            }
+         var tv=   tran.transform.DoLocalMoveX(0-width, 8);
+            yield return 0;
+
             pool.Set(tran);
         }
     }

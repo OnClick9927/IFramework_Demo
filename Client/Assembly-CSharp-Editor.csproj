@@ -61,8 +61,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\HSVPicker\Editor\BoxSliderEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\0.2Extend\Editor\EditorWindowExtension.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\0.2Extend\Editor\RectExtension.cs" />
     <Compile Include="Assets\IFramework\0.1Core\Editor\CopyAsset.cs" />
     <Compile Include="Assets\IFramework\0.1Core\Editor\DefaultAssetEditorView.cs" />
     <Compile Include="Assets\IFramework\0.1Core\Editor\DragAndDropUtil.cs" />
@@ -77,82 +75,18 @@
     <Compile Include="Assets\IFramework\0.1Core\Editor\TransformEditor.cs" />
     <Compile Include="Assets\IFramework\0.1Core\Editor\WhenDeleteMonoScriptProcessor.cs" />
     <Compile Include="Assets\IFramework\0.1Core\Editor\WindowManager.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\0.1Base\Editor\EditorGUIUtil.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\0.1Base\Editor\EditorLayoutGUIExtension.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\0.1Base\Editor\EditorRectGUIDrawerExtension.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Layout\Editor\CustomEditor\Area\AreaEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Layout\Editor\CustomEditor\Area\ImageAreaEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Layout\Editor\CustomEditor\Attribute\CustomGUIElementAttribute.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Layout\Editor\CustomEditor\Base\GUIElementEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Layout\Editor\CustomEditor\Base\ParentGUIElementEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Layout\Editor\CustomEditor\Base\ParentImageElementEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Layout\Editor\CustomEditor\BoxEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Layout\Editor\CustomEditor\ButtonEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Layout\Editor\CustomEditor\GUICanvasEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Layout\Editor\CustomEditor\Horizontal\HorizontalEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Layout\Editor\CustomEditor\Horizontal\ImageHorizontalEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Layout\Editor\CustomEditor\Image\ImageBoxEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Layout\Editor\CustomEditor\Image\ImageEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Layout\Editor\CustomEditor\Image\ImageElementEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Layout\Editor\CustomEditor\Image\ImageLabelEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Layout\Editor\CustomEditor\Image\ShaderImageEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Layout\Editor\CustomEditor\ScrollViewEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Layout\Editor\CustomEditor\Slider\HorizontalSliderEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Layout\Editor\CustomEditor\Slider\SliderElementEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Layout\Editor\CustomEditor\Slider\VerticalSliderEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Layout\Editor\CustomEditor\Space\FlexibleSpaceEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Layout\Editor\CustomEditor\Space\SpaceEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Layout\Editor\CustomEditor\Text\LabelEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Layout\Editor\CustomEditor\Text\TextAreaEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Layout\Editor\CustomEditor\Text\TextElementEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Layout\Editor\CustomEditor\Text\TextFieldEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Layout\Editor\CustomEditor\Toggle\ImageToggleEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Layout\Editor\CustomEditor\Toggle\ToggleEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Layout\Editor\CustomEditor\ToolBar\ImageToolBarEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Layout\Editor\CustomEditor\ToolBar\TextToolBarEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Layout\Editor\CustomEditor\ToolBar\ToolBarElementEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Layout\Editor\CustomEditor\Vertical\ImageVerticalEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Layout\Editor\CustomEditor\Vertical\VerticalEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Layout\Editor\GUICanvasComponetEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Layout\Editor\GUICanvasHierarchyTree.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Layout\Editor\GUIDesignWindow.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Layout\Editor\GUIElementInspectorView.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Layout\Editor\GUIElementSceneView.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Layout\Editor\GUIElementSelection.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Rect\Editor\CustomEditor\Attribute\CustomGUIElementAttribute.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Rect\Editor\CustomEditor\BoxEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Rect\Editor\CustomEditor\ButtonEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Rect\Editor\CustomEditor\EmptyElementEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Rect\Editor\CustomEditor\GUICanvasEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Rect\Editor\CustomEditor\GUIElementEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Rect\Editor\CustomEditor\Image\ImageBoxEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Rect\Editor\CustomEditor\Image\ImageEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Rect\Editor\CustomEditor\Image\ImageElementEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Rect\Editor\CustomEditor\Image\ImageLabelEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Rect\Editor\CustomEditor\Image\ShaderImageEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Rect\Editor\CustomEditor\ScrollViewEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Rect\Editor\CustomEditor\Slider\HorizontalSliderEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Rect\Editor\CustomEditor\Slider\SliderElementEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Rect\Editor\CustomEditor\Slider\VerticalSliderEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Rect\Editor\CustomEditor\Text\LabelEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Rect\Editor\CustomEditor\Text\TextAreaEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Rect\Editor\CustomEditor\Text\TextElementEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Rect\Editor\CustomEditor\Text\TextFieldEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Rect\Editor\CustomEditor\Toggle\ImageToggleEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Rect\Editor\CustomEditor\Toggle\ToggleEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Rect\Editor\CustomEditor\ToolBar\ImageToolBarEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Rect\Editor\CustomEditor\ToolBar\TextToolBarEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Rect\Editor\CustomEditor\ToolBar\ToolBarElementEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Rect\Editor\GUICanvasComponetEditor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Rect\Editor\GUICanvasHierarchyTree.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Rect\Editor\GUIDesignWindow.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Rect\Editor\GUIElementInspectorView.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Rect\Editor\GUIElementSceneView.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\GUI\Canvas\Rect\Editor\GUIElementSelection.cs" />
+    <Compile Include="Assets\IFramework\0.1Core\Extension\Editor\EditorWindowExtension.cs" />
+    <Compile Include="Assets\IFramework\0.1Core\Extension\Editor\RectExtension.cs" />
+    <Compile Include="Assets\IFramework\0.1Core\GUI\Base\Editor\EditorGUIUtil.cs" />
+    <Compile Include="Assets\IFramework\0.1Core\GUI\Base\Editor\EditorLayoutGUIExtension.cs" />
+    <Compile Include="Assets\IFramework\0.1Core\GUI\Base\Editor\EditorRectGUIDrawerExtension.cs" />
     <Compile Include="Assets\IFramework\0.1Core\GUI\Editor\Bezier.cs" />
+    <Compile Include="Assets\IFramework\0.1Core\GUI\Editor\MenuTree.cs" />
     <Compile Include="Assets\IFramework\0.1Core\GUI\Editor\PopupWindow.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\ProjectConfig\Editor\EditorProjectConfig.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\ProjectConfig\Editor\EditorProjectConfigView.cs" />
+    <Compile Include="Assets\IFramework\0.1Core\GUI\Editor\TabViewDrawer.cs" />
+    <Compile Include="Assets\IFramework\0.1Core\ProjectConfig\Editor\ProjectConfig.cs" />
+    <Compile Include="Assets\IFramework\0.1Core\ProjectConfig\Editor\ProjectConfigInfo.cs" />
+    <Compile Include="Assets\IFramework\0.1Core\ProjectConfig\Editor\ProjectConfigView.cs" />
     <Compile Include="Assets\IFramework\0.1Core\ProjectConfig\Editor\ProjectConfigWindow.cs" />
     <Compile Include="Assets\IFramework\0.1Core\ScriptCreater\Editor\ScriptCreaterEditor.cs" />
     <Compile Include="Assets\IFramework\0.1Core\ScriptCreater\Editor\ScriptMarkEditor.cs" />
@@ -176,6 +110,77 @@
     <Compile Include="Assets\IFramework\AssetBundle\Editor\Build\ABBuild.cs" />
     <Compile Include="Assets\IFramework\AssetBundle\Editor\Build\ABBuildCollect.cs" />
     <Compile Include="Assets\IFramework\AssetBundle\Editor\Build\ABBuildCollecter.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Layout\Editor\CustomEditor\Area\AreaEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Layout\Editor\CustomEditor\Area\ImageAreaEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Layout\Editor\CustomEditor\Attribute\CustomGUINodeAttribute.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Layout\Editor\CustomEditor\Base\GUINodeEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Layout\Editor\CustomEditor\Base\ParentGUINodeEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Layout\Editor\CustomEditor\Base\ParentImageNodeEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Layout\Editor\CustomEditor\BoxEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Layout\Editor\CustomEditor\ButtonEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Layout\Editor\CustomEditor\GUICanvasEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Layout\Editor\CustomEditor\Horizontal\HorizontalEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Layout\Editor\CustomEditor\Horizontal\ImageHorizontalEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Layout\Editor\CustomEditor\Image\ImageBoxEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Layout\Editor\CustomEditor\Image\ImageEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Layout\Editor\CustomEditor\Image\ImageLabelEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Layout\Editor\CustomEditor\Image\ImageNodeEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Layout\Editor\CustomEditor\Image\ShaderImageEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Layout\Editor\CustomEditor\ScrollViewEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Layout\Editor\CustomEditor\Slider\HorizontalSliderEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Layout\Editor\CustomEditor\Slider\SliderNodeEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Layout\Editor\CustomEditor\Slider\VerticalSliderEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Layout\Editor\CustomEditor\Space\FlexibleSpaceEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Layout\Editor\CustomEditor\Space\SpaceEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Layout\Editor\CustomEditor\Text\LabelEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Layout\Editor\CustomEditor\Text\TextAreaEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Layout\Editor\CustomEditor\Text\TextFieldEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Layout\Editor\CustomEditor\Text\TextNodeEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Layout\Editor\CustomEditor\Toggle\ImageToggleEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Layout\Editor\CustomEditor\Toggle\ToggleEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Layout\Editor\CustomEditor\ToolBar\ImageToolBarEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Layout\Editor\CustomEditor\ToolBar\TextToolBarEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Layout\Editor\CustomEditor\ToolBar\ToolBarNodeEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Layout\Editor\CustomEditor\Vertical\ImageVerticalEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Layout\Editor\CustomEditor\Vertical\VerticalEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Layout\Editor\GUICanvasComponetEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Layout\Editor\GUICanvasHierarchyTree.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Layout\Editor\GUIDesignWindow.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Layout\Editor\GUINodeEditors.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Layout\Editor\GUINodeInspectorView.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Layout\Editor\GUINodeSceneView.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Layout\Editor\GUINodeSelection.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Rect\Editor\CustomEditor\Attribute\CustomGUINodeAttribute.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Rect\Editor\CustomEditor\BoxEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Rect\Editor\CustomEditor\ButtonEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Rect\Editor\CustomEditor\EmptyNodeEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Rect\Editor\CustomEditor\GUICanvasEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Rect\Editor\CustomEditor\GUINodeEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Rect\Editor\CustomEditor\Image\ImageBoxEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Rect\Editor\CustomEditor\Image\ImageEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Rect\Editor\CustomEditor\Image\ImageLabelEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Rect\Editor\CustomEditor\Image\ImageNodeEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Rect\Editor\CustomEditor\Image\ShaderImageEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Rect\Editor\CustomEditor\ScrollViewEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Rect\Editor\CustomEditor\Slider\HorizontalSliderEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Rect\Editor\CustomEditor\Slider\SliderNodeEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Rect\Editor\CustomEditor\Slider\VerticalSliderEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Rect\Editor\CustomEditor\Text\LabelEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Rect\Editor\CustomEditor\Text\TextAreaEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Rect\Editor\CustomEditor\Text\TextFieldEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Rect\Editor\CustomEditor\Text\TextNodeEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Rect\Editor\CustomEditor\Toggle\ImageToggleEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Rect\Editor\CustomEditor\Toggle\ToggleEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Rect\Editor\CustomEditor\ToolBar\ImageToolBarEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Rect\Editor\CustomEditor\ToolBar\TextToolBarEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Rect\Editor\CustomEditor\ToolBar\ToolBarNodeEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Rect\Editor\GUICanvasComponetEditor.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Rect\Editor\GUICanvasHierarchyTree.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Rect\Editor\GUIDesignWindow.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Rect\Editor\GUINodeEditors.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Rect\Editor\GUINodeInspectorView.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Rect\Editor\GUINodeSceneView.cs" />
+    <Compile Include="Assets\IFramework\GUICanvas\Rect\Editor\GUINodeSelection.cs" />
     <Compile Include="Assets\IFramework\Lan\Editor\LanguageKeyDrawer.cs" />
     <Compile Include="Assets\IFramework\Lan\Editor\LanWindow.cs" />
     <Compile Include="Assets\IFramework\Log\Editor\LogSettingInspector.cs" />
@@ -211,9 +216,7 @@
     <None Include="Assets\XLua\Src\Editor\Template\LuaClassWrapGCM.tpl.txt" />
     <None Include="Assets\XLua\Src\Editor\Template\LuaWrapPusher.tpl.txt" />
     <None Include="Assets\XLua\Src\Editor\Template\LuaDelegateBridge.tpl.txt" />
-    <None Include="Assets\IFramework\UI\Editor\Gen\View_MVVM.txt" />
     <None Include="Assets\IFramework\0.1Core\ScriptCreater\Editor\FormatScript.txt" />
-    <None Include="Assets\IFramework\UI\Editor\Gen\VM_MVVM.txt" />
     <None Include="Assets\IFramework\AssetBundle\Editor\Layout.xml" />
     <None Include="Assets\XLua\Src\Editor\Template\TemplateCommon.lua.txt" />
     <None Include="Assets\XLua\Src\Editor\Template\LuaEnumWrap.tpl.txt" />
@@ -466,12 +469,6 @@
     <Reference Include="UnityEditor.WindowsStandalone.Extensions">
       <HintPath>D:/Unity/2018.4.17f1/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="IFramework">
-      <HintPath>E:/Project/IFrameworkDemo/Client/Assets/IFramework/0.1Core/0.1Plugins/IFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>E:/Project/IFrameworkDemo/Client/Assets/IFramework/0.1Core/0.1Plugins/Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor.Advertisements">
       <HintPath>E:/Project/IFrameworkDemo/Client/Library/PackageCache/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
     </Reference>
@@ -486,6 +483,12 @@
     </Reference>
     <Reference Include="UnityEditor.Purchasing">
       <HintPath>E:/Project/IFrameworkDemo/Client/Library/PackageCache/com.unity.purchasing@2.0.3/Editor/UnityEditor.Purchasing.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>E:/Project/IFrameworkDemo/Client/Assets/IFramework/0.1Core/Plugins/Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="IFramework">
+      <HintPath>E:/Project/IFrameworkDemo/Client/Assets/IFramework/0.1Core/Plugins/IFramework.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>D:/Unity/2018.4.17f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>

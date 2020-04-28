@@ -10,7 +10,6 @@ using IFramework.GUITool;
 using IFramework.Utility;
 using UnityEditor;
 using UnityEngine;
-
 namespace IFramework
 {
     [CustomEditor(typeof(DefaultAsset))]
@@ -26,6 +25,7 @@ namespace IFramework
                 this.Button(() => {
                     ProcessUtil.OpenFloder(path);
                 }, "Open");
+            
             }
         }
     }

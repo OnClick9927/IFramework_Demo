@@ -6,7 +6,7 @@
  *Description:    IFramework
  *History:        2018.11--
 *********************************************************************************/
-namespace IFramework
+namespace IFramework.Singleton
 {
     public class MonoSingletonPropertyClass<T> : UnityEngine.MonoBehaviour, ISingleton where T : MonoSingletonPropertyClass<T>
     {

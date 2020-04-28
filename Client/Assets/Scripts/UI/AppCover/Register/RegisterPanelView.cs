@@ -8,7 +8,7 @@
 *********************************************************************************/
 using System;
 using IFramework;
-using IFramework.Modules.NodeAction;
+using IFramework.NodeAction;
 namespace IFramework_Demo
 {
 

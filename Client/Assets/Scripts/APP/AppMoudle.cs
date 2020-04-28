@@ -29,7 +29,7 @@ namespace IFramework_Demo
     public class AppModule : FrameworkAppModule,IMessagePublisher
     {
         public UIModule UI { get; private set; }
-        protected override bool needUpdate { get { return true; } }
+
         public NetClient net { get; private set; }
 
         protected override void Awake()
@@ -48,7 +48,7 @@ namespace IFramework_Demo
                 return p;
             }
 
-            UI.SetUseMVVM(UIMap_MVVM.map);
+            UI.SetMap(UIMap_MVVM.map);
 
             UI.Get<TipPanel>(UIConfig.Name<TipPanel>(), UIConfig.Path<TipPanel>(), UIConfig.Layer<TipPanel>());
 

@@ -131,14 +131,14 @@ namespace IFramework_Demo
         protected override void UnSubscribeMessage()
         {
             base.UnSubscribeMessage();
-            APP.message.Unsubscribe<AppModule>(ListenMessage);
+            APP.message.UnSubscribe<AppModule>(ListenMessage);
 
-            APP.message.Unsubscribe<PanMessageHandler>(ListenMessage);
-            APP.message.Unsubscribe<LoginMessageHandler>(ListenMessage);
-            APP.message.Unsubscribe<RegisterMessageHandler>(ListenMessage);
-            APP.message.Unsubscribe<SeverFormMessageHandler>(ListenMessage);
-
-            APP.message.Unsubscribe<ChatBroadCastMessageHandler>(ListenMessage);
+            APP.message.UnSubscribe<PanMessageHandler>(ListenMessage);
+            APP.message.UnSubscribe<LoginMessageHandler>(ListenMessage);
+            APP.message.UnSubscribe<RegisterMessageHandler>(ListenMessage);
+            APP.message.UnSubscribe<SeverFormMessageHandler>(ListenMessage);
+             
+            APP.message.UnSubscribe<ChatBroadCastMessageHandler>(ListenMessage);
 
         }
     }

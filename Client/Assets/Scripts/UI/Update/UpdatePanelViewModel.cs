@@ -8,7 +8,7 @@
 *********************************************************************************/
 using System;
 using System.Collections;
-using IFramework.Modules.NodeAction;
+using IFramework.NodeAction;
 using IFramework;
 
 namespace IFramework_Demo
@@ -38,7 +38,7 @@ namespace IFramework_Demo
         protected override void UnSubscribeMessage()
         {
             base.UnSubscribeMessage();
-            this.message.Unsubscribe<UpdatePanelView>(ListenView);
+            this.message.UnSubscribe<UpdatePanelView>(ListenView);
         }
 
 

@@ -190,8 +190,8 @@ namespace IFramework_Demo
         protected override void UnSubscribeMessage()
         {
             base.UnSubscribeMessage();
-            message.Unsubscribe<GamePanelView>(ListenView);
-            APP.message.Unsubscribe<PanMessageHandler>(ListenNet);
+            message.UnSubscribe<GamePanelView>(ListenView);
+            APP.message.UnSubscribe<PanMessageHandler>(ListenNet);
 
         }
 

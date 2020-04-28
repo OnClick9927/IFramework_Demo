@@ -36,7 +36,9 @@ namespace IFramework_Demo
             NetConfig.TCPPort = 12346;
 
             NetConfig.BufferNumber = 64;
-            NetConfig.TCPIP = "180.76.149.93";
+            //NetConfig.TCPIP = "180.76.149.93";
+            NetConfig.TCPIP = "127.0.0.1";
+
         }
         private static void InitLog()
         {

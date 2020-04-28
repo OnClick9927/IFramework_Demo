@@ -7,6 +7,7 @@
  *History:        2018.11--
 *********************************************************************************/
 using IFramework.Serialization;
+using IFramework.Singleton;
 using System;
 using System.Collections;
 using System.Collections.Generic;

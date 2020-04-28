@@ -8,7 +8,7 @@
 *********************************************************************************/
 using System;
 
-namespace IFramework
+namespace IFramework.Singleton
 {
     [AttributeUsage(AttributeTargets.Class)]
     public class MonoSingletonPath : Attribute

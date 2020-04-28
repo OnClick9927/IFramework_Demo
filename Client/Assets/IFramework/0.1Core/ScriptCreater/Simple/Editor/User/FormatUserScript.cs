@@ -31,11 +31,11 @@ namespace IFramework
 
                 if (!txt.Contains("#User#")) return;
                 //这里实现自定义的一些规则
-                txt = txt.Replace("#User#", EditorProjectConfig.UserName)
+                txt = txt.Replace("#User#", ProjectConfig.UserName)
                          .Replace("#UserSCRIPTNAME#", Path.GetFileNameWithoutExtension(filePath))
-                         .Replace("#UserNameSpace#", EditorProjectConfig.NameSpace)
-                         .Replace("#UserVERSION#", EditorProjectConfig.Version)
-                        .Replace("#UserDescription#", EditorProjectConfig.Description)
+                         .Replace("#UserNameSpace#", ProjectConfig.NameSpace)
+                         .Replace("#UserVERSION#", ProjectConfig.Version)
+                        .Replace("#UserDescription#", ProjectConfig.Description)
 
                          .Replace("#UserUNITYVERSION#", Application.unityVersion)
                          .Replace("#UserDATE#", DateTime.Now.ToString("yyyy-MM-dd"));
