@@ -7,7 +7,7 @@
  *History:        2018.11--
 *********************************************************************************/
 using UnityEngine;
-namespace IFramework
+namespace IFramework.UI
 {
 
   

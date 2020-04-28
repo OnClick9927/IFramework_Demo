@@ -8,12 +8,13 @@
 *********************************************************************************/
 using System;
 using System.Collections;
-using IFramework.Modules.NodeAction;
+using IFramework.NodeAction;
 using IFramework;
+using IFramework.UI;
 
 namespace IFramework_Demo
 {
-	public class UpdatePanelViewModel : TUIViewModel_MVVM<UpdatePanelData>
+	public class UpdatePanelViewModel : UIViewModel<UpdatePanelData>
 	{
  		private Single _progress;
 		public Single progress
@@ -38,7 +39,7 @@ namespace IFramework_Demo
         protected override void UnSubscribeMessage()
         {
             base.UnSubscribeMessage();
-            this.message.Unsubscribe<UpdatePanelView>(ListenView);
+            this.message.UnSubscribe<UpdatePanelView>(ListenView);
         }
 
 

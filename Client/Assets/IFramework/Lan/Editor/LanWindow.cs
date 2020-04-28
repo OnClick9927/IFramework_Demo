@@ -406,24 +406,24 @@ namespace IFramework
                                  .EndHorizontal()
                                  .BeginHorizontal()
                                      .Button(() => {
-                                         string path = EditorUtility.OpenFilePanel("Xml", Application.dataPath, "xml");
+                                         string path = EditorUtility.OpenFilePanel("xml (End with  xml)", Application.dataPath, "xml");
                                          if (string.IsNullOrEmpty(path) || !path.EndsWith(".xml")) return;
                                          window.ReadXml(path);
                                      }, "Read Xml")
                                      .Button(() => {
-                                         string path = EditorUtility.OpenFilePanel("Xml", Application.dataPath, "xml");
+                                         string path = EditorUtility.OpenFilePanel("xml (End with  xml)", Application.dataPath, "xml");
                                          if (string.IsNullOrEmpty(path) || !path.EndsWith(".xml")) return;
                                          window.WriteXml(path);
                                      }, "Write Xml")
                                  .EndHorizontal()
                                  .BeginHorizontal()
                                      .Button(() => {
-                                         string path = EditorUtility.OpenFilePanel("Json", Application.dataPath, "json");
+                                         string path = EditorUtility.OpenFilePanel("json (End With json)", Application.dataPath, "json");
                                          if (string.IsNullOrEmpty(path) || !path.EndsWith(".json")) return;
                                          window.ReadJson(path);
                                      }, "Read Json")
                                      .Button(() => {
-                                         string path = EditorUtility.OpenFilePanel("Json", Application.dataPath, "json");
+                                         string path = EditorUtility.OpenFilePanel("json (End With json)", Application.dataPath, "json");
                                          if (string.IsNullOrEmpty(path) || !path.EndsWith(".json")) return;
                                          window.WriteJson(path);
                                      }, "Write Json")

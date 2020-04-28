@@ -10,10 +10,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using IFramework;
+using IFramework.UI;
 
 namespace IFramework_Demo
 {
-	public class LoadPanelViewModel : TUIViewModel_MVVM<LoadPanelData>
+	public class LoadPanelViewModel : UIViewModel<LoadPanelData>
 	{
  		private String _account;
 		public String account
@@ -87,8 +88,8 @@ namespace IFramework_Demo
         protected override void UnSubscribeMessage()
         {
             base.UnSubscribeMessage();
-            message.Unsubscribe<LoadPanelView>(ListenView);
-            APP.message.Unsubscribe<LoginMessageHandler>(ListenNet);
+            message.UnSubscribe<LoadPanelView>(ListenView);
+            APP.message.UnSubscribe<LoginMessageHandler>(ListenNet);
 
         }
     }

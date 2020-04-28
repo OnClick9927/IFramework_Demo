@@ -9,6 +9,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using IFramework;
+using IFramework.UI;
 using UnityEngine;
 using UnityEngine.UI;
 

@@ -192,7 +192,7 @@ namespace IFramework
 
             Assembly defaultAssembly = AppDomain.CurrentDomain.GetAssemblies()
                             .First(assembly => assembly.GetName().Name == "Assembly-CSharp");
-            Type type = defaultAssembly.GetType(EditorProjectConfig.NameSpace + "." + EditorPrefs.GetString(ScriptNameKey));
+            Type type = defaultAssembly.GetType(ProjectConfig.NameSpace + "." + EditorPrefs.GetString(ScriptNameKey));
             GameObject gameObj = GameObject.Find(EditorPrefs.GetString(GameobjKey));
 
             if (gameObj == null || type == null || gameObj.GetComponent<ScriptCreater>() == null)
@@ -250,11 +250,11 @@ namespace IFramework
                 EditorPrefs.SetString(GameobjKey, _scriptCreater.name);
                 EditorPrefs.SetBool(IsCreateKey, true);
 
-                txt = txt.Replace("#SCAuthor#", EditorProjectConfig.UserName)
-                         .Replace("#SCVERSION#", EditorProjectConfig.Version)
+                txt = txt.Replace("#SCAuthor#", ProjectConfig.UserName)
+                         .Replace("#SCVERSION#", ProjectConfig.Version)
                          .Replace("#SCUNITYVERSION#", Application.unityVersion)
                          .Replace("#SCDATE#", DateTime.Now.ToString("yyyy-MM-dd"))
-                         .Replace("#SCNameSpace#", EditorProjectConfig.NameSpace)
+                         .Replace("#SCNameSpace#", ProjectConfig.NameSpace)
                          .Replace("#SCSCRIPTNAME#", Path.GetFileNameWithoutExtension(filePath))
                          .Replace("#SCDescription#", ReplaceDescription());
                 txt = txt.Replace("#SCField#", ReplaceField(txt));
@@ -277,7 +277,7 @@ namespace IFramework
             }
             private static string ReplaceDescription()
             {
-                string res = string.IsNullOrEmpty(_scriptCreater.description) ? EditorProjectConfig.Description : _scriptCreater.description;
+                string res = string.IsNullOrEmpty(_scriptCreater.description) ? ProjectConfig.Description : _scriptCreater.description;
                 if (!res.Contains("\n"))
                     return res;
                 else
@@ -316,7 +316,7 @@ namespace IFramework
                     NameSpaces.Add(comp.GetType().Namespace);
                 }
                 NameSpaces = NameSpaces.Distinct().ToList();
-                NameSpaces.ForEach((ns) => { 
+                NameSpaces.ForEach((ns) => {
                     string tmp= "using ".Append(ns);
                     if (!txt.Contains(tmp))
                         res = res.Append(tmp).Append(";\n");

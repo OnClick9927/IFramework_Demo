@@ -10,11 +10,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using IFramework;
-using IFramework.Modules.NodeAction;
+using IFramework.NodeAction;
+using IFramework.UI;
 
 namespace IFramework_Demo
 {
-    public class LoadPanelView : TUIView_MVVM<LoadPanelViewModel, LoadPanel>
+    public class LoadPanelView : UIView<LoadPanelViewModel, LoadPanel>
 	{
 		protected override void BindProperty()
 		{

@@ -10,10 +10,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using IFramework;
+using IFramework.UI;
 
 namespace IFramework_Demo
 {
-	public class StatusPanelView : TUIView_MVVM<StatusPanelViewModel, StatusPanel>
+	public class StatusPanelView : UIView<StatusPanelViewModel, StatusPanel>
 	{
 		protected override void BindProperty()
 		{

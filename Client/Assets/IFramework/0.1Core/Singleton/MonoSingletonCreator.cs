@@ -9,7 +9,7 @@
 using System.Reflection;
 using UnityEngine;
 
-namespace IFramework
+namespace IFramework.Singleton
 {
     internal static class MonoSingletonCreator
     {

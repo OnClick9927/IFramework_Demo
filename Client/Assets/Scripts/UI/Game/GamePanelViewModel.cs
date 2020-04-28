@@ -11,11 +11,12 @@ using System.Collections.Generic;
 using IFramework;
 using UnityEngine;
 using IFramework.Serialization;
+using IFramework.UI;
 
 namespace IFramework_Demo
 {
 
-	public class GamePanelViewModel : TUIViewModel_MVVM<GamePanelData>
+	public class GamePanelViewModel : UIViewModel<GamePanelData>
 	{
  		private Color _pickColor;
 		public Color pickColor
@@ -190,8 +191,8 @@ namespace IFramework_Demo
         protected override void UnSubscribeMessage()
         {
             base.UnSubscribeMessage();
-            message.Unsubscribe<GamePanelView>(ListenView);
-            APP.message.Unsubscribe<PanMessageHandler>(ListenNet);
+            message.UnSubscribe<GamePanelView>(ListenView);
+            APP.message.UnSubscribe<PanMessageHandler>(ListenNet);
 
         }
 

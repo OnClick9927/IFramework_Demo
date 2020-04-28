@@ -8,7 +8,7 @@
 *********************************************************************************/
 using UnityEngine;
 
-namespace IFramework
+namespace IFramework.Singleton
 {
     public abstract class MonoSingleton<T> : MonoBehaviour, ISingleton where T : MonoSingleton<T>
     {
@@ -21,7 +21,7 @@ namespace IFramework
                 {
                     Log.L("Create");
                     instance = MonoSingletonCreator.CreateMonoSingleton<T>();
-                    SingletonPool.Set(instance);
+                    SingletonCollection.Set(instance);
                 }
                 return instance;
             }

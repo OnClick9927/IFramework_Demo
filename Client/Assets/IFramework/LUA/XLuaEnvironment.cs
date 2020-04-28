@@ -10,7 +10,7 @@ using XLua;
 using UnityEngine;
 using System.Collections.Generic;
 using System;
-
+using IFramework.Singleton;
 
 namespace IFramework.Lua
 {

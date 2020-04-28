@@ -25,3 +25,4 @@ E:\Project\IFrameworkDemo\FormSever\FormSever\obj\Debug\FormSever.csproj.CopyCom
 E:\Project\IFrameworkDemo\FormSever\FormSever\obj\Debug\FormSever.exe
 E:\Project\IFrameworkDemo\FormSever\FormSever\obj\Debug\FormSever.pdb
 E:\Project\IFrameworkDemo\FormSever\FormSever\bin\Debug\IFramework.pdb
+E:\Project\IFrameworkDemo\FormSever\FormSever\bin\Debug\IFramework.xml

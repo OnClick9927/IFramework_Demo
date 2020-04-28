@@ -95,7 +95,7 @@ namespace IFramework
             }
         }
 
-        protected override bool needUpdate { get { return false; } }
+
 
         public void AddLoader(Func<List<LanPair>> loader)
         {
@@ -165,9 +165,6 @@ namespace IFramework
       
       
 
-        protected override void OnUpdate()
-        {
-
-        }
+       
     }
 }

@@ -10,10 +10,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using IFramework;
+using IFramework.UI;
 
 namespace IFramework_Demo
 {
-	public class AppCoverPanelView : TUIView_MVVM<AppCoverPanelViewModel, AppCoverPanel>
+	public class AppCoverPanelView : UIView<AppCoverPanelViewModel, AppCoverPanel>
 	{
 		protected override void BindProperty()
 		{

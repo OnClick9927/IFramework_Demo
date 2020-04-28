@@ -11,10 +11,11 @@ using System.Collections;
 using System.Collections.Generic;
 using IFramework;
 using IFramework.Modules.Message;
+using IFramework.UI;
 
 namespace IFramework_Demo
 {
-	public class StatusPanelViewModel : TUIViewModel_MVVM<StatusPanelData>
+	public class StatusPanelViewModel : UIViewModel<StatusPanelData>
 	{
  		private float _fps;
 		public float fps
@@ -66,7 +67,7 @@ namespace IFramework_Demo
         protected override void UnSubscribeMessage()
         {
             base.UnSubscribeMessage();
-            APP.message.Unsubscribe<AppModule>(FPS_Conn);
+            APP.message.UnSubscribe<AppModule>(FPS_Conn);
 
         }
     }

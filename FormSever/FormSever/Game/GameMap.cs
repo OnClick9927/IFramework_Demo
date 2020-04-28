@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using IFramework;
 using System.IO;
-using IFramework.Modules.NodeAction;
+using IFramework.NodeAction;
 using System.Drawing;
 using System.Drawing.Imaging;
 using IFramework.Modules.Message;

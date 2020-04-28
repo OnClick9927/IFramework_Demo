@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using IFramework;
 using UnityEngine.UI;
 using UnityEngine;
+using IFramework.UI;
 
 namespace IFramework_Demo
 {

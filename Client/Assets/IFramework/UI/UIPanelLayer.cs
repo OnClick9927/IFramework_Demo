@@ -6,7 +6,7 @@
  *Description:    IFramework
  *History:        2018.11--
 *********************************************************************************/
-namespace IFramework
+namespace IFramework.UI
 {
     public enum UIPanelLayer
     {

@@ -14,7 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using IFramework.Modules.MVVM;
-namespace IFramework
+namespace IFramework.UI
 {
 
     [EditorWindowCache("IFramework.UIModule")]
@@ -22,13 +22,12 @@ namespace IFramework
 	{
         [SerializeField] ViewType viewType;
         [SerializeField] private RunTimeView runTimeView;
-        [SerializeField] private MVP_GenCodeView  mVP_GenCodeView;
         [SerializeField] private MVVM_GenCodeView   mVVM_GenCodeView;
 
         static string genpath;
         private enum ViewType
         {
-            MVVM_GenCode,  MVP_GenCode, Runtime,
+            MVVM_GenCode, Runtime,
         }
         private class Styles
         {
@@ -548,506 +547,7 @@ namespace IFramework
                 }
             }
         }
-        [Serializable]
-        private class MVP_GenCodeView:ILayoutGUIDrawer
-        {
-            private int hashID;
-            private bool DropdownButton(int id, Rect position, GUIContent content)
-            {
-                Event e = Event.current;
-                switch (e.type)
-                {
-                    case EventType.MouseDown:
-                        if (position.Contains(e.mousePosition) && e.button == 0)
-                        {
-                            Event.current.Use();
-                            return true;
-                        }
-                        break;
-                    case EventType.KeyDown:
-                        if (GUIUtility.keyboardControl == id && e.character == '\n')
-                        {
-                            Event.current.Use();
-                            return true;
-                        }
-                        break;
-                    case EventType.Repaint:
-                        Styles.BoldLabel.Draw(position, content, id, false);
-                        break;
-                }
-                return false;
-            }
-            private List<string> panelTypes;
-            private string panelType;
-            private string PanelGenDir;
-            private string UIMapDir;
-            [SerializeField] string UIMapName = "UIMap_MVP";
 
-            string UIMap_CSName { get { return UIMapName.Append(".cs"); } }
-            string uimapGenPath { get { return genpath.CombinePath("MapGen_MVP.txt"); } } 
-            string sensorGenPath { get { return genpath.CombinePath("SensorGen_MVP.txt"); } }
-            string policyGenPath { get { return genpath.CombinePath("PolicyGen_MVP.txt"); } }
-            string excutorGenPath { get { return genpath.CombinePath("ExcutorGen_MVP.txt"); } }
-            string viewGenPath { get { return genpath.CombinePath("ViewGen_MVP.txt"); } }
-            string EntityGenPath { get { return genpath.CombinePath("EntityGen_MVP.txt"); } }
-            
-
-
-            public void OnGUI()
-            {
-                this.Space(5)
-                .DrawHorizontal(() => {
-                    this.Label("Check UIMap Script Name", Styles.toolbar);
-                    this.TextField(ref UIMapName);
-                });
-                this.DrawHorizontal(() =>
-                {
-                    this.Label("Drag UIMap Gen Directory", Styles.toolbar);
-                    this.Label(UIMapDir);
-                    Rect rect = GUILayoutUtility.GetLastRect();
-                    if (string.IsNullOrEmpty(UIMapDir))
-                        rect.DrawOutLine(10, Color.red);
-                    else
-                        rect.DrawOutLine(2, Color.black);
-                    if (rect.Contains(Event.current.mousePosition))
-                    {
-                        var drag = DragAndDropUtil.Drag(Event.current, rect);
-                        if (drag.Finsh && drag.EnterArera && drag.paths.Length == 1)
-                        {
-                            string path = drag.paths[0];
-                            if (path.Contains("Assets"))
-                            {
-                                if (path.IsDirectory())
-                                    UIMapDir = path;
-                                else
-                                    UIMapDir = path.GetDirPath();
-                            }
-
-                        }
-                    }
-
-                })
-            .DrawHorizontal(() =>
-            {
-                this.FlexibleSpace()
-                    .Button(() =>
-                    {
-                        if (string.IsNullOrEmpty(UIMapDir))
-                        {
-                            EditorWindow.focusedWindow.ShowNotification(new GUIContent("Set UI Map Gen Dir "));
-                            return;
-                        }
-                        //string uimapGenPath = genpath.CombinePath("MapGen_MVP.txt");
-                        CreateUIMapGen(uimapGenPath);
-                        WriteTxt(UIMapDir.CombinePath(UIMap_CSName), uimapGenPath);
-                        AssetDatabase.Refresh();
-
-                    }, "Copy UIMap From Source");
-
-            })
-            .Space(30);
-
-
-                if (hashID == 0) hashID = "MVP_GenCodeView".GetHashCode();
-                this.DrawHorizontal(() =>
-                {
-                    this.Label("Click Choose Panel Type", Styles.toolbar);
-                    GUILayout.Label("");
-                    Rect pos = GUILayoutUtility.GetLastRect();
-
-                    int ctrlId = GUIUtility.GetControlID(hashID, FocusType.Keyboard, pos);
-                    {
-                        if (DropdownButton(ctrlId, pos, new GUIContent(string.Format("PanelType: {0}", panelType))))
-                        {
-                            if (panelTypes == null)
-                            {
-                                EditorWindow.focusedWindow.ShowNotification(new GUIContent("Fresh Panel Types"));
-                                return;
-                            }
-                            int index = -1;
-                            for (int i = 0; i < panelTypes.Count; i++)
-                            {
-                                if (panelTypes[i] == panelType)
-                                {
-                                    index = i; break;
-                                }
-                            }
-                            SearchablePopup.Show(pos, panelTypes.ToArray(), index, (i, str) =>
-                            {
-                                panelType = str;
-                                EditorWindow.focusedWindow.Repaint();
-                            });
-                        }
-                    }
-                })
-                    .Space(10)
-                    .DrawHorizontal(() =>
-                    {
-                        this.Label("Drag Panel Gen Directory", Styles.toolbar);
-                        this.Label(PanelGenDir);
-                        Rect rect = GUILayoutUtility.GetLastRect();
-                        if (string.IsNullOrEmpty(PanelGenDir))
-                            rect.DrawOutLine(10, Color.red);
-                        else
-                            rect.DrawOutLine(2, Color.black);
-                        if (rect.Contains(Event.current.mousePosition))
-                        {
-                            var drag = DragAndDropUtil.Drag(Event.current, rect);
-                            if (drag.Finsh && drag.EnterArera && drag.paths.Length == 1)
-                            {
-                                string path = drag.paths[0];
-                                if (path.Contains("Assets"))
-                                {
-                                    if (path.IsDirectory())
-                                        PanelGenDir = path;
-                                    else
-                                        PanelGenDir = path.GetDirPath();
-                                }
-
-                            }
-                        }
-
-                    })
-                    .Space(10)
-                    .DrawHorizontal(() =>
-                    {
-                        this.Button(() =>
-                        {
-                            panelTypes = typeof(UIPanel).GetSubTypesInAssemblys().Select((type) =>
-                            {
-                                return type.FullName;
-                            }).ToList();
-                        }, "Fresh Panel Types")
-                           .Space(20)
-                           .Button(() =>
-                           {
-                               if (string.IsNullOrEmpty(UIMapDir))
-                               {
-                                   EditorWindow.focusedWindow.ShowNotification(new GUIContent("Set UI Map Gen Dir "));
-                                   return;
-                               }
-                               if (!File.Exists(UIMapDir.CombinePath(UIMap_CSName)))
-                               {
-                                   EditorWindow.focusedWindow.ShowNotification(new GUIContent("Copy UI Map"));
-                                   return;
-                               }
-                               if (string.IsNullOrEmpty(panelType))
-                               {
-                                   EditorWindow.focusedWindow.ShowNotification(new GUIContent("Choose UI Panel Type "));
-                                   return;
-                               }
-                               if (string.IsNullOrEmpty(PanelGenDir))
-                               {
-                                   EditorWindow.focusedWindow.ShowNotification(new GUIContent("Set UI Panel Gen Dir "));
-
-                                   return;
-                               }
-                               string type = panelType.Split('.').ToList().Last();
-
-
-                               CreateSensorGen(sensorGenPath);
-                               CreatePolicyGen(policyGenPath);
-                               CreatePolicyExcutorGen(excutorGenPath);
-                               CreateViewGen(viewGenPath);
-                               CreateEntityGen(EntityGenPath);
-
-                               WriteTxt(PanelGenDir.CombinePath(type.Append("Sensor.cs")), sensorGenPath);
-                               WriteTxt(PanelGenDir.CombinePath(type.Append("Policy.cs")), policyGenPath);
-                               WriteTxt(PanelGenDir.CombinePath(type.Append("Excutor.cs")), excutorGenPath);
-                               WriteTxt(PanelGenDir.CombinePath(type.Append("View_MVP.cs")), viewGenPath);
-                               WriteTxt(PanelGenDir.CombinePath(type.Append("Entity.cs")), EntityGenPath);
-                               WriteMap(UIMapDir.CombinePath(UIMap_CSName), UIMapDir.CombinePath(UIMap_CSName));
-                               AssetDatabase.Refresh();
-                           }, "Gen");
-                    });
-
-            }
-            private static void CreateUIMapGen(string genSourcePath)
-            {
-                if (File.Exists(genSourcePath)) return;
-                using (FileStream fs = new FileStream(genSourcePath, FileMode.Create, FileAccess.Write))
-                {
-                    using (StreamWriter sw = new StreamWriter(fs))
-                    {
-                        fs.Lock(0, fs.Length);
-                        sw.WriteLine("/*********************************************************************************");
-                        sw.WriteLine(" *Author:         #User#");
-                        sw.WriteLine(" *Version:        #UserVERSION#");
-                        sw.WriteLine(" *UnityVersion:   #UserUNITYVERSION#");
-                        sw.WriteLine(" *Date:           #UserDATE#");
-                        sw.WriteLine(" *Description:    #UserDescription#");
-                        sw.WriteLine(" *History:        #UserDATE#--");
-                        sw.WriteLine("*********************************************************************************/");
-                        sw.WriteLine("using System;");
-                        sw.WriteLine("using System.Collections;");
-                        sw.WriteLine("using System.Collections.Generic;");
-                        sw.WriteLine("using IFramework;");
-
-                        sw.WriteLine("");
-                        sw.WriteLine("namespace #UserNameSpace#");
-                        sw.WriteLine("{");
-                        sw.WriteLine("\tpublic class #UserSCRIPTNAME# ");
-                        sw.WriteLine("\t{");
-                        sw.WriteLine("\t\tpublic static Dictionary<Type, Tuple<Type, Type, Type, Type, Type>> map =");
-                        sw.WriteLine("\t\tnew Dictionary<Type, Tuple<Type, Type, Type, Type, Type>>()");
-                        sw.WriteLine("\t\t{");
-                        sw.WriteLine("//ToDo");
-                        sw.WriteLine("\t\t};");
-                        sw.WriteLine("\t}");
-                        sw.WriteLine("}");
-                        fs.Unlock(0, fs.Length);
-                        sw.Flush();
-                        fs.Flush();
-                    }
-
-                }
-                AssetDatabase.Refresh();
-            }
-            private static void CreateEntityGen(string genSourcePath)
-            {
-                if (File.Exists(genSourcePath)) return;
-                using (FileStream fs = new FileStream(genSourcePath, FileMode.Create, FileAccess.Write))
-                {
-                    using (StreamWriter sw = new StreamWriter(fs))
-                    {
-                        fs.Lock(0, fs.Length);
-                        sw.WriteLine("/*********************************************************************************");
-                        sw.WriteLine(" *Author:         #User#");
-                        sw.WriteLine(" *Version:        #UserVERSION#");
-                        sw.WriteLine(" *UnityVersion:   #UserUNITYVERSION#");
-                        sw.WriteLine(" *Date:           #UserDATE#");
-                        sw.WriteLine(" *Description:    #UserDescription#");
-                        sw.WriteLine(" *History:        #UserDATE#--");
-                        sw.WriteLine("*********************************************************************************/");
-                        sw.WriteLine("using System;");
-                        sw.WriteLine("using System.Collections;");
-                        sw.WriteLine("using System.Collections.Generic;");
-                        sw.WriteLine("using IFramework;");
-
-                        sw.WriteLine("");
-                        sw.WriteLine("namespace #UserNameSpace#");
-                        sw.WriteLine("{");
-                        sw.WriteLine("\tpublic class #UserSCRIPTNAME# : UIEntity");
-                        sw.WriteLine("\t{");
-                        sw.WriteLine("\t}");
-
-
-                        sw.WriteLine("}");
-                        fs.Unlock(0, fs.Length);
-                        sw.Flush();
-                        fs.Flush();
-                    }
-
-                }
-                AssetDatabase.Refresh();
-            }
-            private static void CreateSensorGen(string genSourcePath)
-            {
-                if (File.Exists(genSourcePath)) return;
-                using (FileStream fs = new FileStream(genSourcePath, FileMode.Create, FileAccess.Write))
-                {
-                    using (StreamWriter sw = new StreamWriter(fs))
-                    {
-                        fs.Lock(0, fs.Length);
-                        sw.WriteLine("/*********************************************************************************");
-                        sw.WriteLine(" *Author:         #User#");
-                        sw.WriteLine(" *Version:        #UserVERSION#");
-                        sw.WriteLine(" *UnityVersion:   #UserUNITYVERSION#");
-                        sw.WriteLine(" *Date:           #UserDATE#");
-                        sw.WriteLine(" *Description:    #UserDescription#");
-                        sw.WriteLine(" *History:        #UserDATE#--");
-                        sw.WriteLine("*********************************************************************************/");
-                        sw.WriteLine("using System;");
-                        sw.WriteLine("using System.Collections;");
-                        sw.WriteLine("using System.Collections.Generic;");
-                        sw.WriteLine("using IFramework;");
-
-                        sw.WriteLine("");
-                        sw.WriteLine("namespace #UserNameSpace#");
-                        sw.WriteLine("{");
-                        sw.WriteLine("\tpublic class #UserSCRIPTNAME# : UISensor_MVP");
-                        sw.WriteLine("\t{");
-
-                        sw.WriteLine("\t\tprotected override void OnClear()");
-                        sw.WriteLine("\t\t{");
-                        sw.WriteLine("\t\t");
-                        sw.WriteLine("\t\t}");
-
-                        sw.WriteLine("\t\tprotected override void OnLoad()");
-                        sw.WriteLine("\t\t{");
-                        sw.WriteLine("\t\t");
-                        sw.WriteLine("\t\t}");
-                        sw.WriteLine("\t\tprotected override void OnPop(UIEventArgs arg)");
-                        sw.WriteLine("\t\t{");
-                        sw.WriteLine("\t\t");
-                        sw.WriteLine("\t\t}");
-                        sw.WriteLine("\t\tprotected override void OnPress(UIEventArgs arg)");
-                        sw.WriteLine("\t\t{");
-                        sw.WriteLine("\t\t");
-                        sw.WriteLine("\t\t}");
-                        sw.WriteLine("\t\tprotected override void OnTop(UIEventArgs arg)");
-                        sw.WriteLine("\t\t{");
-                        sw.WriteLine("\t\t");
-                        sw.WriteLine("\t\t}");
-
-                        sw.WriteLine("\t}");
-
-
-                        sw.WriteLine("}");
-                        fs.Unlock(0, fs.Length);
-                        sw.Flush();
-                        fs.Flush();
-                    }
-
-                }
-                AssetDatabase.Refresh();
-            }
-            private static void CreatePolicyGen(string genSourcePath)
-            {
-                if (File.Exists(genSourcePath)) return;
-                using (FileStream fs = new FileStream(genSourcePath, FileMode.Create, FileAccess.Write))
-                {
-                    using (StreamWriter sw = new StreamWriter(fs))
-                    {
-                        fs.Lock(0, fs.Length);
-                        sw.WriteLine("/*********************************************************************************");
-                        sw.WriteLine(" *Author:         #User#");
-                        sw.WriteLine(" *Version:        #UserVERSION#");
-                        sw.WriteLine(" *UnityVersion:   #UserUNITYVERSION#");
-                        sw.WriteLine(" *Date:           #UserDATE#");
-                        sw.WriteLine(" *Description:    #UserDescription#");
-                        sw.WriteLine(" *History:        #UserDATE#--");
-                        sw.WriteLine("*********************************************************************************/");
-                        sw.WriteLine("using System;");
-                        sw.WriteLine("using System.Collections;");
-                        sw.WriteLine("using System.Collections.Generic;");
-                        sw.WriteLine("using IFramework;");
-
-                        sw.WriteLine("");
-                        sw.WriteLine("namespace #UserNameSpace#");
-                        sw.WriteLine("{");
-                        sw.WriteLine("\tpublic class #UserSCRIPTNAME# : UIPolicy_MVP");
-                        sw.WriteLine("\t{");
-
-                        sw.WriteLine("\t\tprotected override void OnSensor(int code, IEventArgs args, object[] param)");
-                        sw.WriteLine("\t\t{");
-                        sw.WriteLine("\t\t");
-                        sw.WriteLine("\t\t}");
-
-                        sw.WriteLine("\t}");
-                        sw.WriteLine("}");
-                        fs.Unlock(0, fs.Length);
-                        sw.Flush();
-                        fs.Flush();
-                    }
-                }
-                AssetDatabase.Refresh();
-            }
-            private static void CreatePolicyExcutorGen(string genSourcePath)
-            {
-                if (File.Exists(genSourcePath)) return;
-                using (FileStream fs = new FileStream(genSourcePath, FileMode.Create, FileAccess.Write))
-                {
-                    using (StreamWriter sw = new StreamWriter(fs))
-                    {
-                        fs.Lock(0, fs.Length);
-                        sw.WriteLine("/*********************************************************************************");
-                        sw.WriteLine(" *Author:         #User#");
-                        sw.WriteLine(" *Version:        #UserVERSION#");
-                        sw.WriteLine(" *UnityVersion:   #UserUNITYVERSION#");
-                        sw.WriteLine(" *Date:           #UserDATE#");
-                        sw.WriteLine(" *Description:    #UserDescription#");
-                        sw.WriteLine(" *History:        #UserDATE#--");
-                        sw.WriteLine("*********************************************************************************/");
-                        sw.WriteLine("using System;");
-                        sw.WriteLine("using System.Collections;");
-                        sw.WriteLine("using System.Collections.Generic;");
-                        sw.WriteLine("using IFramework;");
-
-                        sw.WriteLine("");
-                        sw.WriteLine("namespace #UserNameSpace#");
-                        sw.WriteLine("{");
-                        sw.WriteLine("\tpublic class #UserSCRIPTNAME# : UIExecutor_MVP");
-                        sw.WriteLine("\t{");
-
-                        sw.WriteLine("\t\tprotected override void OnPolicy(int code, IEventArgs args, object[] param)");
-                        sw.WriteLine("\t\t{");
-                        sw.WriteLine("\t\t");
-                        sw.WriteLine("\t\t}");
-
-                        sw.WriteLine("\t}");
-                        sw.WriteLine("}");
-                        fs.Unlock(0, fs.Length);
-                        sw.Flush();
-                        fs.Flush();
-                    }
-                }
-                AssetDatabase.Refresh();
-            }
-            private static void CreateViewGen(string genSourcePath)
-            {
-                if (File.Exists(genSourcePath)) return;
-                using (FileStream fs = new FileStream(genSourcePath, FileMode.Create, FileAccess.Write))
-                {
-                    using (StreamWriter sw = new StreamWriter(fs))
-                    {
-                        fs.Lock(0, fs.Length);
-                        sw.WriteLine("/*********************************************************************************");
-                        sw.WriteLine(" *Author:         #User#");
-                        sw.WriteLine(" *Version:        #UserVERSION#");
-                        sw.WriteLine(" *UnityVersion:   #UserUNITYVERSION#");
-                        sw.WriteLine(" *Date:           #UserDATE#");
-                        sw.WriteLine(" *Description:    #UserDescription#");
-                        sw.WriteLine(" *History:        #UserDATE#--");
-                        sw.WriteLine("*********************************************************************************/");
-                        sw.WriteLine("using System;");
-                        sw.WriteLine("using System.Collections;");
-                        sw.WriteLine("using System.Collections.Generic;");
-                        sw.WriteLine("using IFramework;");
-
-                        sw.WriteLine("");
-                        sw.WriteLine("namespace #UserNameSpace#");
-                        sw.WriteLine("{");
-                        sw.WriteLine("\tpublic class #UserSCRIPTNAME# : UIView_MVP");
-                        sw.WriteLine("\t{");
-
-                        sw.WriteLine("\t\tprotected override void OnPolicyPolicyExecutor(int code, IEventArgs args, object[] param)");
-                        sw.WriteLine("\t\t{");
-                        sw.WriteLine("\t\t");
-                        sw.WriteLine("\t\t}");
-
-                        sw.WriteLine("\t}");
-                        sw.WriteLine("}");
-                        fs.Unlock(0, fs.Length);
-                        sw.Flush();
-                        fs.Flush();
-                    }
-                }
-                AssetDatabase.Refresh();
-            }
-            private static void WriteTxt(string writePath, string sourcePath)
-            {
-                var txt = File.ReadAllText(sourcePath);
-                txt = txt.Replace("#User#", EditorProjectConfig.UserName)
-                         .Replace("#UserSCRIPTNAME#", Path.GetFileNameWithoutExtension(writePath))
-                           .Replace("#UserNameSpace#", EditorProjectConfig.NameSpace)
-                           .Replace("#UserVERSION#", EditorProjectConfig.Version)
-                           .Replace("#UserDescription#", EditorProjectConfig.Description)
-                           .Replace("#UserUNITYVERSION#", Application.unityVersion)
-                           .Replace("#UserDATE#", DateTime.Now.ToString("yyyy-MM-dd"));
-                File.WriteAllText(writePath, txt, System.Text.Encoding.UTF8);
-            }
-            private void WriteMap(string writePath, string sourcePath)
-            {
-                var txt = File.ReadAllText(sourcePath);
-                string flag = "//ToDo";
-
-                string tmp = string.Format("typeof({0}),Tuple.Create(typeof({0}Entity),typeof({0}Sensor),typeof({0}Policy),typeof({0}Excutor),typeof({0}View))", panelType);
-                tmp = tmp.Append("},\n").AppendHead("\t\t\t{").Append(flag);
-                txt = txt.Replace(flag, tmp);
-                File.WriteAllText(writePath, txt, System.Text.Encoding.UTF8);
-            }
-        }
         [Serializable]
         private class MVVM_GenCodeView : ILayoutGUIDrawer
         {
@@ -1377,11 +877,12 @@ namespace IFramework
                         sw.WriteLine("using System.Collections;");
                         sw.WriteLine("using System.Collections.Generic;");
                         sw.WriteLine("using IFramework;");
+                        sw.WriteLine("using IFramework.UI;");
 
                         sw.WriteLine("");
                         sw.WriteLine("namespace #UserNameSpace#");
                         sw.WriteLine("{");
-                        sw.WriteLine("\tpublic class #UserSCRIPTNAME# : TUIViewModel_MVVM<#ModelType#>");
+                        sw.WriteLine("\tpublic class #UserSCRIPTNAME# : UIViewModel<#ModelType#>");
                         sw.WriteLine("\t{");
 
                         sw.WriteLine("#FieldString#");
@@ -1424,11 +925,13 @@ namespace IFramework
                         sw.WriteLine("using System.Collections;");
                         sw.WriteLine("using System.Collections.Generic;");
                         sw.WriteLine("using IFramework;");
+                        sw.WriteLine("using IFramework.UI;");
 
+                       
                         sw.WriteLine("");
                         sw.WriteLine("namespace #UserNameSpace#");
                         sw.WriteLine("{");
-                        sw.WriteLine("\tpublic class #UserSCRIPTNAME# : TUIView_MVVM<#VMType#, #PanelType#>");
+                        sw.WriteLine("\tpublic class #UserSCRIPTNAME# : UIView<#VMType#, #PanelType#>");
                         sw.WriteLine("\t{");
                         sw.WriteLine("\t\tprotected override void BindProperty()");
                         sw.WriteLine("\t\t{");
@@ -1475,11 +978,11 @@ namespace IFramework
             private static void WriteTxt(string writePath, string sourcePath,Func<string ,string> func)
             {
                 var txt = File.ReadAllText(sourcePath);
-                txt = txt.Replace("#User#", EditorProjectConfig.UserName)
+                txt = txt.Replace("#User#", ProjectConfig.UserName)
                          .Replace("#UserSCRIPTNAME#", Path.GetFileNameWithoutExtension(writePath))
-                           .Replace("#UserNameSpace#", EditorProjectConfig.NameSpace)
-                           .Replace("#UserVERSION#", EditorProjectConfig.Version)
-                           .Replace("#UserDescription#", EditorProjectConfig.Description)
+                           .Replace("#UserNameSpace#", ProjectConfig.NameSpace)
+                           .Replace("#UserVERSION#", ProjectConfig.Version)
+                           .Replace("#UserDescription#", ProjectConfig.Description)
                            .Replace("#UserUNITYVERSION#", Application.unityVersion)
                            .Replace("#UserDATE#", DateTime.Now.ToString("yyyy-MM-dd"));
                 if (func!=null)
@@ -1507,6 +1010,8 @@ namespace IFramework
                         sw.WriteLine("using System.Collections;");
                         sw.WriteLine("using System.Collections.Generic;");
                         sw.WriteLine("using IFramework;");
+                        sw.WriteLine("using IFramework.UI;");
+
 
                         sw.WriteLine("");
                         sw.WriteLine("namespace #UserNameSpace#");
@@ -1542,8 +1047,7 @@ namespace IFramework
 
             if (mVVM_GenCodeView == null)
                 mVVM_GenCodeView = new MVVM_GenCodeView();
-            if (mVP_GenCodeView == null)
-                mVP_GenCodeView = new MVP_GenCodeView();
+
         }
         private void OnGUI()
         {
@@ -1555,7 +1059,6 @@ namespace IFramework
                     switch (viewType)
                     {
                         case ViewType.MVVM_GenCode: mVVM_GenCodeView.OnGUI(); break;
-                        case ViewType.MVP_GenCode: mVP_GenCodeView.OnGUI(); break;
                         case ViewType.Runtime: runTimeView.OnGUI(); break;
                     }
                 });

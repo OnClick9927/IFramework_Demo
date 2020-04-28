@@ -8,6 +8,7 @@
  *History:        2020-01-31--
 *********************************************************************************/
 using IFramework;
+using IFramework.UI;
 using UnityEngine;
 namespace IFramework_Demo
 {

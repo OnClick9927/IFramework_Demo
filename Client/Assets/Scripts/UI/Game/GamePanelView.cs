@@ -10,11 +10,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using IFramework;
+using IFramework.UI;
 using UnityEngine;
 
 namespace IFramework_Demo
 {
-    public class GamePanelView : TUIView_MVVM<GamePanelViewModel, GamePanel>
+    public class GamePanelView : UIView<GamePanelViewModel, GamePanel>
 	{
 		protected override void BindProperty()
 		{

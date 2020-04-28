@@ -10,6 +10,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using IFramework;
+using IFramework.UI;
 
 namespace IFramework_Demo
 {
@@ -19,7 +20,7 @@ namespace IFramework_Demo
         {
         }
     }
-    public class UpdatePanelView : TUIView_MVVM<UpdatePanelViewModel, UpdatePanel>
+    public class UpdatePanelView : UIView<UpdatePanelViewModel, UpdatePanel>
 	{
 		protected override void BindProperty()
 		{

@@ -8,11 +8,13 @@
 *********************************************************************************/
 using System;
 using IFramework;
-using IFramework.Modules.NodeAction;
+using IFramework.NodeAction;
+using IFramework.UI;
+
 namespace IFramework_Demo
 {
 
-    public class RegisterPanelView : TUIView_MVVM<RegisterPanelViewModel, RegisterPanel>
+    public class RegisterPanelView : UIView<RegisterPanelViewModel, RegisterPanel>
 	{
 		protected override void BindProperty()
 		{

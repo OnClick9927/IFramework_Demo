@@ -10,10 +10,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using IFramework;
+using IFramework.UI;
 
 namespace IFramework_Demo
 {
-	public class TipPanelView : TUIView_MVVM<TipPanelViewModel, TipPanel>
+	public class TipPanelView : UIView<TipPanelViewModel, TipPanel>
 	{
 		protected override void BindProperty()
 		{

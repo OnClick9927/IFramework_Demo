@@ -13,6 +13,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using System;
 using UnityEngine.EventSystems;
+using IFramework.UI;
 
 namespace IFramework_Demo
 {
