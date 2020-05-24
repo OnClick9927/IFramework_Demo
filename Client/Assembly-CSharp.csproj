@@ -210,11 +210,8 @@
     <Compile Include="Assets\IFramework\LUA\TestScripts\08_Hotfix\HotfixTest2.cs" />
     <Compile Include="Assets\IFramework\LUA\TestScripts\Test.cs" />
     <Compile Include="Assets\IFramework\LUA\XLuaEnvironment.cs" />
-<<<<<<< HEAD
     <Compile Include="Assets\IFramework\Res\AsyncResourcesLoader.cs" />
     <Compile Include="Assets\IFramework\Res\ResourcesLoader.cs" />
-=======
->>>>>>> 385cdc4088d4982e0fd0d85a438499b267dd4fc6
     <Compile Include="Assets\IFramework\Tweens\ColorTweenValue.cs" />
     <Compile Include="Assets\IFramework\Tweens\FloatTweenValue.cs" />
     <Compile Include="Assets\IFramework\Tweens\QuaternionTweenValue.cs" />
@@ -226,15 +223,9 @@
     <Compile Include="Assets\IFramework\Tweens\Vector3TweenValue.cs" />
     <Compile Include="Assets\IFramework\Tweens\Vector4TweenValue.cs" />
     <Compile Include="Assets\IFramework\UI\IUIModuleEventListenner.cs" />
-<<<<<<< HEAD
     <Compile Include="Assets\IFramework\UI\MVVM\UIGroup.cs" />
     <Compile Include="Assets\IFramework\UI\MVVM\UIView.cs" />
     <Compile Include="Assets\IFramework\UI\MVVM\UIViewModel.cs" />
-=======
-    <Compile Include="Assets\IFramework\UI\MVVM\UIGroup_MVVM.cs" />
-    <Compile Include="Assets\IFramework\UI\MVVM\UIView_MVVM.cs" />
-    <Compile Include="Assets\IFramework\UI\MVVM\UIViewModel_MVVM.cs" />
->>>>>>> 385cdc4088d4982e0fd0d85a438499b267dd4fc6
     <Compile Include="Assets\IFramework\UI\UIEventArgs.cs" />
     <Compile Include="Assets\IFramework\UI\UIMoudle.cs" />
     <Compile Include="Assets\IFramework\UI\UIPanel.cs" />
@@ -571,15 +562,12 @@
     <Reference Include="UnityEngine.SpatialTracking">
       <HintPath>D:/Unity/2018.4.17f1/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
-<<<<<<< HEAD
     <Reference Include="IFramework">
       <HintPath>E:/Project/IFrameworkDemo/Client/Assets/IFramework/0.1Core/Plugins/IFramework.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>E:/Project/IFrameworkDemo/Client/Assets/IFramework/0.1Core/Plugins/Newtonsoft.Json.dll</HintPath>
     </Reference>
-=======
->>>>>>> 385cdc4088d4982e0fd0d85a438499b267dd4fc6
     <Reference Include="Unity.Analytics.Editor">
       <HintPath>E:/Project/IFrameworkDemo/Client/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
     </Reference>
@@ -588,12 +576,6 @@
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
       <HintPath>E:/Project/IFrameworkDemo/Client/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>E:/Project/IFrameworkDemo/Client/Assets/IFramework/0.1Core/Plugins/Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="IFramework">
-      <HintPath>E:/Project/IFrameworkDemo/Client/Assets/IFramework/0.1Core/Plugins/IFramework.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>D:/Unity/2018.4.17f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>

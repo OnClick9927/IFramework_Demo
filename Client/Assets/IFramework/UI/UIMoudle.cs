@@ -355,13 +355,13 @@ namespace IFramework.UI
             }
             else
             {
-<<<<<<< HEAD
+//<<<<<<< HEAD
                 Push((group.view as UIView).panel);
                 return (group.view as UIView).panel;
-=======
-                Push((group.view as UIView_MVVM).panel);
-                return (group.view as UIView_MVVM).panel;
->>>>>>> 385cdc4088d4982e0fd0d85a438499b267dd4fc6
+//=======
+//                Push((group.view as UIView_MVVM).panel);
+//                return (group.view as UIView_MVVM).panel;
+//>>>>>>> 385cdc4088d4982e0fd0d85a438499b267dd4fc6
             }
 
         }
