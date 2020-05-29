@@ -19,12 +19,12 @@ namespace IFramework.AB
         public static void BuildManifest(string path, List<AssetBundleBuild> builds)
         {
             if (File.Exists(path)) File.Delete(path);
-            List<ManifestXmlContent> contents = new List<ManifestXmlContent>();
+            List<BundleGroup> contents = new List<BundleGroup>();
             foreach (var item in builds)
             {
-                contents.Add(new ManifestXmlContent(item.assetBundleName, item.assetNames));
+                contents.Add(new BundleGroup(item.assetBundleName, item.assetNames));
             }
-            string txt = Xml.ToXmlString<List<ManifestXmlContent>>(contents);
+            string txt = Xml.ToXmlString<List<BundleGroup>>(contents);
             File.WriteAllText(path, txt);
             AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
             AssetDatabase.Refresh();
@@ -45,7 +45,7 @@ namespace IFramework.AB
 				if (PlayerSettings.iOS.useOnDemandResources)
 				options |= BuildAssetBundleOptions.UncompressedAssetBundle;
 #endif
-#if ENABLE_IOS_APP_SLICING
+#if ENABLE_IOS_Game_SLICING
 				options |= BuildAssetBundleOptions.UncompressedAssetBundle;
 #endif
             }
@@ -82,7 +82,7 @@ namespace IFramework.AB
             (target == BuildTarget.StandaloneOSXIntel || target == BuildTarget.StandaloneOSXIntel64 || target == BuildTarget.StandaloneOSXUniversal)
 #endif
             {
-                return "/" + name + ".app";
+                return "/" + name + ".Game";
             }
             if (target == BuildTarget.iOS)
             {

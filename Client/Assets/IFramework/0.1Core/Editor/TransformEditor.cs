@@ -258,7 +258,7 @@ namespace IFramework
             RaycastHit hit;
             if (Physics.Raycast(transform.position, Vector3.down, out hit))
             {
-                Undo.RecordObject(transform, "Snapped To Ground");
+                Undo.RecordObject(transform, "SnGameed To Ground");
                 transform.position = hit.point;
             }
         }

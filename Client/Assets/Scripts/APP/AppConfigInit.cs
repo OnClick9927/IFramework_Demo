@@ -28,6 +28,7 @@ namespace IFramework_Demo
             APP.env.modules.Loom = APP.env.modules.CreateModule<LoomModule>();
             APP.env.modules.Message = APP.env.modules.CreateModule<MessageModule>();
             APP.env.modules.App = APP.env.modules.CreateModule<AppModule>();
+
         }
         private static void InitNetConfig()
         {
@@ -38,7 +39,7 @@ namespace IFramework_Demo
             NetConfig.BufferNumber = 64;
             //NetConfig.TCPIP = "180.76.149.93";
             NetConfig.TCPIP = "127.0.0.1";
-
+             
         }
         private static void InitLog()
         {

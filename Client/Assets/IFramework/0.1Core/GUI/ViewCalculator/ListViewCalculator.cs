@@ -18,138 +18,138 @@ namespace IFramework.GUITool
         [Serializable]
         public class ColumnSetting
         {
-            public float Width;
-            public string Name;
-            public float OffsetX = -2;
-            public float OffSetY = -2;
-            public float TitleoffsetX = -8;
-            public AnchorType AnchorType = AnchorType.MiddleCenter;
-            public AnchorType TitleAnchorType = AnchorType.LowerCenter;
+            public float width;
+            public string name;
+            public float offsetX = -2;
+            public float offSetY = -2;
+            public float titleoffsetX = -8;
+            public AnchorType anchorType = AnchorType.MiddleCenter;
+            public AnchorType titleAnchorType = AnchorType.LowerCenter;
         }
         [Serializable]
         public class Column
         {
-            public string Name;
-            public int RowID;
-            public int ColumnID;
-            public Rect Position;
-            public Rect LocalPostion;
+            public string name;
+            public int rowID;
+            public int columnID;
+            public Rect position;
+            public Rect localPostion;
         }
         [Serializable]
         public class Row : IComparable
         {
-            public Column this[int Key] { get { return Columns[Key]; } }
+            public Column this[int Key] { get { return columns[Key]; } }
             public Column this[string Key]
             {
                 get
                 {
-                    for (int i = 0; i < Columns.Count; i++)
-                        if (Columns[i].Name == Key) return Columns[i];
+                    for (int i = 0; i < columns.Count; i++)
+                        if (columns[i].name == Key) return columns[i];
                     return default(Column);
                 }
             }
-            public float Width;
-            public float Height;
-            public bool Selected;
-            public int RowID;
-            public Rect Position;
-            public Rect LocalPostion;
-            public Row() { Columns = new List<Column>(); }
-            public int ColumnCount { get { return Columns.Count; } }
-            public readonly List<Column> Columns;
+            public float width;
+            public float height;
+            public bool selected;
+            public int rowID;
+            public Rect position;
+            public Rect localPostion;
+            public Row() { columns = new List<Column>(); }
+            public int ColumnCount { get { return columns.Count; } }
+            public readonly List<Column> columns;
             internal void Calc(ColumnSetting[] settings)
             {
-                while (Columns.Count > settings.Length) Columns.RemoveAt(Columns.Count - 1);
-                while (Columns.Count < settings.Length) Columns.Add(new Column());
-                Width = 0;
-                for (int i = 0; i < Columns.Count; i++)
+                while (columns.Count > settings.Length) columns.RemoveAt(columns.Count - 1);
+                while (columns.Count < settings.Length) columns.Add(new Column());
+                width = 0;
+                for (int i = 0; i < columns.Count; i++)
                 {
-                    Column item = Columns[i];
-                    item.RowID = RowID;
-                    item.ColumnID = i;
-                    item.Name = settings[i].Name;
-                    item.Position = new Rect(Position.x + Width,
-                                            Position.y,
-                                            settings[i].Width,
-                                            Position.height).
-                                            Zoom(settings[i].AnchorType, new Vector2(settings[i].OffsetX, settings[i].OffSetY));
-                    Width += settings[i].Width;
+                    Column item = columns[i];
+                    item.rowID = rowID;
+                    item.columnID = i;
+                    item.name = settings[i].name;
+                    item.position = new Rect(position.x + width,
+                                            position.y,
+                                            settings[i].width,
+                                            position.height).
+                                            Zoom(settings[i].anchorType, new Vector2(settings[i].offsetX, settings[i].offSetY));
+                    width += settings[i].width;
                 }
-                Position.width = Width;
+                position.width = width;
             }
             internal void CalacLocal(Rect parent)
             {
-                LocalPostion = Position;
-                LocalPostion.x -= parent.x;
-                LocalPostion.y -= parent.y;
-                for (int i = 0; i < Columns.Count; i++)
+                localPostion = position;
+                localPostion.x -= parent.x;
+                localPostion.y -= parent.y;
+                for (int i = 0; i < columns.Count; i++)
                 {
-                    Columns[i].LocalPostion = Columns[i].Position;
-                    Columns[i].LocalPostion.x -= Position.x;
-                    Columns[i].LocalPostion.y -= Position.y;
+                    columns[i].localPostion = columns[i].position;
+                    columns[i].localPostion.x -= position.x;
+                    columns[i].localPostion.y -= position.y;
                 }
             }
 
             public int CompareTo(object obj)
             {
                 Row row = obj as Row;
-                return this.RowID.CompareTo(row.RowID);
+                return this.rowID.CompareTo(row.rowID);
             }
         }
         public ListViewCalculator() {
-            SelectedRows = new List<Row>();
-            Rows = new List<Row>();
+            selectedRows = new List<Row>();
+            rows = new List<Row>();
         }
-        public readonly List<Row> SelectedRows;
-        public readonly List<Row> Rows;
-        private Rect content;
-        public Rect Content { get { return content; } }
-        public Rect View;
-        public float RowHeight { get; set; }
-        public int RowCount { get; private set; }
-        public int FirstVisibleRow { get; private set; }
-        public int LastVisibleRow { get; private set; }
+        public readonly List<Row> selectedRows;
+        public readonly List<Row> rows;
+        private Rect _content;
+        public Rect content { get { return _content; } }
+        public Rect view;
+        public float rowHeight { get; set; }
+        public int rowCount { get; private set; }
+        public int firstVisibleRow { get; private set; }
+        public int lastVisibleRow { get; private set; }
 
         public void Calc(Rect view, Vector2 contentOffset, Vector2 scroll, float rowHeight, int rowCount, ColumnSetting[] setting)
         {
-            FirstVisibleRow = int.MaxValue;
-            LastVisibleRow = int.MinValue;
-            this.RowHeight = rowHeight;
-            this.RowCount = rowCount;
+            firstVisibleRow = int.MaxValue;
+            lastVisibleRow = int.MinValue;
+            this.rowHeight = rowHeight;
+            this.rowCount = rowCount;
 
-            View = view;
-            if (View.height <= rowHeight) View.height = rowHeight;
+            this.view = view;
+            if (this.view.height <= rowHeight) this.view.height = rowHeight;
 
-            this.content.position = contentOffset;
-            content.height = rowHeight * rowCount;
+            this._content.position = contentOffset;
+            _content.height = rowHeight * rowCount;
 
-            while (Rows.Count > rowCount) Rows.RemoveAt(Rows.Count - 1);
-            while (Rows.Count < rowCount) Rows.Add(new Row());
+            while (rows.Count > rowCount) rows.RemoveAt(rows.Count - 1);
+            while (rows.Count < rowCount) rows.Add(new Row());
 
-            for (int i = 0; i < Rows.Count; i++)
+            for (int i = 0; i < rows.Count; i++)
             {
-                if (Content.yMin - scroll.y + (i +1) * rowHeight > View.yMax) break;
-                if (Content.yMin - scroll.y + (i + 1) * rowHeight < View.yMin) continue;
-                FirstVisibleRow = FirstVisibleRow > i ? i : FirstVisibleRow;
-                LastVisibleRow = LastVisibleRow > i ? LastVisibleRow : i;
+                if (content.yMin - scroll.y + (i + 1) * rowHeight > this.view.yMax) break;
+                if (content.yMin - scroll.y + (i + 1) * rowHeight < this.view.yMin) continue;
+                firstVisibleRow = firstVisibleRow > i ? i : firstVisibleRow;
+                lastVisibleRow = lastVisibleRow > i ? lastVisibleRow : i;
 
-                Row row = Rows[i];
-                row.Height = rowHeight;
-                row.RowID = i;
-                row.Position = new Rect(view.x + 2,
+                Row row = rows[i];
+                row.height = rowHeight;
+                row.rowID = i;
+                row.position = new Rect(view.x + 2,
                                         view.y + i * rowHeight,
                                         view.width - 4,
                                         rowHeight).Zoom(AnchorType.MiddleCenter, new Vector2(0, -1));
                 row.Calc(setting);
-                if (View.width > row.Width)
+                if (this.view.width > row.width)
                 {
-                    float offset = View.width - 4 - row.Width;
-                    row.Width += offset;
-                    row.Columns[row.ColumnCount - 1].Position.width += offset;
+                    float offset = this.view.width - 4 - row.width;
+                    row.width += offset;
+                    row.columns[row.ColumnCount - 1].position.width += offset;
                 }
-                row.Position.width = row.Width;
-                content.width = row.Width - 10;
-                row.CalacLocal(Content);
+                row.position.width = row.width;
+                _content.width = row.width - 10;
+                row.CalacLocal(content);
 
              
        
@@ -159,65 +159,65 @@ namespace IFramework.GUITool
 
         private void Sort()
         {
-            SelectedRows.Sort();
+            selectedRows.Sort();
         }
         public void SelectRow(int index)
         {
-            if (index < 0 || index >= Rows.Count) return;
-            SelectedRows.Clear();
+            if (index < 0 || index >= rows.Count) return;
+            selectedRows.Clear();
 
-            for (int i = 0; i < Rows.Count; i++)
+            for (int i = 0; i < rows.Count; i++)
             {
                 if (i == index)
                 {
-                    Rows[i].Selected = true;
-                    if (!SelectedRows.Contains(Rows[i]))
+                    rows[i].selected = true;
+                    if (!selectedRows.Contains(rows[i]))
                     {
-                        SelectedRows.Add(Rows[i]);
+                        selectedRows.Add(rows[i]);
                     }
                 }
                 else
-                    Rows[i].Selected = false;
+                    rows[i].selected = false;
             }
         }
         public void ControlSelectRow(int index)
         {
-            if (index < 0 || index >= Rows.Count) return;
-            Rows[index].Selected = true;
-            if (!SelectedRows.Contains(Rows[index]))
+            if (index < 0 || index >= rows.Count) return;
+            rows[index].selected = true;
+            if (!selectedRows.Contains(rows[index]))
             {
-                SelectedRows.Add(Rows[index]);
+                selectedRows.Add(rows[index]);
             }
             Sort();
 
         }
         public void ShiftSelectRow(int index)
         {
-            if (index < 0 || index >= Rows.Count) return;
+            if (index < 0 || index >= rows.Count) return;
             int temp = -1;
-            for (int j = 0; j < Rows.Count; j++)
-                if (Rows[j].Selected)
+            for (int j = 0; j < rows.Count; j++)
+                if (rows[j].selected)
                 {
                     temp = j; break;
                 }
-            if (temp == -1 || temp == index) Rows[index].Selected = true;
+            if (temp == -1 || temp == index) rows[index].selected = true;
             else if (temp < index)
                 for (int j = temp; j <= index; j++)
                 {
-                    Rows[j].Selected = true;
-                    if (!SelectedRows.Contains(Rows[j]))
+                    rows[j].selected = true;
+                    if (!selectedRows.Contains(rows[j]))
                     {
-                        SelectedRows.Add(Rows[j]);
+                        selectedRows.Add(rows[j]);
                     }
 
                 }
             else if (temp > index)
                 for (int j = index; j < temp; j++)
                 {
-                    Rows[j].Selected = true;
-                    if (!SelectedRows.Contains(Rows[j]))
+                    rows[j].selected = true;
+                    if (!selectedRows.Contains(rows[j]))
                     {
-                        SelectedRows.Add(Rows[j]);
+                        selectedRows.Add(rows[j]);
                     }
                 }
 
@@ -227,18 +227,18 @@ namespace IFramework.GUITool
         }
         public void SelectNone()
         {
-            for (int j = 0; j < Rows.Count; j++)
-                Rows[j].Selected = false;
-            SelectedRows.Clear();
+            for (int j = 0; j < rows.Count; j++)
+                rows[j].selected = false;
+            selectedRows.Clear();
         }
         public void SelectAll()
         {
-            SelectedRows.Clear();
-            for (int j = 0; j < Rows.Count; j++)
+            selectedRows.Clear();
+            for (int j = 0; j < rows.Count; j++)
             {
 
-                Rows[j].Selected = true;
-                SelectedRows.Add(Rows[j]);
+                rows[j].selected = true;
+                selectedRows.Add(rows[j]);
             }
         }
     }

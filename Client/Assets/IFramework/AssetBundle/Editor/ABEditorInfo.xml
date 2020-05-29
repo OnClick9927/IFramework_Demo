@@ -4,16 +4,16 @@
     <DirCollectItems>
       <ABDirCollectItem>
         <CollectType>DirName</CollectType>
-        <SearchPath>Assets/Examples/ABExample</SearchPath>
+        <SearchPath>Assets/Examples/Runtime/ABExample</SearchPath>
         <subAsset>
           <isOpen>true</isOpen>
-          <path>Assets/Examples/ABExample</path>
+          <path>Assets/Examples/Runtime/ABExample</path>
           <name>ABExample</name>
           <fileType>Folder</fileType>
           <SubFiles>
             <ABSubFile>
               <isOpen>false</isOpen>
-              <path>Assets/Examples/ABExample/ABExample.cs</path>
+              <path>Assets/Examples/Runtime/ABExample/ABExample.cs</path>
               <name>ABExample</name>
               <fileType>InValidFile</fileType>
               <SubFiles />
@@ -21,7 +21,7 @@
             </ABSubFile>
             <ABSubFile>
               <isOpen>false</isOpen>
-              <path>Assets/Examples/ABExample/Logo.prefab</path>
+              <path>Assets/Examples/Runtime/ABExample/Logo.prefab</path>
               <name>Logo</name>
               <fileType>ValidFile</fileType>
               <SubFiles />
@@ -29,7 +29,7 @@
             </ABSubFile>
             <ABSubFile>
               <isOpen>false</isOpen>
-              <path>Assets/Examples/ABExample/tx.png</path>
+              <path>Assets/Examples/Runtime/ABExample/tx.png</path>
               <name>tx</name>
               <fileType>ValidFile</fileType>
               <SubFiles />
@@ -37,7 +37,7 @@
             </ABSubFile>
             <ABSubFile>
               <isOpen>false</isOpen>
-              <path>Assets/Examples/ABExample/UnityLogo.png</path>
+              <path>Assets/Examples/Runtime/ABExample/UnityLogo.png</path>
               <name>UnityLogo</name>
               <fileType>ValidFile</fileType>
               <SubFiles />
@@ -61,39 +61,39 @@
         </AssetBundles>
       </ABDeprndence>
       <ABDeprndence>
-        <AssetPath>Assets/Examples/ABExample/UnityLogo.png</AssetPath>
+        <AssetPath>Assets/Examples/Runtime/ABExample/UnityLogo.png</AssetPath>
         <BundleName>logo.</BundleName>
         <Size>69.63 KB</Size>
         <FileLength>71306</FileLength>
         <AssetBundles>
-          <string>shared/assets/examples/abexample_1</string>
+          <string>shared/assets/examples/runtime/abexample_1</string>
         </AssetBundles>
       </ABDeprndence>
       <ABDeprndence>
-        <AssetPath>Assets/Examples/ABExample/Logo.prefab</AssetPath>
+        <AssetPath>Assets/Examples/Runtime/ABExample/Logo.prefab</AssetPath>
         <BundleName>logo.</BundleName>
         <Size>2.24 KB</Size>
         <FileLength>2290</FileLength>
         <AssetBundles>
-          <string>assets/examples/abexample_2</string>
+          <string>assets/examples/runtime/abexample_2</string>
         </AssetBundles>
       </ABDeprndence>
       <ABDeprndence>
-        <AssetPath>Assets/Examples/ABExample/tx.png</AssetPath>
+        <AssetPath>Assets/Examples/Runtime/ABExample/tx.png</AssetPath>
         <BundleName>.</BundleName>
         <Size>695 B</Size>
         <FileLength>695</FileLength>
         <AssetBundles>
-          <string>assets/examples/abexample_2</string>
+          <string>assets/examples/runtime/abexample_2</string>
         </AssetBundles>
       </ABDeprndence>
     </Dependences>
     <AssetbundleBuilds>
       <AssetBundleBuild_Class>
-        <assetBundleName>assets/examples/abexample_2</assetBundleName>
+        <assetBundleName>assets/examples/runtime/abexample_2</assetBundleName>
         <assetNames>
-          <string>Assets/Examples/ABExample/Logo.prefab</string>
-          <string>Assets/Examples/ABExample/tx.png</string>
+          <string>Assets/Examples/Runtime/ABExample/Logo.prefab</string>
+          <string>Assets/Examples/Runtime/ABExample/tx.png</string>
         </assetNames>
         <addressableNames />
         <CrossRefence>false</CrossRefence>
@@ -101,9 +101,9 @@
         <Size>2.92 KB</Size>
       </AssetBundleBuild_Class>
       <AssetBundleBuild_Class>
-        <assetBundleName>shared/assets/examples/abexample_1</assetBundleName>
+        <assetBundleName>shared/assets/examples/runtime/abexample_1</assetBundleName>
         <assetNames>
-          <string>Assets/Examples/ABExample/UnityLogo.png</string>
+          <string>Assets/Examples/Runtime/ABExample/UnityLogo.png</string>
         </assetNames>
         <addressableNames />
         <CrossRefence>false</CrossRefence>

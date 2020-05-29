@@ -40,7 +40,7 @@ namespace IFramework
             }
         }
 
-        public static bool IsAvailable
+        public static bool available
         {
             get { return _available; }
         }

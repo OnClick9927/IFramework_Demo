@@ -12,9 +12,9 @@ namespace IFramework
 {
     public class DragAndDropIInfo
     {
-        public bool Dragging;
-        public bool EnterArera;
-        public bool Finsh;
+        public bool dragging;
+        public bool enterArera;
+        public bool compelete;
         public Object[] objectReferences { get { return DragAndDrop.objectReferences; } }
         public string[] paths { get { return DragAndDrop.paths; } }
         public DragAndDropVisualMode visualMode { get { return DragAndDrop.visualMode; } }
@@ -23,18 +23,18 @@ namespace IFramework
 
     public class DragAndDropUtil
 	{
-        private static bool Dragging;
-        private static bool EnterArera;
-        private static bool Finsh;
-        private static DragAndDropIInfo info=new DragAndDropIInfo();
+        private static bool _dragging;
+        private static bool _enterArera;
+        private static bool _compelete;
+        private static DragAndDropIInfo _info=new DragAndDropIInfo();
         public static DragAndDropIInfo Drag(Event eve ,Rect Content, DragAndDropVisualMode mode = DragAndDropVisualMode.Generic)
         {
             switch (eve.type)
             {
                 case EventType.DragUpdated:
-                    Dragging = true; Finsh = false;
-                    EnterArera = Content.Contains(eve.mousePosition);
-                    if (EnterArera)
+                    _dragging = true; _compelete = false;
+                    _enterArera = Content.Contains(eve.mousePosition);
+                    if (_enterArera)
                     {
                         DragAndDrop.visualMode = mode;
                         Event.current.Use();
@@ -42,24 +42,24 @@ namespace IFramework
                     break;
                 case EventType.DragPerform:
                     DragAndDrop.AcceptDrag();
-                    EnterArera = Content.Contains(eve.mousePosition);
-                    Finsh = true;Dragging = false;
+                    _enterArera = Content.Contains(eve.mousePosition);
+                    _compelete = true;_dragging = false;
                     Event.current.Use();
 
                     break;
                 case EventType.DragExited:
-                    Dragging = false; Finsh = true;
-                    EnterArera = Content.Contains(eve.mousePosition);
+                    _dragging = false; _compelete = true;
+                    _enterArera = Content.Contains(eve.mousePosition);
                     break;
                 default:
-                    Dragging = false; Finsh = false;
-                    EnterArera = Content.Contains(eve.mousePosition);
+                    _dragging = false; _compelete = false;
+                    _enterArera = Content.Contains(eve.mousePosition);
                     break;
             }
-            info.Finsh = Finsh;
-            info.EnterArera = EnterArera;
-            info.Dragging = Dragging;
-            return info;
+            _info.compelete = _compelete;
+            _info.enterArera = _enterArera;
+            _info.dragging = _dragging;
+            return _info;
         }
 	}
 }

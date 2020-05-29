@@ -84,7 +84,7 @@ namespace IFramework.GUITool
         private void TiTle(Rect rect)
         {
             rect.DrawOutLine(2, Color.red);
-            GUI.Box(rect, "", "AppToolbar");
+            GUI.Box(rect, "", "GameToolbar");
             float offset = rect.x;
             int xx_size = 17;
             _nodes.ForEach((index, node) =>

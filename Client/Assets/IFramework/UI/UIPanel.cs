@@ -9,10 +9,6 @@
 using UnityEngine;
 namespace IFramework.UI
 {
-
-  
-
-
     public abstract class UIPanel : MonoBehaviour
     {
         public UIPanelLayer PanelLayer { get; set; }

@@ -96,33 +96,21 @@ namespace IFramework_Demo
 
 
         private Vector3 err_orgPos;
-        private IEnumerator err_ie;
         public Text errText;
         public void ErrMessage(string text)
         {
             if (string.IsNullOrEmpty(text)) return;
-
-            if (err_ie!=null)
-            {
-                StopCoroutine(err_ie);
-            }
-            err_ie = ErrCode(text,200,200);
-            StartCoroutine(err_ie);
-        }
-        private IEnumerator ErrCode(string txt,float len,int speed)
-        {
             errText.transform.parent.gameObject.SetActive(true);
-            errText.text = txt;
+            errText.text = text;
             errText.transform.parent.transform.localPosition = err_orgPos;
 
-            var tv=  errText.transform.parent.transform.DoLocalMove(new Vector3(err_orgPos.x, err_orgPos.y + len, err_orgPos.z), 1);
-            while (!tv.recyled)
-            {
-                yield return 0;
-            }
-            errText.transform.parent.gameObject.SetActive(false);
-             err_ie = null;
+            var tv = errText.transform.parent.transform.DoLocalMove(new Vector3(err_orgPos.x, err_orgPos.y + 200, err_orgPos.z), 1)
+                .OnCompelete(() => {
+                    errText.transform.parent.gameObject.SetActive(false);
+
+                });
         }
+
 
 
         public Text danmuPrefab;
@@ -176,15 +164,13 @@ namespace IFramework_Demo
 
             item.transform.position = start;
             item.transform.parent = this.transform;
-            float speed = 250;
-            StartCoroutine(DM(x + item.preferredWidth, x,item, start, speed));
-        }
-        private IEnumerator DM(float distanse,float width,Text tran,Vector2 org,float speed)
-        {
-         var tv=   tran.transform.DoLocalMoveX(0-width, 8);
-            yield return 0;
 
-            pool.Set(tran);
+            var tv = item.transform.DoLocalMoveX(0 - x, 8)
+       .OnCompelete(() => {
+           pool.Set(item);
+
+       });
         }
+       
     }
 }

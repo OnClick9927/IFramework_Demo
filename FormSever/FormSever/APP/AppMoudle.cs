@@ -24,6 +24,8 @@ namespace FormSever
         public Data.Datas datas { get; private set; }
         public Game.GameMap gameMap { get; private set; }
 
+        public override int priority => 100;
+
         private void InitDatas()
         {
             datas = new Data.Datas();

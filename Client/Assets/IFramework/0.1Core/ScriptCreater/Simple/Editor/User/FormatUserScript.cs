@@ -48,7 +48,7 @@ namespace IFramework
         {
 
             private static string newScriptName = "newScript.cs";
-            private static string originScriptPathWithNameSpace = EditorEnv.CorePath.CombinePath(@"ScriptCreater/Simple/Editor/User/CSharpScript.txt");
+            private static string originScriptPathWithNameSpace = EditorEnv.corePath.CombinePath(@"ScriptCreater/Simple/Editor/User/CSharpScript.txt");
 
             [MenuItem("IFramework /Create/FormatCSharpScript")]
             [MenuItem("Assets/IFramework/FormatCSharpScript")]
@@ -98,7 +98,7 @@ namespace IFramework
         private class FormatUserMonoScript
         {
             private static string newScriptName = "newScript.cs";
-            private static string originScriptPathWithNameSpace = EditorEnv.CorePath.CombinePath(@"ScriptCreater/Simple/Editor/User/MonoScript.txt");
+            private static string originScriptPathWithNameSpace = EditorEnv.corePath.CombinePath(@"ScriptCreater/Simple/Editor/User/MonoScript.txt");
 
             [MenuItem("IFramework/Create/FormatMonoScript")]
             [MenuItem("Assets/IFramework/FormatMonoScript")]

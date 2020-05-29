@@ -8,7 +8,7 @@
 *********************************************************************************/
 using UnityEngine;
 
-namespace IFramework
+namespace IFramework.Language
 {
     public class LanguageKeyAttribute : PropertyAttribute { }
 }

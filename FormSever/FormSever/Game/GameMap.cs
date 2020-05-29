@@ -97,7 +97,7 @@ namespace FormSever.Game
                 {
                     r.Sequence((s) =>
                     {
-                        s.TimeSpan(TimeSpan.FromMinutes(5))
+                        s.TimeSpan(TimeSpan.FromMinutes(1))
                         .Event(() =>
                         {
                             if (APP.form.Picture.Image != null)

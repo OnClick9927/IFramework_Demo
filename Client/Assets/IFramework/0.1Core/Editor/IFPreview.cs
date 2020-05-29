@@ -15,16 +15,16 @@ namespace IFramework
 {
     public class IFPreview
     {
-        public PreviewRenderUtility Preview { get { return preview; } }
-        private PreviewRenderUtility preview;
+        public PreviewRenderUtility preview { get { return _preview; } }
+        private PreviewRenderUtility _preview;
         private MeshFilter[] filters;
         private Renderer[] renderers;
         private GameObject go;
-        private Dictionary<Renderer, Material[]> dic = new Dictionary<Renderer, Material[]>();
-        public Color SkyboxColor = Color.white;
-        public bool UseLight;
+        private Dictionary<Renderer, Material[]> _dic = new Dictionary<Renderer, Material[]>();
+        public Color skyboxColor = Color.white;
+        public bool useLight;
         public Rect rect;
-        public GUIStyle PreviewStyle = GUIStyle.none;
+        public GUIStyle previewStyle = GUIStyle.none;
         public IFPreview(GameObject go, MeshFilter[] filters, Renderer[] renderers)
         {
             this.go = GameObject.Instantiate(go);
@@ -32,10 +32,10 @@ namespace IFramework
             this.renderers = renderers;
             for (int i = 0; i < renderers.Length; i++)
             {
-                dic.Add(renderers[i], renderers[i].sharedMaterials);
+                _dic.Add(renderers[i], renderers[i].sharedMaterials);
             }
-            preview = new PreviewRenderUtility(false);
-            preview.AddSingleGO(this.go);
+            _preview = new PreviewRenderUtility(false);
+            _preview.AddSingleGO(this.go);
             GameObject.DestroyImmediate(this.go);
         }
 
@@ -44,38 +44,38 @@ namespace IFramework
         public Texture Render(Rect rect, Matrix4x4 matrix)
         {
             this.rect = rect;
-            preview.BeginPreview(rect, PreviewStyle);
+            _preview.BeginPreview(rect, previewStyle);
             for (int i = 0; i < filters.Length; i++)
             {
-                for (int j = 0; j < dic[renderers[i]].Length; j++)
+                for (int j = 0; j < _dic[renderers[i]].Length; j++)
                 {
-                    preview.DrawMesh(filters[i].sharedMesh, matrix, dic[renderers[i]][j], j);
+                    _preview.DrawMesh(filters[i].sharedMesh, matrix, _dic[renderers[i]][j], j);
 
                 }
             }
-            if (UseLight)
+            if (useLight)
             {
-                InternalEditorUtility.SetCustomLighting(preview.lights, SkyboxColor);
-                preview.camera.Render();
+                InternalEditorUtility.SetCustomLighting(_preview.lights, skyboxColor);
+                _preview.camera.Render();
                 InternalEditorUtility.RemoveCustomLighting();
             }
             else
             {
-                preview.camera.Render();
+                _preview.camera.Render();
             }
-            return preview.EndPreview();
+            return _preview.EndPreview();
         }
 
         public void Cleanup()
         {
-            if (preview != null)
+            if (_preview != null)
             {
-                preview.Cleanup();
+                _preview.Cleanup();
                 //UnityEngine.Object.DestroyImmediate(this.mPreviewMaterial.shader, false);
                 // UnityEngine.Object.DestroyImmediate(this.mPreviewMaterial, false);
-                dic.Clear();
+                _dic.Clear();
             }
-            preview = null;
+            _preview = null;
         }
 
 

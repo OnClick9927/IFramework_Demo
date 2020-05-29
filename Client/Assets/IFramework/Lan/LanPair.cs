@@ -8,22 +8,13 @@
 *********************************************************************************/
 using UnityEngine;
 using System;
-using System.Xml.Serialization;
-using Newtonsoft.Json.Serialization;
-using Newtonsoft.Json;
-namespace IFramework
+namespace IFramework.Language
 {
     [Serializable]
-	public class LanPair
-	{
-        [JsonProperty("Language")]
-        [XmlAttribute("Language")]
-        public SystemLanguage Lan;
-        [JsonProperty("Key")]
-        [XmlAttribute("Key")]
+    public class LanPair
+    {
+        public SystemLanguage lan;
         public string key;
-        [JsonProperty("Val")]
-        [XmlAttribute("Val")]
-        public string Value;
-	}
+        public string value;
+    }
 }

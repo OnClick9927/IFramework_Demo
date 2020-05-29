@@ -15,28 +15,28 @@ namespace IFramework.GUITool
     [Serializable]
     public class TableViewCalculator
     {
-        public TableViewCalculator() { ListView = new ListViewCalculator(); }
-        private ListViewCalculator ListView;
-        public Rect Position { get; private set; }
-        public Rect View { get { return ListView.View; } }
-        public Rect Content { get { return ListView.Content; } }
-        public ListViewCalculator.Row TitleRow { get; private set; }
-        public List<ListViewCalculator.Row> Rows { get { return ListView.Rows; } }
-        public int FirstVisibleRow { get { return ListView.FirstVisibleRow; } }
-        public int LastVisibleRow { get { return ListView.LastVisibleRow; } }
-        public float TitleRowOffsetY = 0.2f;
-        public List<ListViewCalculator.Row> SelectedRows { get { return ListView.SelectedRows; } }
+        public TableViewCalculator() { _listView = new ListViewCalculator(); }
+        private ListViewCalculator _listView;
+        public Rect position { get; private set; }
+        public Rect view { get { return _listView.view; } }
+        public Rect content { get { return _listView.content; } }
+        public ListViewCalculator.Row titleRow { get; private set; }
+        public List<ListViewCalculator.Row> rows { get { return _listView.rows; } }
+        public int firstVisibleRow { get { return _listView.firstVisibleRow; } }
+        public int lastVisibleRow { get { return _listView.lastVisibleRow; } }
+        public float titleRowOffsetY = 0.2f;
+        public List<ListViewCalculator.Row> welectedRows { get { return _listView.selectedRows; } }
 
 
         public void Calc(Rect position, Vector2 contentOffset, Vector2 scroll, float rowHeight, int rowCount, ListViewCalculator.ColumnSetting[] setting)
         {
-            this.Position = position;
-            float Mutl = TitleRowOffsetY + 1;
-            TitleRow = new ListViewCalculator.Row()
+            this.position = position;
+            float Mutl = titleRowOffsetY + 1;
+            titleRow = new ListViewCalculator.Row()
             {
-                Height = rowHeight,
-                RowID = 0,
-                Position = new Rect(position.x,
+                height = rowHeight,
+                rowID = 0,
+                position = new Rect(position.x,
                                         position.y,
                                         position.width,
                                         rowHeight * Mutl)
@@ -46,47 +46,47 @@ namespace IFramework.GUITool
             {
                 Tsetting[i] = new ListViewCalculator.ColumnSetting()
                 {
-                    Width = setting[i].Width,
-                    Name = setting[i].Name,
-                    OffsetX = setting[i].TitleoffsetX,
-                    OffSetY = -TitleRowOffsetY * rowHeight,
-                    AnchorType = setting[i].TitleAnchorType,
-                    TitleAnchorType = setting[i].TitleAnchorType
+                    width = setting[i].width,
+                    name = setting[i].name,
+                    offsetX = setting[i].titleoffsetX,
+                    offSetY = -titleRowOffsetY * rowHeight,
+                    anchorType = setting[i].titleAnchorType,
+                    titleAnchorType = setting[i].titleAnchorType
                 };
             }
-            TitleRow.Calc(Tsetting);
-            TitleRow.CalacLocal(new Rect(position.x,
+            titleRow.Calc(Tsetting);
+            titleRow.CalacLocal(new Rect(position.x,
                                         position.y,
                                         position.width,
                                         rowHeight * Mutl));
 
-            if (View.width > TitleRow.Width)
+            if (view.width > titleRow.width)
             {
-                float offset = View.width - TitleRow.Width;
-                TitleRow.Width += offset;
-                TitleRow.LocalPostion.width += offset;
-                TitleRow.Columns[TitleRow.ColumnCount - 1].Position.width += offset;
-                TitleRow.Columns[TitleRow.ColumnCount - 1].LocalPostion.width += offset;
+                float offset = view.width - titleRow.width;
+                titleRow.width += offset;
+                titleRow.localPostion.width += offset;
+                titleRow.columns[titleRow.ColumnCount - 1].position.width += offset;
+                titleRow.columns[titleRow.ColumnCount - 1].localPostion.width += offset;
             }
 
-            for (int i = 0; i < TitleRow.ColumnCount; i++)
+            for (int i = 0; i < titleRow.ColumnCount; i++)
             {
-                ListViewCalculator.Column item = TitleRow.Columns[i];
-                item.Position.x -= scroll.x;
-                item.LocalPostion.x -= scroll.x;
+                ListViewCalculator.Column item = titleRow.columns[i];
+                item.position.x -= scroll.x;
+                item.localPostion.x -= scroll.x;
             }
 
-            TitleRow.Position.x = View.x;
-            TitleRow.Position.width = View.width;
+            titleRow.position.x = view.x;
+            titleRow.position.width = view.width;
 
-            ListView.Calc(new Rect(position.x,
+            _listView.Calc(new Rect(position.x,
                                 position.y + rowHeight * Mutl,
                                 position.width,
                                 position.height - rowHeight), contentOffset, scroll,
                                     rowHeight,
                                     rowCount, setting);
 
-            ListView.View.height -= TitleRowOffsetY * rowHeight;
+            _listView.view.height -= titleRowOffsetY * rowHeight;
 
 
 
@@ -97,23 +97,23 @@ namespace IFramework.GUITool
 
         public void ShiftSelectRow(int index)
         {
-            ListView.ShiftSelectRow(index);
+            _listView.ShiftSelectRow(index);
         }
         public void ControlSelectRow(int index)
         {
-            ListView.ControlSelectRow(index);
+            _listView.ControlSelectRow(index);
         }
         public void SelectRow(int index)
         {
-            ListView.SelectRow(index);
+            _listView.SelectRow(index);
         }
         public void SelectNone()
         {
-            ListView.SelectNone();
+            _listView.SelectNone();
         }
         public void SelectAll()
         {
-            ListView.SelectAll();
+            _listView.SelectAll();
         }
     }
 }

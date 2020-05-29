@@ -96,7 +96,7 @@ namespace IFramework.GUITool
             GUI.BeginGroup(rect);
             rect.position = Vector2.zero; // Adjust because we entered the new group
                                           // Because I currently found no way to actually scale to a custom pivot rather than (0, 0),
-                                          // we'll make use of a cheat and just offset it accordingly to let it appear as if it would scroll to the center
+                                          // we'll make use of a cheat and just offset it accordingly to let it Gameear as if it would scroll to the center
                                           // Note, due to that, controls not adjusted are still scaled to (0, 0)
             Vector2 zoomPosAdjust = rect.center - screenRect.size / 2 + zoomPivot;
             // For GUILayout, we can make this adjustment here if desired
@@ -168,7 +168,7 @@ namespace IFramework.GUITool
                 GUI.EndClip();
                 topMostClip = getTopRect;
             }
-            // Store the clips appropriately
+            // Store the clips Gameropriately
             rectStackGroup.Reverse();
             rectStackGroups.Add(rectStackGroup);
             currentRectStack.AddRange(rectStackGroup);

@@ -27,11 +27,13 @@ namespace IFramework_Demo
         public int count;
         public string err;
     }
-    public class AppModule : FrameworkAppModule,IMessagePublisher
+    public class AppModule : FrameworkAppModule,IMessagePublisher,IPanelLoader
     {
         public UIModule UI { get; private set; }
 
         public NetClient net { get; private set; }
+
+        public override int priority => 100;
 
         protected override void Awake()
         {
@@ -41,22 +43,22 @@ namespace IFramework_Demo
         private void InitAppModules()
         {
             UI = Framework.env1.modules.CreateModule<UIModule>();
-            UI.AddLoader(UILoader);
-            UIPanel UILoader(Type type, string path, string name, UIPanelLayer layer)
-            {
-                GameObject go = Resources.Load<GameObject>(path);
-                UIPanel p = go.GetComponent<UIPanel>();
-                return p;
-            }
+            UI.AddLoader(this);
+           
 
-            UI.SetMap(UIMap_MVVM.map);
+            UI.SetGroups(new Groups(UIMap_MVVM.map));
 
             UI.Get<TipPanel>(UIConfig.Name<TipPanel>(), UIConfig.Path<TipPanel>(), UIConfig.Layer<TipPanel>());
 
             UI.Get<StatusPanel>(UIConfig.Name<StatusPanel>(), UIConfig.Path<StatusPanel>(), UIConfig.Layer<StatusPanel>());
             UI.Get<UpdatePanel>(UIConfig.Name<UpdatePanel>(), UIConfig.Path<UpdatePanel>(), UIConfig.Layer<UpdatePanel>());
         }
-
+        public UIPanel Load(Type type, string path, string name, UIPanelLayer layer)
+        {
+            GameObject go = Resources.Load<GameObject>(path);
+            UIPanel p = go.GetComponent<UIPanel>();
+            return p;
+        }
 
         private int connCount;
         private void InitNet()
@@ -81,7 +83,7 @@ namespace IFramework_Demo
             {
                 connCount = 0;
                 APP.message.Publish(this, 0, new ConnArg() { conn = true });
-                if (UI.Current is GamePanel)
+                if (UI.current is GamePanel)
                 {
                     net.SendTcpMessage(new LoginRequest()
                     {
@@ -146,5 +148,7 @@ namespace IFramework_Demo
             APP.message.Publish(this, 0, new FpsArg() { fps = fps });
 
         }
+
+        
     }
 }

@@ -14,7 +14,7 @@ namespace IFramework.Net
 {
     public class FileDownLoader_WebRequest : FileDownLoader
     {
-        public override float Progress
+        public override float progress
         {
             get
             {
@@ -23,7 +23,7 @@ namespace IFramework.Net
                 return 0;
             }
         }
-        public override long CurrentLength
+        public override long currentLength
         {
             get
             {
@@ -41,9 +41,9 @@ namespace IFramework.Net
         public override void DownLoad()
         {
 
-            webRequest = UnityWebRequest.Get(Url);
+            webRequest = UnityWebRequest.Get(url);
 
-            IsDownLoading = true;
+            downLoading = true;
             // webRequest.timeout = 30;//设置超时，若webRequest.SendWebRequest()连接超时会返回，且isNetworkError为true
 
             var op = webRequest.SendWebRequest();
@@ -51,11 +51,11 @@ namespace IFramework.Net
             {
 
             }
-            IsDownLoading = false;
+            downLoading = false;
             if (webRequest.isNetworkError)
                 Debug.Log("Download Error:" + webRequest.error);
             else
-                File.WriteAllBytes(SaveFilePath, webRequest.downloadHandler.data);
+                File.WriteAllBytes(saveFilePath, webRequest.downloadHandler.data);
             Compelete();
         }
 

@@ -22,9 +22,9 @@ namespace IFramework.AB
                 onError(error);
         }
         public abstract bool IsDone { get; }
-        public bool IsUnused
+        public bool useful
         {
-            get { return RefCount <= 0; }
+            get { return RefCount > 0; }
         }
 
         internal void Load() { OnLoad(); }
@@ -34,10 +34,7 @@ namespace IFramework.AB
         protected abstract void OnLoad();
         protected abstract void OnUnLoad();
 
-        public virtual void Dispose()
-        {
-
-        }
+        public virtual void Dispose() { }
     }
 
 }

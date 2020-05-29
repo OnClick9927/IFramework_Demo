@@ -24,9 +24,9 @@ namespace IFramework
         {
             active = EditorPrefs.GetBool("Hierarchy Extension");
             if (active)
-                EditorApplication.hierarchyWindowItemOnGUI += HierarchWindowOnGui;
+                EditorEnv.hierarchyWindowItemOnGUI += HierarchWindowOnGui;
             else
-                EditorApplication.hierarchyWindowItemOnGUI -= HierarchWindowOnGui;
+                EditorEnv.hierarchyWindowItemOnGUI -= HierarchWindowOnGui;
             EditorApplication.RepaintHierarchyWindow();
 
         }
@@ -36,9 +36,9 @@ namespace IFramework
         {
             active = !active;
             if (active)
-                EditorApplication.hierarchyWindowItemOnGUI += HierarchWindowOnGui;
+                EditorEnv.hierarchyWindowItemOnGUI += HierarchWindowOnGui;
             else
-                EditorApplication.hierarchyWindowItemOnGUI -= HierarchWindowOnGui;
+                EditorEnv.hierarchyWindowItemOnGUI -= HierarchWindowOnGui;
             Menu.SetChecked(menuItemPath, active);
             EditorPrefs.SetBool("Hierarchy Extension", active);
             EditorApplication.RepaintHierarchyWindow();

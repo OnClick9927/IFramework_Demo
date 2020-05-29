@@ -67,6 +67,7 @@
     <Compile Include="Assets\IFramework\0.1Core\Editor\EditorEnv.cs" />
     <Compile Include="Assets\IFramework\0.1Core\Editor\EditorLayoutUtil.cs" />
     <Compile Include="Assets\IFramework\0.1Core\Editor\EditorUtil.cs" />
+    <Compile Include="Assets\IFramework\0.1Core\Editor\EditorWindowCollection.cs" />
     <Compile Include="Assets\IFramework\0.1Core\Editor\HierarchyOverride.cs" />
     <Compile Include="Assets\IFramework\0.1Core\Editor\IFPreview.cs" />
     <Compile Include="Assets\IFramework\0.1Core\Editor\ReorderableListUtil.cs" />
@@ -74,18 +75,21 @@
     <Compile Include="Assets\IFramework\0.1Core\Editor\ScriptableObj.cs" />
     <Compile Include="Assets\IFramework\0.1Core\Editor\TransformEditor.cs" />
     <Compile Include="Assets\IFramework\0.1Core\Editor\WhenDeleteMonoScriptProcessor.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\Editor\WindowManager.cs" />
     <Compile Include="Assets\IFramework\0.1Core\Extension\Editor\EditorWindowExtension.cs" />
     <Compile Include="Assets\IFramework\0.1Core\Extension\Editor\RectExtension.cs" />
     <Compile Include="Assets\IFramework\0.1Core\GUI\Base\Editor\EditorGUIUtil.cs" />
     <Compile Include="Assets\IFramework\0.1Core\GUI\Base\Editor\EditorLayoutGUIExtension.cs" />
     <Compile Include="Assets\IFramework\0.1Core\GUI\Base\Editor\EditorRectGUIDrawerExtension.cs" />
     <Compile Include="Assets\IFramework\0.1Core\GUI\Editor\Bezier.cs" />
+    <Compile Include="Assets\IFramework\0.1Core\GUI\Editor\FocusAble\FocusAbleGUIDrawer.cs" />
+    <Compile Include="Assets\IFramework\0.1Core\GUI\Editor\FocusAble\GUIFocusControl.cs" />
+    <Compile Include="Assets\IFramework\0.1Core\GUI\Editor\FocusAble\RenameLabelDrawer.cs" />
+    <Compile Include="Assets\IFramework\0.1Core\GUI\Editor\FocusAble\SearchFieldDrawer.cs" />
     <Compile Include="Assets\IFramework\0.1Core\GUI\Editor\MenuTree.cs" />
     <Compile Include="Assets\IFramework\0.1Core\GUI\Editor\PopupWindow.cs" />
+    <Compile Include="Assets\IFramework\0.1Core\GUI\Editor\SubWindow\SubWinTree.cs" />
+    <Compile Include="Assets\IFramework\0.1Core\GUI\Editor\SubWindow\ToolBarTree.cs" />
     <Compile Include="Assets\IFramework\0.1Core\GUI\Editor\TabViewDrawer.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\ProjectConfig\Editor\ProjectConfig.cs" />
-    <Compile Include="Assets\IFramework\0.1Core\ProjectConfig\Editor\ProjectConfigInfo.cs" />
     <Compile Include="Assets\IFramework\0.1Core\ProjectConfig\Editor\ProjectConfigView.cs" />
     <Compile Include="Assets\IFramework\0.1Core\ProjectConfig\Editor\ProjectConfigWindow.cs" />
     <Compile Include="Assets\IFramework\0.1Core\ScriptCreater\Editor\ScriptCreaterEditor.cs" />
@@ -181,21 +185,17 @@
     <Compile Include="Assets\IFramework\GUICanvas\Rect\Editor\GUINodeInspectorView.cs" />
     <Compile Include="Assets\IFramework\GUICanvas\Rect\Editor\GUINodeSceneView.cs" />
     <Compile Include="Assets\IFramework\GUICanvas\Rect\Editor\GUINodeSelection.cs" />
+    <Compile Include="Assets\IFramework\HotFix\Editor\LuaBehaviorEditor.cs" />
+    <Compile Include="Assets\IFramework\HotFix\Editor\LuaConfigs.cs" />
+    <Compile Include="Assets\IFramework\HotFix\Editor\LuaImporter.cs" />
+    <Compile Include="Assets\IFramework\HotFix\Editor\LuaImporterEditorView.cs" />
     <Compile Include="Assets\IFramework\Lan\Editor\LanguageKeyDrawer.cs" />
     <Compile Include="Assets\IFramework\Lan\Editor\LanWindow.cs" />
-    <Compile Include="Assets\IFramework\Log\Editor\LogSettingInspector.cs" />
-    <Compile Include="Assets\IFramework\Log\Editor\RepositionLog.cs" />
-    <Compile Include="Assets\IFramework\Log\Editor\RepositionLogWindow.cs" />
-    <Compile Include="Assets\IFramework\LUA\Editor\LuaBehaviorEditor.cs" />
-    <Compile Include="Assets\IFramework\LUA\Editor\LuaImporter.cs" />
-    <Compile Include="Assets\IFramework\LUA\Editor\LuaImporterEditorView.cs" />
     <Compile Include="Assets\IFramework\Res\Editor\AssetDataBaseLoader.cs" />
-    <Compile Include="Assets\IFramework\UI\Editor\UIMap_MVVM.cs" />
     <Compile Include="Assets\IFramework\UI\Editor\UIMoudleWindow.cs" />
     <Compile Include="Assets\IFramework\UTil\Built_inIcon\Editor\Buildt_inIconInspector.cs" />
     <Compile Include="Assets\IFramework\UTil\Built_inIcon\Editor\IFEditorIconStoInspector.cs" />
     <Compile Include="Assets\IFramework\UTil\Built_inIcon\Editor\Window\IFEditorIconWindow.cs" />
-    <Compile Include="Assets\IFramework\UTil\Editor\AutoBuild\AutoBuildPlayer.cs" />
     <Compile Include="Assets\IFramework\UTil\Editor\GUIStyle\IFGUISKin.cs" />
     <Compile Include="Assets\IFramework\UTil\Editor\GUIStyle\IFGUISkinUtil.cs" />
     <Compile Include="Assets\IFramework\UTil\Editor\GUIStyle\IFGUISkinWindow.cs" />
@@ -205,31 +205,31 @@
     <Compile Include="Assets\IFramework\UTil\Editor\Script\DeleteMissingScripts.cs" />
     <Compile Include="Assets\IFramework\UTil\Editor\Script\ScriptFinder.cs" />
     <Compile Include="Assets\Scripts\Editor\Random_Color.cs" />
-    <Compile Include="Assets\XLua\Editor\ExampleConfig.cs" />
-    <Compile Include="Assets\XLua\Src\Editor\Generator.cs" />
-    <Compile Include="Assets\XLua\Src\Editor\Hotfix.cs" />
-    <Compile Include="Assets\XLua\Src\Editor\LinkXmlGen\LinkXmlGen.cs" />
-    <Compile Include="Assets\XLua\Src\Editor\TemplateRef.cs" />
-    <None Include="Assets\XLua\Src\Editor\LinkXmlGen\LinkXmlGen.tpl.txt" />
+    <Compile Include="Assets\XLua\XLua\Editor\ExampleConfig.cs" />
+    <Compile Include="Assets\XLua\XLua\Src\Editor\Generator.cs" />
+    <Compile Include="Assets\XLua\XLua\Src\Editor\Hotfix.cs" />
+    <Compile Include="Assets\XLua\XLua\Src\Editor\LinkXmlGen\LinkXmlGen.cs" />
+    <Compile Include="Assets\XLua\XLua\Src\Editor\TemplateRef.cs" />
+    <None Include="Assets\XLua\XLua\Src\Editor\LinkXmlGen\LinkXmlGen.tpl.txt" />
     <None Include="Assets\IFramework\0.1Core\ScriptCreater\Simple\Editor\CSharpScript.txt" />
     <None Include="Assets\IFramework\0.1Core\ScriptCreater\Simple\Editor\User\CSharpScript.txt" />
     <None Include="Assets\IFramework\AssetBundle\Editor\ABBLayout.xml" />
-    <None Include="Assets\XLua\Src\Editor\Template\LuaClassWrapGCM.tpl.txt" />
-    <None Include="Assets\XLua\Src\Editor\Template\LuaWrapPusher.tpl.txt" />
-    <None Include="Assets\XLua\Src\Editor\Template\LuaDelegateBridge.tpl.txt" />
+    <None Include="Assets\XLua\XLua\Src\Editor\Template\LuaClassWrapGCM.tpl.txt" />
+    <None Include="Assets\XLua\XLua\Src\Editor\Template\LuaWrapPusher.tpl.txt" />
+    <None Include="Assets\XLua\XLua\Src\Editor\Template\LuaDelegateBridge.tpl.txt" />
     <None Include="Assets\IFramework\0.1Core\ScriptCreater\Editor\FormatScript.txt" />
     <None Include="Assets\IFramework\AssetBundle\Editor\Layout.xml" />
-    <None Include="Assets\XLua\Src\Editor\Template\TemplateCommon.lua.txt" />
-    <None Include="Assets\XLua\Src\Editor\Template\LuaEnumWrap.tpl.txt" />
+    <None Include="Assets\XLua\XLua\Src\Editor\Template\TemplateCommon.lua.txt" />
+    <None Include="Assets\XLua\XLua\Src\Editor\Template\LuaEnumWrap.tpl.txt" />
     <None Include="Assets\IFramework\0.1Core\ScriptCreater\Simple\Editor\User\MonoScript.txt" />
-    <None Include="Assets\XLua\Src\Editor\Template\LuaDelegateWrap.tpl.txt" />
-    <None Include="Assets\XLua\Src\Editor\Template\LuaRegisterGCM.tpl.txt" />
-    <None Include="Assets\XLua\Src\Editor\Template\LuaRegister.tpl.txt" />
-    <None Include="Assets\XLua\Src\Editor\Template\LuaInterfaceBridge.tpl.txt" />
-    <None Include="Assets\XLua\Src\Editor\Template\LuaClassWrap.tpl.txt" />
+    <None Include="Assets\XLua\XLua\Src\Editor\Template\LuaDelegateWrap.tpl.txt" />
+    <None Include="Assets\XLua\XLua\Src\Editor\Template\LuaRegisterGCM.tpl.txt" />
+    <None Include="Assets\XLua\XLua\Src\Editor\Template\LuaRegister.tpl.txt" />
+    <None Include="Assets\XLua\XLua\Src\Editor\Template\LuaInterfaceBridge.tpl.txt" />
+    <None Include="Assets\XLua\XLua\Src\Editor\Template\LuaClassWrap.tpl.txt" />
     <None Include="Assets\IFramework\AssetBundle\Editor\ABEditorInfo.xml" />
-    <None Include="Assets\XLua\Src\Editor\Template\LuaEnumWrapGCM.tpl.txt" />
-    <None Include="Assets\XLua\Src\Editor\Template\PackUnpack.tpl.txt" />
+    <None Include="Assets\XLua\XLua\Src\Editor\Template\LuaEnumWrapGCM.tpl.txt" />
+    <None Include="Assets\XLua\XLua\Src\Editor\Template\PackUnpack.tpl.txt" />
     <Reference Include="Unity.PackageManagerUI.Editor">
       <HintPath>E:/Project/IFrameworkDemo/Client/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
@@ -490,6 +490,9 @@
     </Reference>
     <Reference Include="UnityEditor.Purchasing">
       <HintPath>E:/Project/IFrameworkDemo/Client/Library/PackageCache/com.unity.purchasing@2.0.3/Editor/UnityEditor.Purchasing.dll</HintPath>
+    </Reference>
+    <Reference Include="IFramework.UnityLogger">
+      <HintPath>E:/Project/IFrameworkDemo/Client/Assets/IFramework/0.1Core/Plugins/IFramework.UnityLogger.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>D:/Unity/2018.4.17f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>

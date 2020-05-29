@@ -120,7 +120,7 @@ namespace IFramework
                     {
                         Styles.SearchTextFieldStyle.fontSize++;
                     }
-                    GUI.SetNextControlName(FocusID);
+                    GUI.SetNextControlName(focusID);
 
                     value = GUI.TextField(new Rect(position.x,
                                                                      position.y + 1,
@@ -145,10 +145,10 @@ namespace IFramework
                     Event e = Event.current;
                     if (position.Contains(e.mousePosition))
                     {
-                        if (!Focused)
+                        if (!focused)
                             if ((e.type == EventType.MouseDown /*&& e.clickCount == 2*/) /*|| e.keyCode == KeyCode.F2*/)
                             {
-                                Focused = true;
+                                focused = true;
                                 GUIFocusControl.Focus(this);
                                 if (e.type != EventType.Repaint && e.type != EventType.Layout)
                                     Event.current.Use();
@@ -263,13 +263,13 @@ namespace IFramework
             public override void OnOpen()
             {
                 base.OnOpen();
-                EditorApplication.update += Repaint;
+                EditorEnv.update += Repaint;
             }
 
             public override void OnClose()
             {
                 base.OnClose();
-                EditorApplication.update -= Repaint;
+                EditorEnv.update -= Repaint;
             }
 
             public override Vector2 GetWindowSize()

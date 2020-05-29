@@ -612,7 +612,7 @@ KnobCShapeMini
 leftBracket
 Lighting
 LightmapEditor.WindowTitle
-Lightmapping
+LightmGameing
 d_greenLight
 d_lightOff
 d_lightRim
@@ -819,7 +819,7 @@ EditorSettings Icon
 AnyStateNode Icon
 HumanTemplate Icon
 LightingDataAsset Icon
-LightmapParameters Icon
+LightmGamearameters Icon
 Preset Icon
 SceneAsset Icon
 SubstanceArchive Icon
@@ -1056,8 +1056,8 @@ VisualEffectAsset Icon
 WheelCollider Icon
 WheelJoint2D Icon
 WindZone Icon
-SpatialMappingCollider Icon
-SpatialMappingRenderer Icon
+SpatialMGameingCollider Icon
+SpatialMGameingRenderer Icon
 WorldAnchor Icon
 UssScript Icon
 UxmlScript Icon

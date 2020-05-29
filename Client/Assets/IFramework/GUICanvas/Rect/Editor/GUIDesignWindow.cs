@@ -109,7 +109,7 @@ namespace IFramework.GUITool.RectDesign
                                 Selection.activeObject = AssetDatabase.LoadAssetAtPath<Object>(XmlPath);
                             }
                             var info = DragAndDropUtil.Drag(e, r);
-                            if (info.paths.Length == 1 && info.EnterArera && info.Finsh && info.paths[0].EndsWith(".xml") && System.IO.File.Exists(info.paths[0]))
+                            if (info.paths.Length == 1 && info.enterArera && info.compelete && info.paths[0].EndsWith(".xml") && System.IO.File.Exists(info.paths[0]))
                                 XmlPath = info.paths[0];
 
                         }, 200)

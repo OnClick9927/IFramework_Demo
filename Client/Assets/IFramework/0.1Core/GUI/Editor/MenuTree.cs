@@ -67,7 +67,7 @@ namespace IFramework.GUITool
             private void SelfGUI(Rect rect)
             {
                 GUI.Box(rect, "", "RL Background");
-                if (tree.current == this) GUI.Box(rect, "", "SelectionRect");
+                if (tree._current == this) GUI.Box(rect, "", "SelectionRect");
 
 
                 var r = rect.Zoom(AnchorType.MiddleRight, new Vector2(-depth * 10, 0));
@@ -78,9 +78,9 @@ namespace IFramework.GUITool
 
                 if (rect.Zoom(AnchorType.MiddleRight, new Vector2(-50, 0)).Contains(Event.current.mousePosition) && Event.current.clickCount == 1)
                 {
-                    if (tree.current != this)
+                    if (tree._current != this)
                     {
-                        tree.current = this;
+                        tree._current = this;
                     }
                 }
             }
@@ -104,36 +104,36 @@ namespace IFramework.GUITool
                 }
             }
         }
-        private MenuRoot root;
+        private MenuRoot _root;
         private List<MenuTrunk> _nodes;
-        private MenuTrunk _current;
-        private Vector2 scroll;
-        private MenuTrunk current
+        private MenuTrunk __current;
+        private Vector2 _scroll;
+        private MenuTrunk _current
         {
-            get { return _current; }
+            get { return __current; }
             set
             {
-                if (_current != value)
+                if (__current != value)
                 {
-                    _current = value;
-                    if (_current != null && onCurrentChange != null)
+                    __current = value;
+                    if (__current != null && onCurrentChange != null)
                     {
 
-                        onCurrentChange(_current.path.Substring(root.path.Length + 1));
+                        onCurrentChange(__current.path.Substring(_root.path.Length + 1));
                     }
                 }
             }
         }
 
         public event Action<string> onCurrentChange;
-        public float height { get { return root.totalHeight; } }
+        public float height { get { return _root.totalHeight; } }
         public MenuTree()
         {
-            root = new MenuRoot();
-            root.name = "root";
-            root.tree = this;
+            _root = new MenuRoot();
+            _root.name = "root";
+            _root.tree = this;
             _nodes = new List<MenuTrunk>();
-            _nodes.Add(root);
+            _nodes.Add(_root);
         }
 
 
@@ -157,7 +157,7 @@ namespace IFramework.GUITool
             paths.Sort();
             for (int i = 0; i < paths.Count; i++)
             {
-                string path = root.path + "/" + paths[i];
+                string path = _root.path + "/" + paths[i];
                 if (ContainsNode(path)) continue;
                 var items = path.Split('/');
                 for (int j = 1; j < items.Length; j++)
@@ -205,9 +205,9 @@ namespace IFramework.GUITool
         {
             base.OnGUI(position);
             Event e = Event.current;
-            var rs = position.HorizontalSplit(root.totalHeight);
-            scroll = GUI.BeginScrollView(position, scroll, rs[0]);
-            root.OnGUI(rs[0]);
+            var rs = position.HorizontalSplit(_root.totalHeight);
+            _scroll = GUI.BeginScrollView(position, _scroll, rs[0]);
+            _root.OnGUI(rs[0]);
             EmptyEve(e, rs[1]);
             GUI.EndScrollView();
         }
@@ -216,7 +216,7 @@ namespace IFramework.GUITool
           //  r.DrawOutLine(2, Color.red);
             if (r.height > 0 && r.Contains(e.mousePosition) && e.type == EventType.MouseUp)
             {
-                current = null;
+                _current = null;
             }
         }
 

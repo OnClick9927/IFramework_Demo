@@ -143,26 +143,26 @@ namespace IFramework.AB
                         {
                         new ListViewCalculator.ColumnSetting()
                         {
-                            Name = BundleName,
-                            Width = 100
+                            name = BundleName,
+                            width = 100
                         },
                         new ListViewCalculator.ColumnSetting()
                         {
-                            Name=CollectType,
-                            Width=80,
+                            name=CollectType,
+                            width=80,
                         },
                         new ListViewCalculator.ColumnSetting()
                         {
-                            Name=SelectButton,
-                            Width=50,
-                            OffSetY=-4,
-                            OffsetX=-10
+                            name=SelectButton,
+                            width=50,
+                            offSetY=-4,
+                            offsetX=-10
 
                         },
                         new ListViewCalculator.ColumnSetting()
                         {
-                            Name=SearchPath,
-                            Width=200
+                            name=SearchPath,
+                            width=200
                         },
                         };
                 }
@@ -185,36 +185,36 @@ namespace IFramework.AB
             {
                 tableViewCalc.Calc(position, new Vector2(position.x, position.y + lineHeight), ScrollPos, lineHeight, DirCollect.DirCollectItems.Count, Setting);
                 if (Event.current.type == EventType.Repaint)
-                    new GUIStyle(EntryBackodd).Draw(tableViewCalc.Position, false, false, false, false);
+                    new GUIStyle(EntryBackodd).Draw(tableViewCalc.position, false, false, false, false);
 
                 bool tog = true;
-                this.Toggle(tableViewCalc.TitleRow.Position, ref tog, new GUIStyle(TitleStyle))
-                    .LabelField(tableViewCalc.TitleRow[CollectType].Position, CollectType)
-                    .LabelField(tableViewCalc.TitleRow[BundleName].Position, BundleName)
-                    .LabelField(tableViewCalc.TitleRow[SearchPath].Position, SearchPath);
+                this.Toggle(tableViewCalc.titleRow.position, ref tog, new GUIStyle(TitleStyle))
+                    .LabelField(tableViewCalc.titleRow[CollectType].position, CollectType)
+                    .LabelField(tableViewCalc.titleRow[BundleName].position, BundleName)
+                    .LabelField(tableViewCalc.titleRow[SearchPath].position, SearchPath);
                 this.DrawScrollView(() =>
                 {
-                    for (int i = tableViewCalc.FirstVisibleRow; i < tableViewCalc.LastVisibleRow + 1; i++)
+                    for (int i = tableViewCalc.firstVisibleRow; i < tableViewCalc.lastVisibleRow + 1; i++)
                     {
                         GUIStyle style = i % 2 == 0 ? EntryBackEven : EntryBackodd;
                         if (e.type == EventType.Repaint)
-                            style.Draw(tableViewCalc.Rows[i].Position, false, false, tableViewCalc.Rows[i].Selected, false);
+                            style.Draw(tableViewCalc.rows[i].position, false, false, tableViewCalc.rows[i].selected, false);
                         if (e.modifiers == EventModifiers.Control &&
                                 e.button == 0 && e.clickCount == 1 &&
-                                tableViewCalc.Rows[i].Position.Contains(e.mousePosition))
+                                tableViewCalc.rows[i].position.Contains(e.mousePosition))
                         {
                             tableViewCalc.ControlSelectRow(i);
                             window.Repaint();
                         }
                         else if (e.modifiers == EventModifiers.Shift &&
                                         e.button == 0 && e.clickCount == 1 &&
-                                        tableViewCalc.Rows[i].Position.Contains(e.mousePosition))
+                                        tableViewCalc.rows[i].position.Contains(e.mousePosition))
                         {
                             tableViewCalc.ShiftSelectRow(i);
                             window.Repaint();
                         }
                         else if (e.button == 0 && e.clickCount == 1 &&
-                                        tableViewCalc.Rows[i].Position.Contains(e.mousePosition))
+                                        tableViewCalc.rows[i].position.Contains(e.mousePosition))
                         {
                             tableViewCalc.SelectRow(i);
                             window.Repaint();
@@ -223,52 +223,52 @@ namespace IFramework.AB
                         ABDirCollectItem item = DirCollect.DirCollectItems[i];
 
                         int index = (int)item.CollectType;
-                        this.Popup(tableViewCalc.Rows[i][CollectType].Position,
+                        this.Popup(tableViewCalc.rows[i][CollectType].position,
                                     ref index,
                                     Enum.GetNames(typeof(ABDirCollectItem.ABDirCollectType)));
                         item.CollectType = (ABDirCollectItem.ABDirCollectType)index;
                         this.Button(() =>
                         {
                             chosseWindow.assetinfo = item.subAsset;
-                            PopupWindow.Show(tableViewCalc.Rows[i][SelectButton].Position, chosseWindow);
+                            PopupWindow.Show(tableViewCalc.rows[i][SelectButton].position, chosseWindow);
                         }
-                        , tableViewCalc.Rows[i][SelectButton].Position, SelectButton);
+                        , tableViewCalc.rows[i][SelectButton].position, SelectButton);
 
-                        this.Label(tableViewCalc.Rows[i][SearchPath].Position, item.SearchPath);
+                        this.Label(tableViewCalc.rows[i][SearchPath].position, item.SearchPath);
                         if (item.CollectType == ABDirCollectItem.ABDirCollectType.ABName)
-                            this.TextField(tableViewCalc.Rows[i][BundleName].Position, ref item.BundleName);
+                            this.TextField(tableViewCalc.rows[i][BundleName].position, ref item.BundleName);
                     }
-                }, tableViewCalc.View,ref ScrollPos,tableViewCalc.Content, false, false);
+                }, tableViewCalc.view,ref ScrollPos,tableViewCalc.content, false, false);
 
                 Handles.color = Color.black;
-                for (int i = 0; i < tableViewCalc.TitleRow.Columns.Count; i++)
+                for (int i = 0; i < tableViewCalc.titleRow.columns.Count; i++)
                 {
-                    var item = tableViewCalc.TitleRow.Columns[i];
+                    var item = tableViewCalc.titleRow.columns[i];
 
                     if (i != 0)
-                        Handles.DrawAAPolyLine(1, new Vector3(item.Position.x - 2,
-                                                                item.Position.y,
+                        Handles.DrawAAPolyLine(1, new Vector3(item.position.x - 2,
+                                                                item.position.y,
                                                                 0),
-                                                  new Vector3(item.Position.x - 2,
-                                                                item.Position.yMax - 2,
+                                                  new Vector3(item.position.x - 2,
+                                                                item.position.yMax - 2,
                                                                 0));
 
                 }
-                tableViewCalc.Position.DrawOutLine(2, Color.black);
+                tableViewCalc.position.DrawOutLine(2, Color.black);
                 Handles.color = Color.white;
             }
             private void Eve(Event e)
             {
                 if (e.button == 0 && e.clickCount == 1 &&
-                        (!tableViewCalc.View.Contains(e.mousePosition) ||
-                            (tableViewCalc.View.Contains(e.mousePosition) &&
-                             !tableViewCalc.Content.Contains(e.mousePosition))))
+                        (!tableViewCalc.view.Contains(e.mousePosition) ||
+                            (tableViewCalc.view.Contains(e.mousePosition) &&
+                             !tableViewCalc.content.Contains(e.mousePosition))))
                 {
                     tableViewCalc.SelectNone();
                     window.Repaint();
                 }
-                DragAndDropIInfo info = DragAndDropUtil.Drag(e, tableViewCalc.View);
-                if (info.EnterArera && info.Finsh)
+                DragAndDropIInfo info = DragAndDropUtil.Drag(e, tableViewCalc.view);
+                if (info.enterArera && info.compelete)
                 {
                     for (int i = 0; i < info.paths.Length; i++)
                     {
@@ -276,13 +276,13 @@ namespace IFramework.AB
                     }
                 }
                 if (e.button == 1 && e.clickCount == 1 &&
-                          tableViewCalc.Content.Contains(e.mousePosition))
+                          tableViewCalc.content.Contains(e.mousePosition))
                 {
                     GenericMenu menu = new GenericMenu();
                     menu.AddItem(new GUIContent("Delete"), false, () => {
-                        for (int i = tableViewCalc.Rows.Count - 1; i >= 0; i--)
+                        for (int i = tableViewCalc.rows.Count - 1; i >= 0; i--)
                         {
-                            if (tableViewCalc.Rows[i].Selected)
+                            if (tableViewCalc.rows[i].selected)
                                 DirCollect.RemoveCollectItem(DirCollect.DirCollectItems[i]);
                         }
                         window.UpdateInfo();
@@ -336,13 +336,13 @@ namespace IFramework.AB
                     {
                     new ListViewCalculator.ColumnSetting()
                     {
-                        Name=ABName,
-                        Width=300
+                        name=ABName,
+                        width=300
                     },
                     new ListViewCalculator.ColumnSetting()
                     {
-                        Name=RefCount,
-                        Width=40
+                        name=RefCount,
+                        width=40
                     }
                     };
                 }
@@ -364,28 +364,28 @@ namespace IFramework.AB
                     return new ListViewCalculator.ColumnSetting[] {
                     new ListViewCalculator.ColumnSetting()
                     {
-                        Name=Preview,
-                        Width=40
+                        name=Preview,
+                        width=40
                     },
                     new ListViewCalculator.ColumnSetting()
                     {
-                        Name=AssetName,
-                        Width=320
+                        name=AssetName,
+                        width=320
                     },
                     new ListViewCalculator.ColumnSetting()
                     {
-                        Name=Bundle,
-                        Width=100
+                        name=Bundle,
+                        width=100
                     },
                     new ListViewCalculator.ColumnSetting()
                     {
-                        Name=Size,
-                        Width=100
+                        name=Size,
+                        width=100
                     },
                     new ListViewCalculator.ColumnSetting()
                     {
-                        Name=CrossRef,
-                        Width=40
+                        name=CrossRef,
+                        width=40
                     },
 
                 };
@@ -401,13 +401,13 @@ namespace IFramework.AB
                     return new ListViewCalculator.ColumnSetting[] {
                     new ListViewCalculator.ColumnSetting()
                     {
-                        Name=Preview,
-                        Width=40
+                        name=Preview,
+                        width=40
                     },
                     new ListViewCalculator.ColumnSetting()
                     {
-                        Name=AssetName,
-                        Width=400
+                        name=AssetName,
+                        width=400
                     },
                 };
                 }
@@ -467,24 +467,24 @@ namespace IFramework.AB
                 ABBListViewCalc.Calc(rect, rect.position, ABBScrollPos, LineHeight, AssetbundleBuilds.Count, ABBSetting);
                 this.DrawScrollView(() =>
                 {
-                    for (int i = ABBListViewCalc.FirstVisibleRow; i < ABBListViewCalc.LastVisibleRow + 1; i++)
+                    for (int i = ABBListViewCalc.firstVisibleRow; i < ABBListViewCalc.lastVisibleRow + 1; i++)
                     {
                         if (e.modifiers == EventModifiers.Control &&
                                 e.button == 0 && e.clickCount == 1 &&
-                                ABBListViewCalc.Rows[i].Position.Contains(e.mousePosition))
+                                ABBListViewCalc.rows[i].position.Contains(e.mousePosition))
                         {
                             ABBListViewCalc.ControlSelectRow(i);
                             window.Repaint();
                         }
                         else if (e.modifiers == EventModifiers.Shift &&
                                         e.button == 0 && e.clickCount == 1 &&
-                                        ABBListViewCalc.Rows[i].Position.Contains(e.mousePosition))
+                                        ABBListViewCalc.rows[i].position.Contains(e.mousePosition))
                         {
                             ABBListViewCalc.ShiftSelectRow(i);
                             window.Repaint();
                         }
                         else if (e.button == 0 && e.clickCount == 1 &&
-                                        ABBListViewCalc.Rows[i].Position.Contains(e.mousePosition)
+                                        ABBListViewCalc.rows[i].position.Contains(e.mousePosition)
                                       /*  && ListView.viewPosition.Contains(Event.current.mousePosition) */)
                         {
                             ABBListViewCalc.SelectRow(i);
@@ -494,21 +494,21 @@ namespace IFramework.AB
 
                         GUIStyle style = i % 2 == 0 ? EntryBackEven : EntryBackodd;
                         if (e.type == EventType.Repaint)
-                            style.Draw(ABBListViewCalc.Rows[i].Position, false, false, ABBListViewCalc.Rows[i].Selected, false);
-                        this.Label(ABBListViewCalc.Rows[i][ABName].Position, AssetbundleBuilds[i].assetBundleName);
+                            style.Draw(ABBListViewCalc.rows[i].position, false, false, ABBListViewCalc.rows[i].selected, false);
+                        this.Label(ABBListViewCalc.rows[i][ABName].position, AssetbundleBuilds[i].assetBundleName);
                         if (AssetbundleBuilds[i].CrossRefence)
-                            this.Label(ABBListViewCalc.Rows[i][RefCount].Position, EditorGUIUtility.IconContent("console.warnicon.sml"));
+                            this.Label(ABBListViewCalc.rows[i][RefCount].position, EditorGUIUtility.IconContent("console.warnicon.sml"));
                         else
-                            this.Label(ABBListViewCalc.Rows[i][RefCount].Position, EditorGUIUtility.IconContent("Collab"));
+                            this.Label(ABBListViewCalc.rows[i][RefCount].position, EditorGUIUtility.IconContent("Collab"));
 
                     }
-                }, ABBListViewCalc.View,
+                }, ABBListViewCalc.view,
                 ref ABBScrollPos,
-                ABBListViewCalc.Content, false, false);
+                ABBListViewCalc.content, false, false);
 
                 if (e.button == 0 && e.clickCount == 1 &&
-                            (ABBListViewCalc.View.Contains(e.mousePosition) &&
-                             !ABBListViewCalc.Content.Contains(e.mousePosition)))
+                            (ABBListViewCalc.view.Contains(e.mousePosition) &&
+                             !ABBListViewCalc.content.Contains(e.mousePosition)))
                 {
                     ABBListViewCalc.SelectNone();
                     window.Repaint();
@@ -517,16 +517,16 @@ namespace IFramework.AB
                 }
 
                 if (e.button == 1 && e.clickCount == 1 &&
-                  ABBListViewCalc.Content.Contains(e.mousePosition))
+                  ABBListViewCalc.content.Contains(e.mousePosition))
                 {
                     GenericMenu menu = new GenericMenu();
                     menu.AddItem(new GUIContent("Delete"), false, () => {
 
                         ChoosedAsset = null;
                         ChossedABB = null;
-                        ABBListViewCalc.SelectedRows.ReverseForEach((row) => {
+                        ABBListViewCalc.selectedRows.ReverseForEach((row) => {
 
-                            int index = row.RowID;
+                            int index = row.rowID;
                             window.DeleteBundle(AssetbundleBuilds[index].assetBundleName);
                         });
 
@@ -572,48 +572,48 @@ namespace IFramework.AB
                 rect.DrawOutLine(2, Color.black);
                 int lineCount = ChossedABB == null ? 0 : ChossedABB.assetNames.Count;
                 ABBContentTable.Calc(rect, new Vector2(rect.x, rect.y + LineHeight), ABBContentScrollPos, LineHeight, lineCount, ABBContentSetting);
-                    this.Label(ABBContentTable.TitleRow.Position, "", TitleStyle)
-                        .Label(ABBContentTable.TitleRow[AssetName].Position, AssetName)
-                        .Label(ABBContentTable.TitleRow[Bundle].Position, Bundle)
-                        .Label(ABBContentTable.TitleRow[Size].Position, Size);
+                    this.Label(ABBContentTable.titleRow.position, "", TitleStyle)
+                        .Label(ABBContentTable.titleRow[AssetName].position, AssetName)
+                        .Label(ABBContentTable.titleRow[Bundle].position, Bundle)
+                        .Label(ABBContentTable.titleRow[Size].position, Size);
                 Event e = Event.current;
                 this.DrawScrollView(() =>
                 {
-                    for (int i = ABBContentTable.FirstVisibleRow; i < ABBContentTable.LastVisibleRow + 1; i++)
+                    for (int i = ABBContentTable.firstVisibleRow; i < ABBContentTable.lastVisibleRow + 1; i++)
                     {
                         ABDeprndence asset = GetDpByName(ChossedABB.assetNames[i]);
                         GUIStyle style = i % 2 == 0 ? EntryBackEven : EntryBackodd;
 
                         if (e.type == EventType.Repaint)
-                            style.Draw(ABBContentTable.Rows[i].Position, false, false, ABBContentTable.Rows[i].Selected, false);
+                            style.Draw(ABBContentTable.rows[i].position, false, false, ABBContentTable.rows[i].selected, false);
 
-                        this.Label(ABBContentTable.Rows[i][Size].Position, asset.Size)
-                            .Label(ABBContentTable.Rows[i][AssetName].Position, asset.AssetName)
-                            .Label(ABBContentTable.Rows[i][Preview].Position, asset.ThumbNail)
-                            .Label(ABBContentTable.Rows[i][Bundle].Position, asset.BundleName)
+                        this.Label(ABBContentTable.rows[i][Size].position, asset.Size)
+                            .Label(ABBContentTable.rows[i][AssetName].position, asset.AssetName)
+                            .Label(ABBContentTable.rows[i][Preview].position, asset.ThumbNail)
+                            .Label(ABBContentTable.rows[i][Bundle].position, asset.BundleName)
                             .Pan(() => {
                                 if (asset.AssetBundles.Count == 1)
-                                    this.Label(ABBContentTable.Rows[i][CrossRef].Position, EditorGUIUtility.IconContent("Collab"));
+                                    this.Label(ABBContentTable.rows[i][CrossRef].position, EditorGUIUtility.IconContent("Collab"));
                                 else
-                                    this.Label(ABBContentTable.Rows[i][CrossRef].Position, asset.AssetBundles.Count.ToString(), new GUIStyle("CN CountBadge"));
+                                    this.Label(ABBContentTable.rows[i][CrossRef].position, asset.AssetBundles.Count.ToString(), new GUIStyle("CN CountBadge"));
                             });
 
                         if (e.modifiers == EventModifiers.Control &&
                                 e.button == 0 && e.clickCount == 1 &&
-                                ABBContentTable.Rows[i].Position.Contains(Event.current.mousePosition))
+                                ABBContentTable.rows[i].position.Contains(Event.current.mousePosition))
                         {
                             ABBContentTable.ControlSelectRow(i);
                             window.Repaint();
                         }
                         else if (e.modifiers == EventModifiers.Shift &&
                                         e.button == 0 &&e.clickCount == 1 &&
-                                        ABBContentTable.Rows[i].Position.Contains(e.mousePosition))
+                                        ABBContentTable.rows[i].position.Contains(e.mousePosition))
                         {
                             ABBContentTable.ShiftSelectRow(i);
                             window.Repaint();
                         }
                         else if (e.button == 0 && e.clickCount == 1 &&
-                                        ABBContentTable.Rows[i].Position.Contains(e.mousePosition))
+                                        ABBContentTable.rows[i].position.Contains(e.mousePosition))
                         {
                             ABBContentTable.SelectRow(i);
                             ChoosedAsset = asset;
@@ -621,42 +621,42 @@ namespace IFramework.AB
                         }
                     }
 
-                }, ABBContentTable.View,ref ABBContentScrollPos,ABBContentTable.Content, false, false);
+                }, ABBContentTable.view,ref ABBContentScrollPos,ABBContentTable.content, false, false);
 
                 Handles.color = Color.black;
 
-                for (int i = 0; i < ABBContentTable.TitleRow.Columns.Count; i++)
+                for (int i = 0; i < ABBContentTable.titleRow.columns.Count; i++)
                 {
-                    var item = ABBContentTable.TitleRow.Columns[i];
+                    var item = ABBContentTable.titleRow.columns[i];
 
                     if (i != 0)
-                        Handles.DrawAAPolyLine(1, new Vector3(item.Position.x - 2,
-                                                                item.Position.y,
+                        Handles.DrawAAPolyLine(1, new Vector3(item.position.x - 2,
+                                                                item.position.y,
                                                                 0),
-                                                  new Vector3(item.Position.x - 2,
-                                                                item.Position.yMax - 2,
+                                                  new Vector3(item.position.x - 2,
+                                                                item.position.yMax - 2,
                                                                 0));
 
                 }
-                ABBContentTable.Position.DrawOutLine(2, Color.black);
+                ABBContentTable.position.DrawOutLine(2, Color.black);
 
                 Handles.color = Color.white;
 
                 if (e.button == 0 && e.clickCount == 1 &&
-                     (ABBContentTable.View.Contains(e.mousePosition) &&
-                      !ABBContentTable.Content.Contains(e.mousePosition)))
+                     (ABBContentTable.view.Contains(e.mousePosition) &&
+                      !ABBContentTable.content.Contains(e.mousePosition)))
                 {
                     ABBContentTable.SelectNone();
                     ChoosedAsset = null;
                     window.Repaint();
                 }
-                if (e.button == 1 && e.clickCount == 1 && ABBContentTable.Content.Contains(e.mousePosition))
+                if (e.button == 1 && e.clickCount == 1 && ABBContentTable.content.Contains(e.mousePosition))
                 {
                     GenericMenu menu = new GenericMenu();
                     menu.AddItem(new GUIContent("Delete"), false, () => {
-                        ABBContentTable.SelectedRows.ReverseForEach((row) =>
+                        ABBContentTable.welectedRows.ReverseForEach((row) =>
                         {
-                            window.RemoveAsset(ChossedABB.assetNames[row.RowID], ChossedABB.assetBundleName);
+                            window.RemoveAsset(ChossedABB.assetNames[row.rowID], ChossedABB.assetBundleName);
                         });
                        window.UpdateInfo();
                         ChoosedAsset = null;
@@ -672,20 +672,20 @@ namespace IFramework.AB
                 rect.DrawOutLine(2, Color.black);
                 if (ChoosedAsset == null) return;
                 ABBContentItemTableCalc.Calc(rect, new Vector2(rect.x, rect.y + LineHeight), ABBContentItemScrollPos, LineHeight, ChoosedAsset.AssetBundles.Count, ABBContentItemSetting);
-                this.Label(ABBContentItemTableCalc.TitleRow[AssetName].Position, ChoosedAsset.AssetPath)
-                    .Label(ABBContentItemTableCalc.TitleRow[Preview].Position, ChoosedAsset.ThumbNail);
+                this.Label(ABBContentItemTableCalc.titleRow[AssetName].position, ChoosedAsset.AssetPath)
+                    .Label(ABBContentItemTableCalc.titleRow[Preview].position, ChoosedAsset.ThumbNail);
 
                 this.DrawScrollView(() =>
                 {
-                    for (int i = 0; i < ABBContentItemTableCalc.Rows.Count; i++)
+                    for (int i = 0; i < ABBContentItemTableCalc.rows.Count; i++)
                     {
                         GUIStyle style = i % 2 == 0 ? EntryBackEven : EntryBackodd;
                         if (Event.current.type == EventType.Repaint)
-                            style.Draw(ABBContentItemTableCalc.Rows[i].Position, false, false, ABBContentItemTableCalc.Rows[i].Selected, false);
-                        this.Label(ABBContentItemTableCalc.Rows[i][AssetName].Position, ChoosedAsset.AssetBundles[i]);
+                            style.Draw(ABBContentItemTableCalc.rows[i].position, false, false, ABBContentItemTableCalc.rows[i].selected, false);
+                        this.Label(ABBContentItemTableCalc.rows[i][AssetName].position, ChoosedAsset.AssetBundles[i]);
                         //this.Label(table.Rows[i][Preview].Position, choo.ThumbNail);
                     }
-                }, ABBContentItemTableCalc.View,ref ABBContentItemScrollPos,ABBContentItemTableCalc.Content, false, false);
+                }, ABBContentItemTableCalc.view,ref ABBContentItemScrollPos,ABBContentItemTableCalc.content, false, false);
             }
 
 
@@ -717,7 +717,7 @@ namespace IFramework.AB
         private ToolBarTree ToolBarTree;
         private void SubWinInit()
         {
-            tmpLayoutPath= EditorEnv.FrameworkPath.CombinePath("AssetBundle/Editor/Layout.xml");
+            tmpLayoutPath= EditorEnv.frameworkPath.CombinePath("AssetBundle/Editor/Layout.xml");
             if (File.Exists(tmpLayoutPath))
                 tmpLayout = File.ReadAllText(tmpLayoutPath);
 
@@ -791,7 +791,7 @@ namespace IFramework.AB
         private ToolWindow toolWindow;
         private void ABInit()
         {
-            tmpLayout_ABBuildInfoPath = EditorEnv.FrameworkPath.CombinePath("AssetBundle/Editor/ABBLayout.xml");
+            tmpLayout_ABBuildInfoPath = EditorEnv.frameworkPath.CombinePath("AssetBundle/Editor/ABBLayout.xml");
             LoadCollectInfo();
             if (string.IsNullOrEmpty(tmpLayout_ABBuildInfo))
                 if (File.Exists(tmpLayout_ABBuildInfoPath))
@@ -805,7 +805,7 @@ namespace IFramework.AB
         }
         private void LoadCollectInfo()
         {
-            EditorInfoPath = EditorEnv.FrameworkPath.CombinePath("AssetBundle/Editor/ABEditorInfo.xml");
+            EditorInfoPath = EditorEnv.frameworkPath.CombinePath("AssetBundle/Editor/ABEditorInfo.xml");
             if (!File.Exists(EditorInfoPath))
             {
                 string xm= Xml.ToXmlString(new ABEditorInfo());
@@ -921,6 +921,7 @@ namespace IFramework.AB
             WinTree.OnGUI(rs[1]);
             ToolBarTree.OnGUI(rs[0]);
             this.minSize = WinTree.minSize + new Vector2(0, ToolBarHeight);
+            Repaint();
         }
     }
 }

@@ -13,8 +13,8 @@ using UnityEngine;
 namespace IFramework
 {
     [CustomEditor(typeof(DefaultAsset))]
-	public class DefaultAssetEditorView:Editor,ILayoutGUIDrawer
-	{
+    class DefaultAssetEditorView : Editor, ILayoutGUIDrawer
+    {
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
@@ -25,7 +25,7 @@ namespace IFramework
                 this.Button(() => {
                     ProcessUtil.OpenFloder(path);
                 }, "Open");
-            
+
             }
         }
     }

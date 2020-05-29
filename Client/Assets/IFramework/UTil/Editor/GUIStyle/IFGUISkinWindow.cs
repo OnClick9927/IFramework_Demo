@@ -36,7 +36,7 @@ namespace IFramework
 
         private void OnEnable()
         {
-            StoPath = EditorEnv.EditorPath.
+            StoPath = EditorEnv.editorPath.
                 CombinePath("GUIStyle/Resources/" + IFGUISkinUtil.AssetName+".asset");
             if (!System.IO.File.Exists(StoPath)) ScriptableObj.Create<IFGUISKin>(StoPath);
             Skin = ScriptableObj.Load<IFGUISKin>(StoPath);
@@ -77,31 +77,31 @@ namespace IFramework
 
             Rect rect = new Rect(0,  TopHeight, position.width, position.height - TopHeight).Zoom(AnchorType.MiddleCenter, -5);
             listView.Calc(rect, rect.position, ScrollPos, 30, mathList.Count, new ListViewCalculator.ColumnSetting[] {
-                new ListViewCalculator.ColumnSetting(){ Name=Style,Width=600,OffSetY=-4},
+                new ListViewCalculator.ColumnSetting(){ name=Style,width=600,offSetY=-4},
 
-                new ListViewCalculator.ColumnSetting(){ Name=Name,Width=200,OffSetY=-4,OffsetX=-10},
-                new ListViewCalculator.ColumnSetting(){ Name=Btn,Width=100,OffSetY=-4},
+                new ListViewCalculator.ColumnSetting(){ name=Name,width=200,offSetY=-4,offsetX=-10},
+                new ListViewCalculator.ColumnSetting(){ name=Btn,width=100,offSetY=-4},
             });
             this.DrawScrollView(() =>
             {
-                for (int i = listView.FirstVisibleRow; i < listView.LastVisibleRow + 1; i++)
+                for (int i = listView.firstVisibleRow; i < listView.lastVisibleRow + 1; i++)
                 {
-                    this.Label(listView.Rows[i][Name].Position, mathList[i].name);
+                    this.Label(listView.rows[i][Name].position, mathList[i].name);
                     this.Button(()=> {
                         GUIUtility.systemCopyBuffer = mathList[i].name;
-                    },listView.Rows[i][Btn].Position, Btn);
+                    },listView.rows[i][Btn].position, Btn);
                     if (Event.current.type == EventType.Repaint)
                         if (Tog)
                         {
-                            mathList[i].Draw(listView.Rows[i][Style].Position, mathList[i].name, false, false, false, false);
+                            mathList[i].Draw(listView.rows[i][Style].position, mathList[i].name, false, false, false, false);
                         }
                         else
                         {
-                            mathList[i].Draw(listView.Rows[i][Style].Position,  false, false, false, false);
+                            mathList[i].Draw(listView.rows[i][Style].position,  false, false, false, false);
                         }
 
                 }
-            }, listView.View,ref ScrollPos, listView.Content);
+            }, listView.view,ref ScrollPos, listView.content);
                       
         }
         private void Fresh()

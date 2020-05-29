@@ -27,7 +27,7 @@ namespace FormSever.Net
         {
 
             tcpTokenPool = new NetConnectionTokenPool(Configs.net.TCPCheckSpace);
-            tcpTokenPool.ConnectionTimeout = Configs.net.TCPConnTimeOut;
+            tcpTokenPool.connectionTimeout = Configs.net.TCPConnTimeOut;
 
 
             tcp = new TcpServerToken(Configs.net.TCPMaxConn, Configs.net.TCPBuffersize);
@@ -126,7 +126,7 @@ namespace FormSever.Net
             var ie = tcpTokenPool.ReadNext().GetEnumerator();
             while (ie.MoveNext())
             {
-                SendTcpMessage(ie.Current.Token, message);
+                SendTcpMessage(ie.Current.token, message);
 
             }
            

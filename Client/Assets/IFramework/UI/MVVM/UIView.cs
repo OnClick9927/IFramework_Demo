@@ -85,5 +85,4 @@ namespace IFramework.UI
         public VM Tcontext { get { return this.context as VM; } }
         public Panel Tpanel { get { return this.panel as Panel; } }
     }
-
 }

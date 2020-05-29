@@ -79,7 +79,7 @@ Shader "FireWing/Wing_Main" {
                 float3 emissive = (((_SubTex_var.rgb*_Transparency)*_Mask_var.a)*_TintColor.rgb*2.0*i.vertexColor.rgb);
                 float3 finalColor = emissive;
                 fixed4 finalRGBA = fixed4(finalColor,1);
-                UNITY_APPLY_FOG_COLOR(i.fogCoord, finalRGBA, fixed4(0,0,0,1));
+                UNITY_GameLY_FOG_COLOR(i.fogCoord, finalRGBA, fixed4(0,0,0,1));
                 return finalRGBA;
             }
             ENDCG

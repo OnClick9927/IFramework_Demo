@@ -26,7 +26,7 @@ namespace IFramework
         private static ScriptCreater _scriptCreater;
         private void OnEnable()
         {
-            originScriptPath = EditorEnv.CorePath.CombinePath(@"ScriptCreater/Editor/FormatScript.txt");
+            originScriptPath = EditorEnv.corePath.CombinePath(@"ScriptCreater/Editor/FormatScript.txt");
             _scriptCreater = this.target as ScriptCreater;
         }
       
@@ -52,7 +52,7 @@ namespace IFramework
                     EditorGUI.LabelField(rect, _scriptCreater.CreatePath);
                     if (!rect.Contains(Event.current.mousePosition)) return;
                     var info = DragAndDropUtil.Drag(Event.current, rect);
-                    if (info.paths.Length > 0 && info.Finsh && info.EnterArera && info.paths[0].IsDirectory())
+                    if (info.paths.Length > 0 && info.compelete && info.enterArera && info.paths[0].IsDirectory())
                         _scriptCreater.CreatePath = info.paths[0];
                 })
                 .Space(10)
@@ -69,7 +69,7 @@ namespace IFramework
                             EditorGUI.LabelField(rect, _scriptCreater.prefabDirectory);
                             if (!rect.Contains(Event.current.mousePosition)) return;
                             var info = DragAndDropUtil.Drag(Event.current, rect);
-                            if (info.paths.Length > 0 && info.Finsh && info.EnterArera && info.paths[0].IsDirectory())
+                            if (info.paths.Length > 0 && info.compelete && info.enterArera && info.paths[0].IsDirectory())
                                 _scriptCreater.prefabDirectory = info.paths[0];
                         });
                     }

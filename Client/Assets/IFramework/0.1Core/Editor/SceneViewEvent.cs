@@ -72,7 +72,7 @@ namespace IFramework
 
             ViewEventInit();
             _sceneViewPickingClass = Type.GetType("UnityEditor.SceneViewPicking,UnityEditor");
-            _getAllOverlapping = _sceneViewPickingClass.GetMethod("GetAllOverlapping", BindingFlags.Static | BindingFlags.NonPublic);
+            _getAllOverlGameing = _sceneViewPickingClass.GetMethod("GetAllOverlGameing", BindingFlags.Static | BindingFlags.NonPublic);
         }
         private static void ViewEventInit()
         {
@@ -144,7 +144,7 @@ namespace IFramework
         {
             if (e.modifiers== EventModifiers.Control && e.isMouse && e.button == 1 && e.clickCount==1)
             {
-                OverlappingGameObjects = GetAllOverlapping(e.mousePosition).ToList();
+                OverlGameingGameObjects = GetAllOverlGameing(e.mousePosition).ToList();
 
                 List<GUIContent> contents = new List<GUIContent>();
                 foreach (var item in dic.Keys)
@@ -174,12 +174,12 @@ namespace IFramework
             }
 
         }
-        public static List<GameObject> OverlappingGameObjects;
-        public static IEnumerable<GameObject> GetAllOverlapping(Vector2 position)
+        public static List<GameObject> OverlGameingGameObjects;
+        public static IEnumerable<GameObject> GetAllOverlGameing(Vector2 position)
         {
-            return (IEnumerable<GameObject>)_getAllOverlapping.Invoke(null, new object[] { position });
+            return (IEnumerable<GameObject>)_getAllOverlGameing.Invoke(null, new object[] { position });
         }
-        private static MethodInfo _getAllOverlapping;
+        private static MethodInfo _getAllOverlGameing;
         private static Type _sceneViewPickingClass;
 
 

@@ -76,7 +76,7 @@ namespace IFramework
             searchField.onValueChange += (str) => {
                 input = str;
             };
-            StoPath = EditorEnv.UtilPath.CombinePath("Built_inIcon/Resources").CombinePath(IFIcons .StoName+ ".asset");
+            StoPath = EditorEnv.utilPath.CombinePath("Built_inIcon/Resources").CombinePath(IFIcons .StoName+ ".asset");
             if (!System.IO.File.Exists(StoPath)) Fresh();
             sto = ScriptableObj.Load<IFEditorIconSto>(StoPath);
             Icons.Clear();
@@ -144,21 +144,21 @@ namespace IFramework
             Setting.Clear();
             for (int i = 0; i < colCount; i++)
             {
-                Setting.Add(new ListViewCalculator.ColumnSetting() { Name = i.ToString(), Width = IconSize });
+                Setting.Add(new ListViewCalculator.ColumnSetting() { name = i.ToString(), width = IconSize });
             }
             listView.Calc(listviewRect, listviewRect.position,
                 rightPos, IconSize, rowCount, Setting.ToArray());
             this.DrawScrollView(() => {
 
-                int helpIndex = listView.FirstVisibleRow * colCount;
-                int rowIndex = listView.FirstVisibleRow;
+                int helpIndex = listView.firstVisibleRow * colCount;
+                int rowIndex = listView.firstVisibleRow;
                 while (helpIndex <= MathList.Count)
                 {
                     ListViewCalculator.Row row;
                     try
                     {
 
-                        row = listView.Rows[rowIndex];
+                        row = listView.rows[rowIndex];
                     }
                     catch (Exception)
                     {
@@ -173,11 +173,11 @@ namespace IFramework
                         ListViewCalculator.Column item;
                         try
                         {
-                             item= row.Columns[j];
-                            if (item.Position.width != item.Position.height) item.Position.width = item.Position.height;
-                            MathList[helpIndex].OnGUI(item.Position);
+                             item= row.columns[j];
+                            if (item.position.width != item.position.height) item.position.width = item.position.height;
+                            MathList[helpIndex].OnGUI(item.position);
                             if (++helpIndex >= MathList.Count) break;
-                            if (++j >= row.Columns.Count ) break;
+                            if (++j >= row.columns.Count ) break;
                         }
                         catch (Exception)
                         {
@@ -186,12 +186,12 @@ namespace IFramework
                         }
                        
                     }
-                    if (rowIndex++ > listView.LastVisibleRow) break;
-                    if (rowIndex >= listView.RowCount) break;
+                    if (rowIndex++ > listView.lastVisibleRow) break;
+                    if (rowIndex >= listView.rowCount) break;
 
                 }
 
-            }, listView.View,ref rightPos, listView.Content);
+            }, listView.view,ref rightPos, listView.content);
 
 
             this.DrawHorizontal(() =>

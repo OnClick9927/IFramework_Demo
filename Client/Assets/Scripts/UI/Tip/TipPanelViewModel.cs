@@ -138,7 +138,7 @@ namespace IFramework_Demo
             APP.message.UnSubscribe<LoginMessageHandler>(ListenMessage);
             APP.message.UnSubscribe<RegisterMessageHandler>(ListenMessage);
             APP.message.UnSubscribe<SeverFormMessageHandler>(ListenMessage);
-             
+
             APP.message.UnSubscribe<ChatBroadCastMessageHandler>(ListenMessage);
 
         }

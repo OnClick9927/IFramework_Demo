@@ -9,6 +9,8 @@
 using IFramework.GUITool;
 using UnityEditor;
 using UnityEditor.Callbacks;
+using UnityEngine;
+
 namespace IFramework
 {
     [CustomEditor(typeof(ProjectConfigInfo))]
@@ -38,7 +40,9 @@ namespace IFramework
 
         public override void OnInspectorGUI()
         {
+            GUI.enabled = false;
             base.OnInspectorGUI();
+            GUI.enabled = true;
             this.Space(10)
                 .Button(ProjectConfigWindow.ShowWindow, "Open");
         }

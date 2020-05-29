@@ -29,7 +29,7 @@ namespace IFramework_Demo
         internal const int NetMaxConnCount=10;
     }
      
-    public partial class APP :MonoBehaviour
+    public partial class APP :MonoBehaviour 
     {
         private void Awake()
         {
@@ -41,7 +41,6 @@ namespace IFramework_Demo
         }
         private void OnDisable()
         {
-            Framework.env1.Update();
             Framework.env1.Dispose();
         }
     }

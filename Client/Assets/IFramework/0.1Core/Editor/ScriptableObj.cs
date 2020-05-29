@@ -33,7 +33,7 @@ namespace IFramework
         }
         public static void Update<T>(T t) where T : ScriptableObject
         {
-            EditorApplication.delayCall += delegate ()
+            EditorEnv.delayCall += delegate ()
             {
                 EditorUtility.SetDirty(t);
                 AssetDatabase.SaveAssets();
@@ -43,7 +43,7 @@ namespace IFramework
         }
         public static void Update<T>(T sto,Object[] subAssets)where T:ScriptableObject
         {
-            EditorApplication.delayCall += delegate () {
+            EditorEnv.delayCall += delegate () {
                 string path = AssetDatabase.GetAssetPath(sto);
                 Object[] objs = AssetDatabase.LoadAllAssetsAtPath(path);
                 if (objs != null)

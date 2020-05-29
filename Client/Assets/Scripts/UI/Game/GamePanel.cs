@@ -18,8 +18,8 @@ using IFramework.UI;
 namespace IFramework_Demo
 {
 
-    public class GamePanel : UIPanel,IPointerDownHandler
-	{
+    public class GamePanel : UIPanel,IPointerDownHandler, IDragHandler
+    {
 		public ColorPicker colorPicker;
 		public RawImage map;
         public Text nameText;
@@ -64,6 +64,8 @@ namespace IFramework_Demo
                 v2, null, out v2);
 
             Vector2 tmp = v2 - zero;
+            if (tmp.x < 0 || tmp.y < 0 || tmp.x > map_w || tmp.y > map_w) return;
+
 
 
             float x = tmp.x;
@@ -79,6 +81,11 @@ namespace IFramework_Demo
 
         public void OnPointerDown(PointerEventData eventData)
         {
+            OnDrag(eventData.position);
+        }
+        public void OnDrag(PointerEventData eventData)
+        {
+            //transform.position = eventData.position;
             OnDrag(eventData.position);
         }
     }

@@ -12,159 +12,132 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace IFramework
+namespace IFramework.Language
 {
     public class LanguageModule : FrameworkModule
     {
         public class LanObserver : IDisposable
         {
-            private bool isDisposed;
-            private bool isPaused;
-            public string Key { get; private set; }
-            public SystemLanguage CurLan { get { return moudle.lan; } }
-            public SystemLanguage Fallback { get; private set; }
-            private List<LanPair> Pairs { get { return moudle.keyDic[Key]; } }
+            private bool _disposed;
+            private bool _paused;
+            public string key { get; private set; }
+            public SystemLanguage curLan { get { return moudle._lan; } }
+            public SystemLanguage fallback { get; private set; }
+            private List<LanPair> pairs { get { return moudle._keyDic[key]; } }
             private LanguageModule moudle;
+            private Action<SystemLanguage, string> _observeEvent;
+
+
             internal LanObserver(LanguageModule moudle, string key, SystemLanguage fallback, bool autoStart)
             {
                 this.moudle = moudle;
-                moudle.lanObservers.Add(this);
-                this.Key = key;
-                this.Fallback = fallback;
-                moudle.ObserveEvent += ObserveEvent;
-                isDisposed = false;
+                moudle._lanObservers.Add(this);
+                this.key = key;
+                this.fallback = fallback;
+                moudle._observeEvent += ObserveEvent;
+                _disposed = false;
                 Pause();
                 if (autoStart) Start();
             }
-            private Action<SystemLanguage, string> observeEvent;
             public LanObserver ObserveEvent(Action<SystemLanguage, string> eve)
             {
-                this.observeEvent = eve;
+                this._observeEvent = eve;
                 return this;
             }
             private string GetValueInPairs()
             {
-                LanPair pair = Pairs.Find(p => { return p.Lan == CurLan; });
+                LanPair pair = pairs.Find(p => { return p.lan == curLan; });
                 if (pair == null)
-                    pair = Pairs.Find(p => { return p.Lan == Fallback; });
-                return pair == null ? string.Empty : pair.Value;
+                    pair = pairs.Find(p => { return p.lan == fallback; });
+                return pair == null ? string.Empty : pair.value;
             }
             private void ObserveEvent()
             {
-                if (isDisposed || isPaused) return;
-                if (observeEvent != null)
-                    observeEvent(CurLan, GetValueInPairs());
+                if (_disposed || _paused) return;
+                if (_observeEvent != null)
+                    _observeEvent(curLan, GetValueInPairs());
             }
             public void Start() { UnPause(); }
 
             public void Pause()
             {
-                isPaused = true;
+                _paused = true;
             }
             public void UnPause()
             {
-                isPaused = false;
+                _paused = false;
             }
             public void Dispose()
             {
                 Pause();
-                isDisposed = true;
-                observeEvent = null;
-                moudle.ObserveEvent -= ObserveEvent;
-                moudle.lanObservers.Remove(this);
+                _disposed = true;
+                _observeEvent = null;
+                moudle._observeEvent -= ObserveEvent;
+                moudle._lanObservers.Remove(this);
             }
         }
 
-        private List<LanPair> lanPairs;
-        private Dictionary<string, List<LanPair>> keyDic;
-        private List<Func<List<LanPair>>> lanPairLoaders;
-        private List<LanObserver> lanObservers;
-        private event Action ObserveEvent;
+        private List<LanPair> _lanPairs;
+        private Dictionary<string, List<LanPair>> _keyDic;
+        private List<LanObserver> _lanObservers;
+        private event Action _observeEvent;
 
-        private SystemLanguage lan = SystemLanguage.Unknown;
+        private SystemLanguage _lan = SystemLanguage.Unknown;
 
-        public SystemLanguage Lan
+        public SystemLanguage lan
         {
-            get { return lan; }
+            get { return _lan; }
             set
             {
-                if (lan == value) return;
-                lan = value;
-                if (ObserveEvent != null)
-                    ObserveEvent();
+                if (_lan == value) return;
+                _lan = value;
+                if (_observeEvent != null)
+                    _observeEvent();
             }
         }
 
-
-
-        public void AddLoader(Func<List<LanPair>> loader)
+        public void Load(ILanPairGroup group, bool reWrite = true)
         {
-            lanPairLoaders.Add(loader);
-        }
-        public void Load(bool reWrite = true)
-        {
-            List<LanPair> tmpPairs = new List<LanPair>();
-            lanPairLoaders.ForEach((loader) => {
-                List<LanPair> result = loader.Invoke();
-                if (result != null && result.Count > 0)
-                    tmpPairs.AddRange(result);
-            });
+            List<LanPair> tmpPairs = group.Load();
             tmpPairs.ForEach((tmpPair) => {
-                LanPair pair = lanPairs.Find((p) => { return p.Lan == tmpPair.Lan && p.key == tmpPair.key; });
-                if (pair != null && reWrite && pair.Value != tmpPair.Value)
-                    pair.Value = tmpPair.Value;
+                LanPair pair = _lanPairs.Find((p) => { return p.lan == tmpPair.lan && p.key == tmpPair.key; });
+                if (pair != null && reWrite && pair.value != tmpPair.value)
+                    pair.value = tmpPair.value;
                 else
-                    lanPairs.Add(tmpPair);
-            });
-            tmpPairs.Clear();
-            Fresh();
-        }
-        public void Load(Func<List<LanPair>> loader, bool reWrite = true)
-        {
-            List<LanPair> tmpPairs = loader.Invoke();
-            tmpPairs.ForEach((tmpPair) => {
-                LanPair pair = lanPairs.Find((p) => { return p.Lan == tmpPair.Lan && p.key == tmpPair.key; });
-                if (pair != null && reWrite && pair.Value != tmpPair.Value)
-                    pair.Value = tmpPair.Value;
-                else
-                    lanPairs.Add(tmpPair);
+                    _lanPairs.Add(tmpPair);
             });
             tmpPairs.Clear();
             Fresh();
         }
         private void Fresh()
         {
-            keyDic = lanPairs.GroupBy(lanPair => { return lanPair.key; }, (key, list) => { return new { key, list }; })
+            _keyDic = _lanPairs.GroupBy(lanPair => { return lanPair.key; }, (key, list) => { return new { key, list }; })
                     .ToDictionary((v) => { return v.key; }, (v) => { return v.list.ToList(); });
-            if (ObserveEvent != null) ObserveEvent();
+            if (_observeEvent != null) _observeEvent();
         }
 
 
         public LanObserver CreatObserver(string key, SystemLanguage fallback, bool autoStart = true)
         {
-            if (!keyDic.ContainsKey(key)) throw new Exception(string.Format("Key Not Found {0}", key));
-            List<LanPair> pairs = keyDic[key];
-            var fallbackPair = pairs.Find((p) => { return p.Lan == fallback; });
+            if (!_keyDic.ContainsKey(key)) throw new Exception(string.Format("Key Not Found {0}", key));
+            List<LanPair> pairs = _keyDic[key];
+            var fallbackPair = pairs.Find((p) => { return p.lan == fallback; });
             if (fallbackPair == null) Log.W(string.Format("Fallback Language Not Exist Key: {0} : Lan: {1}", key, fallback));
             LanObserver observer = new LanObserver(this, key, fallback, autoStart);
             return observer;
         }
+        public override int priority { get { return 90; } }
 
         protected override void Awake()
         {
-            lanPairs = new List<LanPair>();
-            lanPairLoaders = new List<Func<List<LanPair>>>();
-            lanObservers = new List<LanObserver>();
+            _lanPairs = new List<LanPair>();
+            _lanObservers = new List<LanObserver>();
         }
         protected override void OnDispose()
         {
-            lanPairs.Clear();
-            lanPairLoaders.Clear();
-            lanObservers.Clear();
+            _lanPairs.Clear();
+            _lanObservers.Clear();
         }
-      
-      
 
-       
     }
 }

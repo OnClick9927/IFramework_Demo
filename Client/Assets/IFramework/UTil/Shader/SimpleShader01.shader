@@ -24,7 +24,7 @@
 				float4 pos : TEXCOORD0; 
             };
 
-            v2f vert (appdata_base v)
+            v2f vert (Gamedata_base v)
             {
                 v2f o;
 				v.vertex.y *=sin(_Time.w * 2)/2+0.5 ;

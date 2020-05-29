@@ -12,13 +12,13 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace IFramework
+namespace IFramework.Language
 {
     [CustomPropertyDrawer(typeof(LanguageKeyAttribute))]
     public class LanguageKeyDrawer:PropertyDrawer
 	{
-        private LanGroup LanGroup { get { return Resources.Load<LanGroup>("LanGroup"); } }
-        private int hashID;
+        private LanGroup _LanGroup { get { return Resources.Load<LanGroup>("LanGroup"); } }
+        private int _hashID;
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             if (property.type != "string")
@@ -26,23 +26,23 @@ namespace IFramework
                 EditorGUI.PropertyField(position, property, label, true);
                 return;
             }
-            if (hashID == 0) hashID = "LanguageKeyDrawer".GetHashCode();
-            int ctrlId = GUIUtility.GetControlID(hashID, FocusType.Keyboard, position);
+            if (_hashID == 0) _hashID = "LanguageKeyDrawer".GetHashCode();
+            int ctrlId = GUIUtility.GetControlID(_hashID, FocusType.Keyboard, position);
             {
                 label = EditorGUI.BeginProperty(position, label, property);
                 position = EditorGUI.PrefixLabel(position, ctrlId, label);
                 if (DropdownButton(ctrlId, position, new GUIContent(property.stringValue)))
                 {
                     int index = -1;
-                    for (int i = 0; i < LanGroup.Keys.Count; i++)
+                    for (int i = 0; i < _LanGroup.keys.Count; i++)
                     {
-                        if (LanGroup.Keys[i]== property.stringValue)
+                        if (_LanGroup.keys[i]== property.stringValue)
                         {
                             index = i;
                             break;
                         }
                     }
-                    SearchablePopup.Show(position, LanGroup.Keys.ToArray(), index, (i, str) =>
+                    SearchablePopup.Show(position, _LanGroup.keys.ToArray(), index, (i, str) =>
                     {
                         property.stringValue = str;
                         property.serializedObject.ApplyModifiedProperties();
@@ -102,7 +102,7 @@ namespace IFramework
                     {
                         Styles.SearchTextFieldStyle.fontSize++;
                     }
-                    GUI.SetNextControlName(FocusID);
+                    GUI.SetNextControlName(focusID);
 
                     value = GUI.TextField(new Rect(position.x,
                                                                      position.y + 1,
@@ -127,10 +127,10 @@ namespace IFramework
                     Event e = Event.current;
                     if (position.Contains(e.mousePosition))
                     {
-                        if (!Focused)
+                        if (!focused)
                             if ((e.type == EventType.MouseDown /*&& e.clickCount == 2*/) /*|| e.keyCode == KeyCode.F2*/)
                             {
-                                Focused = true;
+                                focused = true;
                                 GUIFocusControl.Focus(this);
                                 if (e.type != EventType.Repaint && e.type != EventType.Layout)
                                     Event.current.Use();
@@ -227,12 +227,12 @@ namespace IFramework
             public override void OnOpen()
             {
                 base.OnOpen();
-                EditorApplication.update += Repaint;
+                EditorEnv.update += Repaint;
             }
             public override void OnClose()
             {
                 base.OnClose();
-                EditorApplication.update -= Repaint;
+                EditorEnv.update -= Repaint;
             }
 
             public override Vector2 GetWindowSize()

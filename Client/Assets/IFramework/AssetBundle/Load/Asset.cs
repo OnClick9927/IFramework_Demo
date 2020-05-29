@@ -51,6 +51,8 @@ namespace IFramework.AB
             assetPath = null;
             m_asset = null;
         }
+
+       
     }
     public class BundleAsset : Asset
     {

@@ -32,7 +32,7 @@ namespace IFramework.Modules.Resources
         {
             if (Tresource.value != null)
             {
-                UnityEngine.Resources.UnloadAsset(Tresource.value);
+                UnityEngine.Resources.UnloadAsset(Tresource.Tvalue);
                 Tresource.value = default(T);
             }
         }
